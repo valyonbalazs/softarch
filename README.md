@@ -6,3 +6,5 @@ BME Msc - software architecture course repo
 
 ### How to create chrome apps
 [https://developer.chrome.com/apps/app_codelab_intro](https://developer.chrome.com/apps/app_codelab_intro)
+[https://developer.chrome.com/webstore/get_started_simple](https://developer.chrome.com/webstore/get_started_simple)
+[https://github.com/GoogleChrome/chrome-app-samples](https://github.com/GoogleChrome/chrome-app-samples)

@@ -6,7 +6,7 @@ BME Msc - software architecture course repo
 1. Download [nodejs](https://nodejs.org/en/)
 2. Start nodejs command prompt
 3. Clone this git repository
-4. Navigate to your git repository in the nodejs command prompt
+4. Navigate to your git repository and into the test_code directory in the nodejs command prompt
 5. Download the needed packages with: `npm install`
 6. Run the webserver with the following command: `gulp loader`. If the gulp command is not recognized, enter the following: `npm i gulp -g --save`.
 7. In the commandprompt windows you should see that the `server started http://localhost:8080`. In the browser chose the main.html file.

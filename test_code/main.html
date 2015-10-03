@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Google Drive Test Application</title>
+  </head>
+  <body>
+    <div id="authorize-div">
+      <span>Authorize access to Drive API</span>
+      <!--Button for the user to click to initiate auth sequence -->
+      <button id="authorize-button" onclick="handleAuthClick(event)">
+        Authorize
+      </button>
+    </div>
+    <pre id="output"></pre>
+    <script type="text/javascript" src="js/hello.min.js"></script>
+    <script type="text/javascript" src="js/request.js"></script>
+    <script type="text/javascript" src="https://apis.google.com/js/client.js?onload=checkAuth"></script>
+    <script text="text/javascript">
+
+      var CLIENT_ID = '268864776090-ltnggc4pcsd411f9ngbi3008ogkdbb34.apps.googleusercontent.com';
+      var SCOPES = ['https://www.googleapis.com/auth/drive.metadata.readonly'];
+
+      function checkAuth() {
+        gapi.auth.authorize(
+          {
+            'client_id': CLIENT_ID,
+            'scope': SCOPES.join(' '),
+            'immediate': true
+          }, handleAuthResult);
+      }
+
+      function handleAuthResult(authResult) {
+        var authorizeDiv = document.getElementById('authorize-div');
+        if (authResult && !authResult.error) {
+          authorizeDiv.style.display = 'none';
+          loadDriveApi();
+        } else {
+          authorizeDiv.style.display = 'inline';
+        }
+      }
+
+      function handleAuthClick(event) {
+        gapi.auth.authorize(
+          {client_id: CLIENT_ID, scope: SCOPES, immediate: false},
+          handleAuthResult);
+        return false;
+      }
+
+      function loadDriveApi() {
+        gapi.client.load('drive', 'v2', listFiles);
+      }
+
+      function listFiles() {
+        var request = gapi.client.drive.files.list({
+            'maxResults': 10
+          });
+
+          request.execute(function(resp) {
+            appendPre('Files:');
+            var files = resp.items;
+            if (files && files.length > 0) {
+              for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+                appendPre(file.title + ' (' + file.id + ')');
+              }
+            } else {
+              appendPre('No files found.');
+            }
+          });
+      }
+
+      function appendPre(message) {
+        var pre = document.getElementById('output');
+        var textContent = document.createTextNode(message + '\n');
+        pre.appendChild(textContent);
+      }
+
+      /*function auth() {
+        var config = {
+          'client_id': '268864776090-ltnggc4pcsd411f9ngbi3008ogkdbb34.apps.googleusercontent.com',
+          'scope': 'https://www.googleapis.com/auth/drive',
+          'redirect_uri': 'http://localhost:8080/main.html'
+        };
+        gapi.auth.authorize(config, function() {
+          console.log('login complete');
+          console.log(gapi.auth.getToken());
+        });
+      }
+
+      function getFiles () {
+        gapi.client.load('drive', 'v2').then(function() {
+          // Step 5: Assemble the API request
+          var request = gapi.client.plus.people.get({
+            'userId': 'me'
+          });
+          // Step 6: Execute the API request
+          request.then(function(resp) {
+            console.log(resp);
+
+          }, function(reason) {
+            console.log('Error: ' + reason.result.error.message);
+          });
+        });
+      }*/
+
+      /*hello.init({
+        google: '268864776090-ltnggc4pcsd411f9ngbi3008ogkdbb34.apps.googleusercontent.com'
+      }, {redirect_uri: '../main.html'});
+
+      hello.on('auth.login', function(auth) {
+
+        // Call user information, for the given network
+        hello(auth.network).api('me/files').then(function(r) {
+           console.log(auth.network);
+           console.log(r);
+        });
+      });*/
+    </script>
+  </body>
+
+</html>

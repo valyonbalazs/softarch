@@ -115,7 +115,14 @@ function readFileWithSpecificId() {
     xhr.open('GET', file.downloadUrl);
     xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
     xhr.onload = function() {
-      console.log(xhr.responseText);
+      var data = JSON.parse(xhr.responseText);
+
+      var xhr2 = new XMLHttpRequest();
+      xhr2.onreadystatechange = function (){ console.log(xhr2.responseText);};
+      xhr2.open('GET', data.downloadUrl, true);
+      xhr2.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+      xhr2.send();
+
     };
     xhr.onerror = function() {
 

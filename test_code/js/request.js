@@ -118,7 +118,17 @@ function readFileWithSpecificId() {
       var data = JSON.parse(xhr.responseText);
 
       var xhr2 = new XMLHttpRequest();
-      xhr2.onreadystatechange = function (){ console.log(xhr2.responseText);};
+      xhr2.onreadystatechange = function (){
+        var contentData = JSON.parse(xhr2.responseText);
+        console.log(contentData);
+        var h3Container = document.getElementById('contentOfJson');
+        h3Container.innerHTML = "Content of the testdata.json file: ";
+        for(var key in contentData) {
+          var node = document.createElement('h5');
+          h3Container.appendChild(node);
+          node.innerHTML = key + ': ' + contentData[key];
+        }
+      };
       xhr2.open('GET', data.downloadUrl, true);
       xhr2.setRequestHeader('Authorization', 'Bearer ' + accessToken);
       xhr2.send();

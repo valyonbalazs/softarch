@@ -13,10 +13,11 @@ function checkAuth() {
 function handleAuthResult(authResult) {
   var authorizeDiv = document.getElementById('authorize-div');
   if (authResult && !authResult.error) {
-    authorizeDiv.style.display = 'inline';
+    //authorizeDiv.style.display = 'inline';
+    //console.log(authResult);
     loadDriveApi();
   } else {
-    authorizeDiv.style.display = 'inline';
+    //authorizeDiv.style.display = 'inline';
   }
 }
 
@@ -28,7 +29,7 @@ function handleAuthClick(event) {
 }
 
 function loadDriveApi() {
-  gapi.client.load('drive', 'v2', listFiles);
+  gapi.client.load('drive', 'v2', null);
 }
 
 function listFiles() {

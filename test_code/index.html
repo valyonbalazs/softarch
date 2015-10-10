@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="ProjectApp">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,22 +13,22 @@
 
     <div class="container">
       <div id="project-container" class="col-lg-12 col-md-12">
-        <div id="project-details-container" class="col-lg-12 col-md-12">
-          <div id="project-name" class="col-lg-3 col-md-3 projectContainerRow" >
-            <h3>Name: Softarc Project</h3>
+        <div id="project-details-container" class="col-lg-12 col-md-12" ng-controller="ProjectController">
+          <div id="project-name" class="col-lg-3 col-md-3 projectContainerRow">
+            <h3>{{ project[0].projectName }}</h3>
           </div>
           <div id="project-leader" class="col-lg-3 col-md-3 projectContainerRow" >
-            <h3>Leader: John Doe</h3>
+            <h3>{{ project[0].projectLeader }}</h3>
           </div>
           <div id="project-created-date" class="col-lg-3 col-md-3 projectContainerRow" >
-            <h5>Created on: 2015. October 02.</h5>
+            <h5>Created on: {{ project[0].projectWasCreated }}</h5>
           </div>
           <div id="project-modified-date" class="col-lg-3 col-md-3 projectContainerRow" >
-            <h5>Last modified 2015. October 10.</h5>
+            <h5>Last saved on: {{ project[0].projectWasLastSaved }}</h5>
           </div>
         </div>
 
-        <div id="project-tasks-container" class="col-lg-12 col-md-12">
+        <div id="project-tasks-container" class="col-lg-12 col-md-12" ng-controller="TaskController">
           <div id="tasks-top" class="col-lg-12 col-md-12">
             <h4>TASKS</h4>
           </div>
@@ -40,59 +40,57 @@
             <div id="task-name" class="col-lg-2 col-md-2 taskHeader">
               <h5>NAME</h5>
             </div>
-            <div id="task-startDate" class="col-lg-1 col-md-1 taskHeader">
+            <div id="task-startDate" class="col-lg-2 col-md-2 taskHeader">
               <h5>START</h5>
             </div>
-            <div id="task-endDate" class="col-lg-1 col-md-1 taskHeader">
+            <div id="task-endDate" class="col-lg-2 col-md-2 taskHeader">
               <h5>END</h5>
             </div>
             <div id="task-status" class="col-lg-1 col-md-1 taskHeader">
               <h5>STATUS</h5>
             </div>
-            <div id="task-dependencies" class="col-lg-2 col-md-2 taskHeader">
-              <h5>DEPENDENCIES</h5>
+            <div id="task-dependencies" class="col-lg-1 col-md-1 taskHeader">
+              <h5>DEPEND.</h5>
             </div>
             <div id="task-responsible" class="col-lg-2 col-md-2 taskHeader">
               <h5>RESPONSIBLE</h5>
             </div>
-            <div id="task-comments" class="col-lg-2 col-md-2 taskHeader">
+            <div id="task-comments" class="col-lg-1 col-md-1 taskHeader">
               <h5>COMMENTS</h5>
             </div>
           </div>
 
           <!-- TASKS CONTENT -->
-          <div id="tasks-content" class="col-lg-12 col-md-12">
-
+          <div id="tasks-content" class="col-lg-12 col-md-12" ng-repeat="task in tasks">
               <!-- TASK ROWS STARTS HERE -->
               <div id="task-row-id" class="col-lg-1 col-md-1 taskRow">
-                <p>1.</p>
+                <p>{{ task.taskId }}.</p>
               </div>
               <div id="task-row-name" class="col-lg-2 col-md-2 taskRow">
-                <p>First task</p>
+                <p>{{ task.taskName }}</p>
               </div>
-              <div id="task-row-startDate" class="col-lg-1 col-md-1 taskRow">
-                <p>2015.Oct.02.</p>
+              <div id="task-row-startDate" class="col-lg-2 col-md-2 taskRow">
+                <p>{{ task.taskStart }}</p>
               </div>
-              <div id="task-row-endDate" class="col-lg-1 col-md-1 taskRow">
-                <p>2015.Oct.12</p>
+              <div id="task-row-endDate" class="col-lg-2 col-md-2 taskRow">
+                <p>{{ task.taskEnd }}</p>
               </div>
               <div id="task-row-status" class="col-lg-1 col-md-1 taskRow">
-                <p>In progress</p>
+                <p>{{ task.taskStatus }}</p>
               </div>
-              <div id="task-row-dependencies" class="col-lg-2 col-md-2 taskRow">
-                <p>1</p>
+              <div id="task-row-dependencies" class="col-lg-1 col-md-1 taskRow">
+                <p>{{ task.taskDependencies }}</p>
               </div>
               <div id="task-row-responsible" class="col-lg-2 col-md-2 taskRow">
-                <p>Clark Kent</p>
+                <p>{{ task.taskResponsibles }}</p>
               </div>
-              <div id="task-row-comments" class="col-lg-2 col-md-2 taskRow">
-                <p>Initial comment</p>
+              <div id="task-row-comments" class="col-lg-1 col-md-1 taskRow">
+                <p>{{ task.taskComments }}</p>
               </div>
-
-              <!-- ADD NEW ROW BUTTON -->
-              <div id="task-row-addNewButton" class="col-lg-12 col-md-12">
-                <button id="addNewTaskRow" class="btn btn-warning">Add new task!</button>
-              </div>
+          </div>
+          <!-- ADD NEW ROW BUTTON -->
+          <div id="task-row-addNewButton" class="col-lg-12 col-md-12">
+            <button id="addNewTaskRow" class="btn btn-warning">Add new task!</button>
           </div>
 
         </div>
@@ -144,10 +142,12 @@
       </div>
     </div>
 
+    <script type="text/javascript" src="js/angular.min.js"></script>
     <script type="text/javascript" src="https://apis.google.com/js/client.js"></script>
     <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/hello.min.js"></script>
     <script type="text/javascript" src="js/request.js"></script>
+    <script type="text/javascript" src="js/angularData.js"></script>
   </body>
 </html>

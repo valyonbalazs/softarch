@@ -42,11 +42,26 @@ controllers.TaskController = function ($scope) {
       taskStatus: 'Not started',
       taskStart: '2015. October 22.',
       taskEnd: '2015. November 07.',
-      taskDependencies: '1, 2,',
+      taskDependencies: '1, 2',
       taskResponsibles: 'Barry Allen',
-      taskComments: 'comment3'
+        taskComments: 'comment3'
     }
   ];
 };
+
+controllers.RiskController = function ($scope) {
+  $scope.risks = [
+    {
+      riskId: 1,
+      riskName: 'Name and description of the first risk',
+      riskImportance: 'Low risk'
+    },
+    {
+      riskId: 2,
+      riskName: 'Name and description of the second risk',
+      riskImportance: 'High risk'
+    }
+  ];
+}
 
 projectApp.controller(controllers);

@@ -49,6 +49,10 @@ body {
   background-color: #C2F7FF;
 }
 
+#task-row-addNewButton {
+    background-color: #C2F7FF;
+}
+
 #task-row-container {
   padding: 0;
 }

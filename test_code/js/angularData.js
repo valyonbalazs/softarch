@@ -77,14 +77,14 @@ projectApp.controller('TaskController', ['$scope', 'taskDataSharerService', func
       ];
     };
 
-    $scope.modalTaskName = 'empty';
-
     $scope.setTaskNameForModal = function (id) {
       console.log(id);
       var task = $scope.tasks[id-1];
-      $scope.modalTaskName = task.taskName;
-      console.log($scope.modalTaskName);
-      taskDataSharerService.sendData($scope.modalTaskName);
+      var taskPassableData = {
+        taskName: task.taskName,
+        taskResp: task.taskResponsibles
+      };
+      taskDataSharerService.sendData(taskPassableData);
     };
   }
 ]);
@@ -138,8 +138,9 @@ projectApp.controller('TaskController', ['$scope', 'taskDataSharerService', func
 projectApp.controller('ModalTaskController', ['$scope', 'taskDataSharerService', function ($scope, taskDataSharerService) {
     $scope.taskName = '';
     $scope.$on('taskDataSharerService', function () {
-      var text = taskDataSharerService.getData();
-      $scope.taskName = text;
+      var taskData = taskDataSharerService.getData();
+      $scope.taskName = taskData.taskName;
+      $scope.taskResp = taskData.taskResp;
     });
   }
 ]);

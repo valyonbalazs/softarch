@@ -21,16 +21,16 @@
       <div id="project-container" class="col-lg-12 col-md-12">
         <div id="project-details-container" class="col-lg-12 col-md-12" ng-controller="ProjectController">
           <div id="project-name" class="col-lg-3 col-md-3 projectContainerRow">
-            <h3>{{ project[0].projectName }}</h3>
+            <h5>Name </h5><h3>{{ project[0].projectName }}</h3>
           </div>
           <div id="project-leader" class="col-lg-3 col-md-3 projectContainerRow" >
-            <h3>{{ project[0].projectLeader }}</h3>
+            <h5>Led by </h5><h3>{{ project[0].projectLeader }}</h3>
           </div>
           <div id="project-created-date" class="col-lg-3 col-md-3 projectContainerRow" >
-            <h5>Created on: {{ project[0].projectWasCreated }}</h5>
+            <h5>Created on </h5><h3>{{ project[0].projectWasCreated }}</h3>
           </div>
           <div id="project-modified-date" class="col-lg-3 col-md-3 projectContainerRow" >
-            <h5>Last saved on: {{ project[0].projectWasLastSaved }}</h5>
+            <h5>Last saved on </h5><h3>{{ project[0].projectWasLastSaved }}</h3>
           </div>
         </div>
 

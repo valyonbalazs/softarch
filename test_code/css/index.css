@@ -17,18 +17,25 @@ body {
 }
 
 #project-container {
+  padding: 0;
   background-color: #F9FFF0;
 }
 
 #project-details-container {
   display: flex;
   align-items: flex-end;
-  margin-top:1em;
-  margin-bottom: 2em;
+  padding-top: 0.5em;
+  margin-bottom: 1em;
+  padding-bottom: 2em;
+  background-color: #EFFF96;
 }
 
 .projectContainerRow {
   margin-top: 1em;
+}
+
+#project-name {
+  padding-left: 0;
 }
 
 #project-name h3 {
@@ -39,11 +46,11 @@ body {
   margin: 0;
 }
 
-#project-created-date h5 {
+#project-created-date h3 {
   margin: 0;
 }
 
-#project-modified-date h5 {
+#project-modified-date h3 {
   margin: 0;
 }
 
@@ -55,6 +62,10 @@ body {
   display: flex;
   justify-content: flex-start;
   padding: 0;
+}
+
+.taskHeader h5 {
+  font-weight: bold;
 }
 
 #tasks-content {
@@ -91,6 +102,10 @@ body {
   display: flex;
   justify-content: flex-start;
   padding: 0;
+}
+
+.riskHeader h5 {
+  font-weight: bold;
 }
 
 #risks-content {

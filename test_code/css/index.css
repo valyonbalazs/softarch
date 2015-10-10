@@ -2,6 +2,10 @@ body {
   background-color: #E6FFF9;
 }
 
+.btn {
+  border-radius: 0;
+}
+
 #menu-row {
   display: flex;
   justify-content: center;
@@ -74,10 +78,6 @@ body {
   background-color: #C2F7FF;
 }
 
-#task-row-addNewButton {
-    background-color: #C2F7FF;
-}
-
 #task-row-container {
   padding: 0;
 }
@@ -89,9 +89,15 @@ body {
   border-bottom: 2px;
 }
 
+#task-row-id i {
+  color: #DE4949;
+}
+
 #task-row-addNewButton {
   display: flex;
   justify-content: center;
+  padding: 1em 0 1em 0;
+  background-color: #C2F7FF;
 }
 
 #risks-header {
@@ -123,4 +129,5 @@ body {
 #risk-row-addNewButton {
   display: flex;
   justify-content: center;
+  padding: 1em 0 1em 0;
 }

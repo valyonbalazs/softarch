@@ -9,7 +9,7 @@ gulp.task('connect', function () {
 });
 
 gulp.task('loadfiles', function () {
-  return gulp.src(['*.html', 'js/*.js', 'css/*.css'])
+  return gulp.src(['*.html', 'js/*.js', 'css/*.css', 'fonts/*.*'])
     .pipe(connect.reload());
 });
 

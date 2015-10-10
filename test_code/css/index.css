@@ -1,6 +1,16 @@
-#project-name-container {
+body {
+  background-color: #E6FFF9;
+}
+
+#project-container {
+  background-color: #F9FFF0;
+}
+
+#project-details-container {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
+  margin-top:1em;
+  margin-bottom: 2em;
 }
 
 .projectContainerRow {
@@ -23,21 +33,61 @@
   margin: 0;
 }
 
+#tasks-header {
+  background-color: #D1FF8D;
+}
+
 .taskHeader {
   display: flex;
   justify-content: flex-start;
   padding: 0;
 }
 
-.taskRowContainer {
+#tasks-content {
+  padding-left: 15;
+  padding-right: 15;
+  background-color: #C2F7FF;
+}
+
+#task-row-container {
   padding: 0;
 }
 
 .taskRow {
-  padding: 0
+  display: flex;
+  justify-content: flex-start;
+  padding: 0;
+  border-bottom: 2px;
 }
 
 #task-row-addNewButton {
+  display: flex;
+  justify-content: center;
+}
+
+#risks-header {
+  background-color: #FFA6CF;
+}
+
+.riskHeader {
+  display: flex;
+  justify-content: flex-start;
+  padding: 0;
+}
+
+#risks-content {
+  background-color: #FFE9A6;
+}
+
+.riskRowContainer {
+  padding: 0;
+}
+
+.riskRow {
+  padding: 0;
+}
+
+#risk-row-addNewButton {
   display: flex;
   justify-content: center;
 }

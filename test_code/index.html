@@ -35,7 +35,7 @@
           </div>
         </div>
 
-        <div id="project-tasks-container" class="col-lg-12 col-md-12" ng-controller="TaskController">
+        <div id="project-tasks-container" class="col-lg-12 col-md-12" ng-controller="TaskController" ng-init="init()">
           <div id="tasks-top" class="col-lg-12 col-md-12">
             <h4>TASKS</h4>
           </div>
@@ -71,7 +71,7 @@
           <div id="tasks-content" class="col-lg-12 col-md-12" ng-repeat="task in tasks">
               <!-- TASK ROWS STARTS HERE -->
               <div id="task-row-id" class="col-lg-1 col-md-1 taskRow">
-                <p>{{ task.taskId }}. <i class="fa fa-cog" data-toggle="modal" data-target="#task-setting-modal"></i></p>
+                <p>{{ task.taskId }}. <i class="fa fa-cog" data-toggle="modal" ng-click="setTaskNameForModal(task.taskId)" data-target="#task-setting-modal"></i></p>
               </div>
               <div id="task-row-name" class="col-lg-2 col-md-2 taskRow">
                 <p>{{ task.taskName }}</p>
@@ -150,15 +150,22 @@
     </div>
 
     <!-- Modal Settings for tasks -->
-    <div id="task-setting-modal" class="modal fade">
+    <div id="task-setting-modal" class="modal fade" ng-controller="TaskController">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Task settings</h4>
+            <h4 class="modal-title">{{ modalTaskName }}</h4>
           </div>
           <div class="modal-body">
-            <p>name, responsibles</p>
+            <div class="input-group">
+              <span class="input-group-addon" id="basic-addon1">Task name:</span>
+              <input type="text" class="form-control" placeholder="{{ modalTaskName }}" aria-describedby="basic-addon1">
+            </div>
+            <div class="input-group">
+              <span class="input-group-addon" id="basic-addon1">Responsibles:</span>
+              <input type="text" class="form-control" placeholder="Responsible" aria-describedby="basic-addon1">
+            </div>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

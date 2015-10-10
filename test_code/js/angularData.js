@@ -15,38 +15,49 @@ controllers.ProjectController = function ($scope) {
 
 controllers.TaskController = function ($scope) {
 
-  $scope.tasks = [
-    {
-      taskId: 1,
-      taskName: 'First task',
-      taskStatus: 'In progress',
-      taskStart: '2015. October 03.',
-      taskEnd: '2015. October 12',
-      taskDependencies: 1,
-      taskResponsibles: 'Alfred Pennyworth',
-      taskComments: 'comment1'
-    },
-    {
-      taskId: 2,
-      taskName: 'Second task',
-      taskStatus: 'In progress',
-      taskStart: '2015. October 05.',
-      taskEnd: '2015. October 17',
-      taskDependencies: 1,
-      taskResponsibles: 'Clark Kent',
-      taskComments: 'comment2'
-    },
-    {
-      taskId: 3,
-      taskName: 'Third task',
-      taskStatus: 'Not started',
-      taskStart: '2015. October 22.',
-      taskEnd: '2015. November 07.',
-      taskDependencies: '1, 2',
-      taskResponsibles: 'Barry Allen',
+  $scope.init = function () {
+    $scope.tasks = [
+      {
+        taskId: 1,
+        taskName: 'First task',
+        taskStatus: 'In progress',
+        taskStart: '2015. October 03.',
+        taskEnd: '2015. October 12',
+        taskDependencies: 1,
+        taskResponsibles: 'Alfred Pennyworth',
+        taskComments: 'comment1'
+      },
+      {
+        taskId: 2,
+        taskName: 'Second task',
+        taskStatus: 'In progress',
+        taskStart: '2015. October 05.',
+        taskEnd: '2015. October 17',
+        taskDependencies: 1,
+        taskResponsibles: 'Clark Kent',
+        taskComments: 'comment2'
+      },
+      {
+        taskId: 3,
+        taskName: 'Third task',
+        taskStatus: 'Not started',
+        taskStart: '2015. October 22.',
+        taskEnd: '2015. November 07.',
+        taskDependencies: '1, 2',
+        taskResponsibles: 'Barry Allen',
         taskComments: 'comment3'
-    }
-  ];
+      }
+    ];
+  };
+
+  $scope.modalTaskName = 'empty';
+
+  $scope.setTaskNameForModal = function (id) {
+    console.log(id);
+    var task = $scope.tasks[id-1];
+    $scope.modalTaskName = task.taskName;
+    console.log($scope.modalTaskName);
+  };
 };
 
 controllers.RiskController = function ($scope) {
@@ -62,6 +73,6 @@ controllers.RiskController = function ($scope) {
       riskImportance: 'High risk'
     }
   ];
-}
+};
 
 projectApp.controller(controllers);

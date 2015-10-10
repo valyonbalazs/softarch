@@ -1,0 +1,43 @@
+#project-name-container {
+  display: flex;
+  align-items: center;
+}
+
+.projectContainerRow {
+  margin-top: 1em;
+}
+
+#project-name h3 {
+  margin: 0;
+}
+
+#project-leader h3 {
+  margin: 0;
+}
+
+#project-created-date h5 {
+  margin: 0;
+}
+
+#project-modified-date h5 {
+  margin: 0;
+}
+
+.taskHeader {
+  display: flex;
+  justify-content: flex-start;
+  padding: 0;
+}
+
+.taskRowContainer {
+  padding: 0;
+}
+
+.taskRow {
+  padding: 0
+}
+
+#task-row-addNewButton {
+  display: flex;
+  justify-content: center;
+}

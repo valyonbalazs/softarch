@@ -126,6 +126,10 @@ body {
   padding: 0;
 }
 
+#risk-row-id i {
+  color: #DE4949;
+}
+
 #risk-row-addNewButton {
   display: flex;
   justify-content: center;

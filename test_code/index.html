@@ -83,7 +83,21 @@
                 <p>{{ task.taskEnd }}</p>
               </div>
               <div id="task-row-status" class="col-lg-1 col-md-1 taskRow">
-                <p>{{ task.taskStatus }}</p>
+                <!--p>{{ task.taskStatus }}</p>-->
+                <div>
+                  <div class="input-group">
+                    <div class="input-group-btn">
+                      <button id="task{{task.taskId}}" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                        {{ task.taskStatus }} <span class="caret"></span></button>
+                      <ul class="dropdown-menu">
+                        <li><a href="#">Not started</a></li>
+                        <li><a href="#">In progress</a></li>
+                        <li><a href="#">Completed</a></li>
+                        <li><a href="#">Failed</a></li>
+                      </ul>
+                    </div><!-- /btn-group -->
+                  </div><!-- /input-group -->
+                </div>
               </div>
               <div id="task-row-dependencies" class="col-lg-1 col-md-1 taskRow">
                 <p>{{ task.taskDependencies }}</p>
@@ -126,7 +140,7 @@
 
               <!-- RISK CONTENT ROWS -->
               <div id="risk-row-id" class="col-lg-1 col-md-1 riskRow">
-                <p>{{ risk.riskId }}. <i class="fa fa-cog" data-toggle="modal" data-target="#risk-setting-modal"></i></p>
+                <p>{{ risk.riskId }}. <i class="fa fa-cog" data-toggle="modal" ng-click="setRiskNameForModal(risk.riskId)" data-target="#risk-setting-modal"></i></p>
               </div>
               <div id="risk-row-name" class="col-lg-8 col-md-8 riskRow">
                 <p>{{ risk.riskName }}</p>
@@ -176,12 +190,12 @@
     </div><!-- /.modal -->
 
     <!-- Modal Settings for risks -->
-    <div id="risk-setting-modal" class="modal fade">
+    <div id="risk-setting-modal" class="modal fade" ng-controller="ModalRiskController">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Risk settings</h4>
+            <h4 class="modal-title">Modify: {{ riskName }}</h4>
           </div>
           <div class="modal-body">
             <p>name, responsibles</p>
@@ -201,5 +215,6 @@
     <script type="text/javascript" src="js/hello.min.js"></script>
     <script type="text/javascript" src="js/request.js"></script>
     <script type="text/javascript" src="js/angularData.js"></script>
+    <script type="text/javascript" src="js/view-modification.js"></script>
   </body>
 </html>

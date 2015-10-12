@@ -6,4 +6,11 @@ $(document).ready(function () {
     console.log(idOfBtn);
     $('#'+ idOfBtn).html($(this).text()+' <span class="caret"></span>');
   });
+
+
+  $(function() {
+    $( ".datepicker" ).datepicker({
+      dateFormat: 'yy.M. d.'
+    });
+  });
 });

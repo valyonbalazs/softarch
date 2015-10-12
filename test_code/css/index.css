@@ -87,6 +87,18 @@ body {
   justify-content: flex-start;
   padding: 0;
   border-bottom: 2px;
+  font-size: 0.9em;
+}
+
+.datepicker {
+  max-width: 80px;
+  position: relative;
+  z-index: 100;
+}
+
+.dropDownTaskBtn {
+  padding: 2px 2px 2px 2px;
+  font-size: 12px;
 }
 
 #task-row-id i {

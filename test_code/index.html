@@ -7,6 +7,7 @@
     <title>Project managment online</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/index.css">
   </head>
@@ -47,10 +48,10 @@
             <div id="task-name" class="col-lg-2 col-md-2 taskHeader">
               <h5>NAME</h5>
             </div>
-            <div id="task-startDate" class="col-lg-2 col-md-2 taskHeader">
+            <div id="task-startDate" class="col-lg-1 col-md-1 taskHeader">
               <h5>START</h5>
             </div>
-            <div id="task-endDate" class="col-lg-2 col-md-2 taskHeader">
+            <div id="task-endDate" class="col-lg-1 col-md-1 taskHeader">
               <h5>END</h5>
             </div>
             <div id="task-status" class="col-lg-1 col-md-1 taskHeader">
@@ -76,18 +77,20 @@
               <div id="task-row-name" class="col-lg-2 col-md-2 taskRow">
                 <p>{{ task.taskName }}</p>
               </div>
-              <div id="task-row-startDate" class="col-lg-2 col-md-2 taskRow">
-                <p>{{ task.taskStart }}</p>
+              <div id="task-row-startDate" class="col-lg-1 col-md-1 taskRow">
+                <!-- <p>{{ task.taskStart }}</p> -->
+                <input id="taskStart{{task.taskId}}" placeholder="{{task.taskStart}}" type="text" class="datepicker">
               </div>
-              <div id="task-row-endDate" class="col-lg-2 col-md-2 taskRow">
-                <p>{{ task.taskEnd }}</p>
+              <div id="task-row-endDate" class="col-lg-1 col-md-1 taskRow">
+                <!--<p>{{ task.taskEnd }}</p>-->
+                <input id="taskEnd{{task.taskId}}" placeholder="{{task.taskEnd}}" type="text" class="datepicker">
               </div>
               <div id="task-row-status" class="col-lg-1 col-md-1 taskRow">
                 <!--p>{{ task.taskStatus }}</p>-->
                 <div>
                   <div class="input-group">
                     <div class="input-group-btn">
-                      <button id="task{{task.taskId}}" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                      <button id="task{{task.taskId}}" type="button" class="btn btn-default dropdown-toggle dropDownTaskBtn" data-toggle="dropdown">
                         {{ task.taskStatus }} <span class="caret"></span></button>
                       <ul class="dropdown-menu">
                         <li><a href="#">Not started</a></li>
@@ -229,7 +232,8 @@
 
     <script type="text/javascript" src="js/angular.min.js"></script>
     <script type="text/javascript" src="https://apis.google.com/js/client.js"></script>
-    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/hello.min.js"></script>
     <script type="text/javascript" src="js/request.js"></script>

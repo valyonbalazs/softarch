@@ -54,8 +54,8 @@ projectApp.controller('TaskController', ['$scope', 'taskDataSharerService', func
           taskId: 1,
           taskName: 'First task',
           taskStatus: 'In progress',
-          taskStart: '2015. October 03.',
-          taskEnd: '2015. October 12',
+          taskStart: '2015.Oct. 3.',
+          taskEnd: '2015.Oct. 12',
           taskDependencies: 1,
           taskResponsibles: 'Alfred Pennyworth',
           taskComments: 'comment1'
@@ -64,8 +64,8 @@ projectApp.controller('TaskController', ['$scope', 'taskDataSharerService', func
           taskId: 2,
           taskName: 'Second task',
           taskStatus: 'In progress',
-          taskStart: '2015. October 05.',
-          taskEnd: '2015. October 17',
+          taskStart: '2015.Oct. 5.',
+          taskEnd: '2015.Oct. 17.',
           taskDependencies: 1,
           taskResponsibles: 'Clark Kent',
           taskComments: 'comment2'
@@ -74,8 +74,8 @@ projectApp.controller('TaskController', ['$scope', 'taskDataSharerService', func
           taskId: 3,
           taskName: 'Third task',
           taskStatus: 'Not started',
-          taskStart: '2015. October 22.',
-          taskEnd: '2015. November 07.',
+          taskStart: '2015.Oct. 22.',
+          taskEnd: '2015.Nov. 7.',
           taskDependencies: '1, 2',
           taskResponsibles: 'Barry Allen',
           taskComments: 'comment3'

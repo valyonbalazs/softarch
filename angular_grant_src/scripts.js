@@ -76,7 +76,7 @@ angular.module('angularGanttDemoApp')
             taskContent : '<i class="fa fa-tasks"></i> {{task.model.name}}',
             allowSideResizing: true,
             labelsEnabled: true,
-            currentDate: 'column',
+            currentDate: 'line',
             currentDateValue: new Date().toJSON().slice(0,10),
             draw: false,
             readOnly: false,
@@ -499,7 +499,7 @@ angular.module('angularGanttDemoApp')
                              from: new Date(2015, 9, 10, 8, 0, 0), to: new Date(2015, 9, 16, 18, 0, 0),
                              est: new Date(2015, 9, 8, 8, 0, 0), lct: new Date(2015, 9, 18, 20, 0, 0),
                              progress: 100,
-                             person: 'jozsi'
+                             person: 'Clark Kent, Bruce Wayne, Berry Allen'
                            }
                         ]},
                         {name: 'Finalize concept', tasks: [

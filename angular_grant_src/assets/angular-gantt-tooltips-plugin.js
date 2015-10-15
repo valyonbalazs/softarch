@@ -33,9 +33,10 @@ Github: https://github.com/angular-gantt/angular-gantt.git
                     scope.dateFormat = 'MMM DD, HH:mm';
                 }
                 if (scope.content === undefined) {
-                    scope.content = '{{task.model.name}}</br>'+
+                    scope.content = '<strong>{{task.model.name}}</strong></br>'+
                                     '<small>'+
                                     '{{task.isMilestone() === true && getFromLabel() || getFromLabel() + \' - \' + getToLabel()}}'+
+                                    '</br>{{task.model.person}}' +
                                     '</small>';
                 }
 
@@ -65,7 +66,6 @@ Github: https://github.com/angular-gantt/angular-gantt.git
         };
     }]);
 }());
-
 
 (function() {
     'use strict';

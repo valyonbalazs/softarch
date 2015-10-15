@@ -341,3 +341,8 @@
     -ms-user-select: none;
     user-select: none;
 }
+
+
+.form-inline .form-control {
+  width: 85px;
+}

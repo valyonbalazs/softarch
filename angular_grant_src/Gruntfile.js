@@ -21,6 +21,15 @@ module.exports = function(grunt) {
 
     var config = {
         pkg: grunt.file.readJSON('package.json'),
+        web_server: {
+          options: {
+            cors: true,
+            port: 8000,
+            nevercache: true,
+            logRequests: true
+          },
+          foo: 'bar' // For some reason an extra key with a non-object value is necessary
+        },
         html2js: {
             options: {
                 quoteChar: '\'',
@@ -305,6 +314,7 @@ module.exports = function(grunt) {
 
     grunt.loadNpmTasks('grunt-karma');
 
+
     // I can't find any other method to call concat 2 times with distinct options.
     // See https://github.com/gruntjs/grunt-contrib-concat/issues/113
     // Start of ugliness
@@ -313,6 +323,8 @@ module.exports = function(grunt) {
     // End of ugliness
 
     grunt.loadNpmTasks('grunt-karma-coveralls');
+
+    grunt.loadNpmTasks('grunt-web-server');
 
     grunt.registerTask('test', ['karma']);
 
@@ -328,6 +340,8 @@ module.exports = function(grunt) {
 
     grunt.registerTask('plunker', ['connect:plunker']);
 
-    grunt.registerTask('default', ['build', 'test']);
+    grunt.registerTask('default', ['build', 'test', 'web_server']);
+
+    grunt.registerTask('webserver', ['build', 'web_server']);
 
 };

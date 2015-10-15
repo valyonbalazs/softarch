@@ -76,7 +76,7 @@ angular.module('angularGanttDemoApp')
             taskContent : '<i class="fa fa-tasks"></i> {{task.model.name}}',
             allowSideResizing: true,
             labelsEnabled: true,
-            currentDate: 'line',
+            currentDate: 'column',
             currentDateValue: new Date().toJSON().slice(0,10),
             draw: false,
             readOnly: false,

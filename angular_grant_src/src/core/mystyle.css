@@ -6,4 +6,12 @@
  .form-inline .input-group .input-group-addon,
   .form-inline .input-group .input-group-btn {
     width: 20em;
-  }
+}
+
+#addTaskContainer {
+  display: none;
+}
+
+#childrenTasksContainer {
+  display: none;
+}

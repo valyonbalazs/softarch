@@ -406,10 +406,19 @@ angular.module('angularGanttDemoApp')
         });
 
         // -----------------------
-        $scope.newTask = {
+        $scope.displayNewTask = function () {
+          $('#addTaskContainer').css('display', 'block');
+        };
+
+        $scope.displayAddChildTask = function () {
+          $('#childrenTasksContainer').css('display', 'block');
+        };
+
+         $scope.newTask = {
           taskName: '',
           fromDate: moment(null),
-          toDate: undefined
+          toDate: undefined,
+          person: ''
         };
         $scope.addTaskToDataCollection = function () {
           var fromDateYear = moment($scope.newTask.fromDate).year();
@@ -419,12 +428,23 @@ angular.module('angularGanttDemoApp')
           var toDateMonth = moment($scope.newTask.toDate).month();
           var toDateDay = parseInt($scope.newTask.toDate.toString().substring(8,10));
 
-          var fromEstDateYear = moment($scope.newTask.fromDateEst).year();
-          var fromEstDateMonth = moment($scope.newTask.fromDateEst).month();
-          var fromEstDateDay = parseInt($scope.newTask.fromDateEst.toString().substring(8,10));
-          var toDateEstYear = moment($scope.newTask.toDateEst).year();
-          var toDateEstMonth = moment($scope.newTask.toDateEst).month();
-          var toDateEstDay = parseInt($scope.newTask.toDateEst.toString().substring(8,10));
+
+          var fromEstDateYear = undefined
+          var fromEstDateMonth = undefined
+          var fromEstDateDay = undefined
+          var toDateEstYear = undefined
+          var toDateEstMonth = undefined
+          var toDateEstDay = undefined;
+          if($scope.newTask.fromDateEst === undefined || $scope.newTask.toDateEst === undefined) {
+
+          } else {
+            var fromEstDateYear = moment($scope.newTask.fromDateEst).year();
+            var fromEstDateMonth = moment($scope.newTask.fromDateEst).month();
+            var fromEstDateDay = parseInt($scope.newTask.fromDateEst.toString().substring(8,10));
+            var toDateEstYear = moment($scope.newTask.toDateEst).year();
+            var toDateEstMonth = moment($scope.newTask.toDateEst).month();
+            var toDateEstDay = parseInt($scope.newTask.toDateEst.toString().substring(8,10));
+          }
           var newTaskToInsert = {
             name: $scope.newTask.taskName, tasks: [
               {
@@ -437,11 +457,12 @@ angular.module('angularGanttDemoApp')
                 est: new Date(fromEstDateYear, fromEstDateMonth, fromEstDateDay, 8, 0, 0),
                 lct: new Date(toDateEstYear, toDateEstMonth, toDateEstDay, 8, 0, 0),
                 progress: 15,
-                person: ''
+                person: $scope.newTask.person
               }
             ]};
 
           tasksDataForChart.push(newTaskToInsert);
+          $('#addTaskContainer').css('display', 'none');
         };
 
         // -----------------------

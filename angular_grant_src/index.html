@@ -36,7 +36,7 @@
     <div class="container-content" ng-cloak="true">
         <div class="container-fluid">
             <div class="row">
-              <div class="col-lg-4 col-md-12">
+              <div class="col-lg-2 col-md-12">
                   <div class="panel-group" bs-collapse>
                       <div class="panel panel-default">
                           <div class="panel-heading">
@@ -52,15 +52,13 @@
                                             <div class="form-group text-center">
                                               <label class="control-label"><i class="fa fa-text-width"></i> Tasks</label><br>
                                               <div class="btn-group">
-                                                  <button type="button" class="btn btn-default" >Add task</button>
-                                                  <button type="button" class="btn btn-default" >Remove task</button>
+                                                  <button type="button" class="btn btn-default"  ng-click="displayNewTask()">Add task</button>
                                               </div>
                                             </div>
                                             <div class="form-group text-center">
                                               <label class="control-label"><i class="fa fa-text-width"></i> Risks</label><br>
                                               <div class="btn-group">
                                                   <button type="button" class="btn btn-default" >Add risk</button>
-                                                  <button type="button" class="btn btn-default" >Remove ris</button>
                                               </div>
                                             </div>
                                           </div>
@@ -72,7 +70,7 @@
                   </div>
               </div>
 
-              <div class="col-lg-4 col-md-12">
+              <div class="col-lg-4 col-md-12" id="addTaskContainer">
                   <div class="panel-group" bs-collapse>
                       <div class="panel panel-default">
                           <div class="panel-heading">
@@ -86,7 +84,7 @@
                                       <div class="row">
                                           <div class="form-inline">
                                             <div class="form-group text-center">
-                                              <label class="control-label"><i class="fa fa-text-width"></i> Tasks</label><br>
+                                              <label class="control-label"><i class="fa fa-text-width"></i> Parent task</label><br>
                                               <div class="input-group">
                                                 <span class="input-group-addon">Task name:</span>
                                                 <input type="text" class="form-control" placeholder="Task name" ng-model="newTask.taskName">
@@ -107,6 +105,43 @@
                                               <div class="input-group addTaskInputGroup">
                                                 <span class="input-group-addon">Est. to:</span>
                                                 <input type="text" class="form-control" ng-model="newTask.toDateEst" start-week="1" min-date="{{options.fromDate}}" start-date="{{options.currentDateValue.toString()}}" placeholder="Estimation to" bs-datepicker>
+                                              </div>
+                                              <div class="input-group">
+                                                <span class="input-group-addon">Responsible:</span>
+                                                <input type="text" class="form-control" placeholder="Responsible people" ng-model="newTask.person">
+                                              </div>
+                                            </div>
+                                            <div class="btn-group">
+                                                <button type="button" class="btn btn-default btn-warning" ng-click="displayAddChildTask()">Add child task!</button>
+                                            </div>
+                                            <div id="childrenTasksContainer">
+                                              <div class="form-group text-center">
+                                                <label class="control-label"><i class="fa fa-text-width"></i> Child task</label><br>
+                                                <div class="input-group">
+                                                  <span class="input-group-addon">Task name:</span>
+                                                  <input type="text" class="form-control" placeholder="Task name" ng-model="newTask.taskName">
+                                                </div>
+                                                <br/>
+                                                <div class="input-group addTaskInputGroup">
+                                                  <span class="input-group-addon">From:</span>
+                                                  <input type="text" class="form-control" ng-model="newTask.fromDate" start-week="1" max-date="{{options.toDate}}" start-date="{{options.currentDateValue.toString()}}" placeholder="From" bs-datepicker>
+                                                </div>
+                                                <div class="input-group addTaskInputGroup">
+                                                  <span class="input-group-addon">To:</span>
+                                                  <input type="text" class="form-control" ng-model="newTask.toDate" start-week="1" min-date="{{options.fromDate}}" start-date="{{options.currentDateValue.toString()}}" placeholder="To" bs-datepicker>
+                                                </div>
+                                                <div class="input-group addTaskInputGroup">
+                                                  <span class="input-group-addon">Est. from:</span>
+                                                  <input type="text" class="form-control" ng-model="newTask.fromDateEst" start-week="1" max-date="{{options.toDate}}" start-date="{{options.currentDateValue.toString()}}" placeholder="Estimation from" bs-datepicker>
+                                                </div>
+                                                <div class="input-group addTaskInputGroup">
+                                                  <span class="input-group-addon">Est. to:</span>
+                                                  <input type="text" class="form-control" ng-model="newTask.toDateEst" start-week="1" min-date="{{options.fromDate}}" start-date="{{options.currentDateValue.toString()}}" placeholder="Estimation to" bs-datepicker>
+                                                </div>
+                                                <div class="input-group">
+                                                  <span class="input-group-addon">Responsible:</span>
+                                                  <input type="text" class="form-control" placeholder="Responsible people" ng-model="newTask.person">
+                                                </div>
                                               </div>
                                             </div>
                                             <div class="btn-group">

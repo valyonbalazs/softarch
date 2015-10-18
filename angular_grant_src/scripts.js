@@ -418,7 +418,13 @@ angular.module('angularGanttDemoApp')
           var toDateYear = moment($scope.newTask.toDate).year();
           var toDateMonth = moment($scope.newTask.toDate).month();
           var toDateDay = parseInt($scope.newTask.toDate.toString().substring(8,10));
-          console.log(fromDateDay);
+
+          var fromEstDateYear = moment($scope.newTask.fromDateEst).year();
+          var fromEstDateMonth = moment($scope.newTask.fromDateEst).month();
+          var fromEstDateDay = parseInt($scope.newTask.fromDateEst.toString().substring(8,10));
+          var toDateEstYear = moment($scope.newTask.toDateEst).year();
+          var toDateEstMonth = moment($scope.newTask.toDateEst).month();
+          var toDateEstDay = parseInt($scope.newTask.toDateEst.toString().substring(8,10));
           var newTaskToInsert = {
             name: $scope.newTask.taskName, tasks: [
               {
@@ -428,6 +434,8 @@ angular.module('angularGanttDemoApp')
                 color: '#F1C232',
                 from: new Date(fromDateYear, fromDateMonth, fromDateDay, 8, 0, 0),
                 to: new Date(toDateYear, toDateMonth, toDateDay, 8, 0, 0),
+                est: new Date(fromEstDateYear, fromEstDateMonth, fromEstDateDay, 8, 0, 0),
+                lct: new Date(toDateEstYear, toDateEstMonth, toDateEstDay, 8, 0, 0),
                 progress: 15,
                 person: ''
               }

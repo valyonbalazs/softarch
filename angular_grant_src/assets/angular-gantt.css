@@ -346,3 +346,13 @@
 .form-inline .form-control {
   width: 85px;
 }
+
+.addTaskInputGroup {
+  min-width: 80%;
+}
+
+.form-inline .input-group .form-control,
+ .form-inline .input-group .input-group-addon,
+  .form-inline .input-group .input-group-btn {
+    width: 15em;
+  }

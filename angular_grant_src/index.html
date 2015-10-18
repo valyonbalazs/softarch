@@ -88,15 +88,25 @@
                                             <div class="form-group text-center">
                                               <label class="control-label"><i class="fa fa-text-width"></i> Tasks</label><br>
                                               <div class="input-group">
-                                                <span class="input-group-addon" id="basic-addon1">Task name:</span>
+                                                <span class="input-group-addon">Task name:</span>
                                                 <input type="text" class="form-control" placeholder="Task name" ng-model="newTask.taskName">
                                               </div>
                                               <br/>
-                                              <div class="form-group">
+                                              <div class="input-group addTaskInputGroup">
+                                                <span class="input-group-addon">From:</span>
                                                 <input type="text" class="form-control" ng-model="newTask.fromDate" start-week="1" max-date="{{options.toDate}}" start-date="{{options.currentDateValue.toString()}}" placeholder="From" bs-datepicker>
                                               </div>
-                                              <div class="form-group">
+                                              <div class="input-group addTaskInputGroup">
+                                                <span class="input-group-addon">To:</span>
                                                 <input type="text" class="form-control" ng-model="newTask.toDate" start-week="1" min-date="{{options.fromDate}}" start-date="{{options.currentDateValue.toString()}}" placeholder="To" bs-datepicker>
+                                              </div>
+                                              <div class="input-group addTaskInputGroup">
+                                                <span class="input-group-addon">Est. from:</span>
+                                                <input type="text" class="form-control" ng-model="newTask.fromDateEst" start-week="1" max-date="{{options.toDate}}" start-date="{{options.currentDateValue.toString()}}" placeholder="Estimation from" bs-datepicker>
+                                              </div>
+                                              <div class="input-group addTaskInputGroup">
+                                                <span class="input-group-addon">Est. to:</span>
+                                                <input type="text" class="form-control" ng-model="newTask.toDateEst" start-week="1" min-date="{{options.fromDate}}" start-date="{{options.currentDateValue.toString()}}" placeholder="Estimation to" bs-datepicker>
                                               </div>
                                             </div>
                                             <div class="btn-group">

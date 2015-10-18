@@ -420,6 +420,62 @@ angular.module('angularGanttDemoApp')
           toDate: undefined,
           person: ''
         };
+
+        $scope.newChildTask = {
+         taskName: '',
+         fromDate: moment(null),
+         toDate: undefined,
+         person: ''
+       };
+
+       $scope.childTasks = [];
+       $scope.addChildTaskToList = function () {
+         var fromDateYear = moment($scope.newChildTask.fromDate).year();
+         var fromDateMonth = moment($scope.newChildTask.fromDate).month();
+         var fromDateDay = parseInt($scope.newChildTask.fromDate.toString().substring(8,10));
+         var toDateYear = moment($scope.newChildTask.toDate).year();
+         var toDateMonth = moment($scope.newChildTask.toDate).month();
+         var toDateDay = parseInt($scope.newChildTask.toDate.toString().substring(8,10));
+         var fromEstDateYear = undefined
+         var fromEstDateMonth = undefined
+         var fromEstDateDay = undefined
+         var toDateEstYear = undefined
+         var toDateEstMonth = undefined
+         var toDateEstDay = undefined;
+         if($scope.newChildTask.fromDateEst === undefined || $scope.newChildTask.toDateEst === undefined) {
+
+         } else {
+           fromEstDateYear = moment($scope.newChildTask.fromDateEst).year();
+           fromEstDateMonth = moment($scope.newChildTask.fromDateEst).month();
+           fromEstDateDay = parseInt($scope.newChildTask.fromDateEst.toString().substring(8,10));
+           toDateEstYear = moment($scope.newChildTask.toDateEst).year();
+           toDateEstMonth = moment($scope.newnewChildTaskTask.toDateEst).month();
+           toDateEstDay = parseInt($scope.newChildTask.toDateEst.toString().substring(8,10));
+         }
+
+         var newChildTaskInsertable = {
+           name: $scope.newChildTask.taskName, tasks: [
+             {
+               name: $scope.newChildTask.taskName,
+               priority: 20,
+               content: '<i class="fa fa-cog" ng-click="scope.handleTaskIconClick(task.model)"></i> {{task.model.name}}',
+               color: '#F1C232',
+               from: new Date(fromDateYear, fromDateMonth, fromDateDay, 8, 0, 0),
+               to: new Date(toDateYear, toDateMonth, toDateDay, 8, 0, 0),
+               est: new Date(fromEstDateYear, fromEstDateMonth, fromEstDateDay, 8, 0, 0),
+               lct: new Date(toDateEstYear, toDateEstMonth, toDateEstDay, 8, 0, 0),
+               progress: 15,
+               person: $scope.newTask.person
+             }
+           ]};
+
+           $scope.childTasks.push(newChildTaskInsertable);
+
+           $('#childTaskListUl').append('<li class="list-group-item">' + $scope.newChildTask.taskName + '</li>');
+           $('#childTasksList').css('display', 'block');
+           $('#childrenTasksContainer').css('display', 'none');
+       };
+
         $scope.addTaskToDataCollection = function () {
           var fromDateYear = moment($scope.newTask.fromDate).year();
           var fromDateMonth = moment($scope.newTask.fromDate).month();
@@ -438,30 +494,50 @@ angular.module('angularGanttDemoApp')
           if($scope.newTask.fromDateEst === undefined || $scope.newTask.toDateEst === undefined) {
 
           } else {
-            var fromEstDateYear = moment($scope.newTask.fromDateEst).year();
-            var fromEstDateMonth = moment($scope.newTask.fromDateEst).month();
-            var fromEstDateDay = parseInt($scope.newTask.fromDateEst.toString().substring(8,10));
-            var toDateEstYear = moment($scope.newTask.toDateEst).year();
-            var toDateEstMonth = moment($scope.newTask.toDateEst).month();
-            var toDateEstDay = parseInt($scope.newTask.toDateEst.toString().substring(8,10));
+            fromEstDateYear = moment($scope.newTask.fromDateEst).year();
+            fromEstDateMonth = moment($scope.newTask.fromDateEst).month();
+            fromEstDateDay = parseInt($scope.newTask.fromDateEst.toString().substring(8,10));
+            toDateEstYear = moment($scope.newTask.toDateEst).year();
+            toDateEstMonth = moment($scope.newTask.toDateEst).month();
+            toDateEstDay = parseInt($scope.newTask.toDateEst.toString().substring(8,10));
           }
-          var newTaskToInsert = {
-            name: $scope.newTask.taskName, tasks: [
-              {
-                name: $scope.newTask.taskName,
-                priority: 20,
-                content: '<i class="fa fa-cog" ng-click="scope.handleTaskIconClick(task.model)"></i> {{task.model.name}}',
-                color: '#F1C232',
-                from: new Date(fromDateYear, fromDateMonth, fromDateDay, 8, 0, 0),
-                to: new Date(toDateYear, toDateMonth, toDateDay, 8, 0, 0),
-                est: new Date(fromEstDateYear, fromEstDateMonth, fromEstDateDay, 8, 0, 0),
-                lct: new Date(toDateEstYear, toDateEstMonth, toDateEstDay, 8, 0, 0),
-                progress: 15,
-                person: $scope.newTask.person
-              }
-            ]};
 
-          tasksDataForChart.push(newTaskToInsert);
+          console.log("child taskok száma: " + $scope.childTasks.length);
+          if($scope.childTasks.length === 0) {
+            var newTaskToInsert = {
+              name: $scope.newTask.taskName, tasks: [
+                {
+                  name: $scope.newTask.taskName,
+                  priority: 20,
+                  content: '<i class="fa fa-cog" ng-click="scope.handleTaskIconClick(task.model)"></i> {{task.model.name}}',
+                  color: '#F1C232',
+                  from: new Date(fromDateYear, fromDateMonth, fromDateDay, 8, 0, 0),
+                  to: new Date(toDateYear, toDateMonth, toDateDay, 8, 0, 0),
+                  est: new Date(fromEstDateYear, fromEstDateMonth, fromEstDateDay, 8, 0, 0),
+                  lct: new Date(toDateEstYear, toDateEstMonth, toDateEstDay, 8, 0, 0),
+                  progress: 15,
+                  person: $scope.newTask.person
+                }
+              ]};
+              tasksDataForChart.push(newTaskToInsert);
+          } else {
+
+            var childrenTasksName = [];
+            for(var key in $scope.childTasks) {
+              childrenTasksName.push($scope.childTasks[key].name);
+            }
+            console.log("childrentasks name:" + childrenTasksName);
+            var newTaskToInsert = {
+                  name: $scope.newTask.taskName,
+                  content: '<i class="fa fa-file-code-o" ng-click="scope.handleRowIconClick(row.model)"></i> {{row.model.name}}',
+                  children: childrenTasksName,
+                };
+              tasksDataForChart.push(newTaskToInsert);
+              for(var key in $scope.childTasks) {
+                tasksDataForChart.push($scope.childTasks[key]);
+              }
+          }
+
           $('#addTaskContainer').css('display', 'none');
         };
 
@@ -563,17 +639,21 @@ var tasksDataForChart = [
             {name: 'Finalize concept', priority: 10, content: '<i class="fa fa-cog" ng-click="scope.handleTaskIconClick(task.model)"></i> {{task.model.name}}', color: '#F1C232', from: new Date(2015, 9, 17, 8, 0, 0), to: new Date(2015, 9, 18, 18, 0, 0),
                 progress: 100}
         ]},
-        {name: 'Development', children: ['Sprint 1', 'Sprint 2', 'Sprint 3', 'Sprint 4'], content: '<i class="fa fa-file-code-o" ng-click="scope.handleRowIconClick(row.model)"></i> {{row.model.name}}'},
+        {
+          name: 'Development',
+          children: ['Sprint 1', 'Sprint 2', 'Sprint 3', 'Sprint 4'],
+          content: '<i class="fa fa-file-code-o" ng-click="scope.handleRowIconClick(row.model)"></i> {{row.model.name}}'
+        },
         {name: 'Sprint 1', tooltips: false, tasks: [
-            {name: 'Product list view', color: '#F1C232', from: new Date(2015, 9, 21, 8, 0, 0), to: new Date(2015, 9, 25, 15, 0, 0),
-                progress: 25}
+          {name: 'Product list view', color: '#F1C232', from: new Date(2015, 9, 21, 8, 0, 0), to: new Date(2015, 9, 25, 15, 0, 0),
+              progress: 25}
         ]},
-        {name: 'Sprint 2', tasks: [
-            {name: 'Order basket', color: '#F1C232', from: new Date(2015, 9, 28, 8, 0, 0), to: new Date(2015, 10, 1, 15, 0, 0)}
-        ]},
-        {name: 'Sprint 3', tasks: [
-            {name: 'Checkout', color: '#F1C232', from: new Date(2015, 10, 4, 8, 0, 0), to: new Date(2015, 10, 8, 15, 0, 0)}
-        ]},
+          {name: 'Sprint 2', tasks: [
+              {name: 'Order basket', color: '#F1C232', from: new Date(2015, 9, 28, 8, 0, 0), to: new Date(2015, 10, 1, 15, 0, 0)}
+          ]},
+          {name: 'Sprint 3', tasks: [
+              {name: 'Checkout', color: '#F1C232', from: new Date(2015, 10, 4, 8, 0, 0), to: new Date(2015, 10, 8, 15, 0, 0)}
+          ]},
         {name: 'Sprint 4', tasks: [
             {name: 'Login & Signup & Admin Views', color: '#F1C232', from: new Date(2015, 10, 11, 8, 0, 0), to: new Date(2015, 10, 15, 15, 0, 0)}
         ]},

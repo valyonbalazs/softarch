@@ -15,3 +15,7 @@
 #childrenTasksContainer {
   display: none;
 }
+
+#childTasksList {
+  display: none;
+}

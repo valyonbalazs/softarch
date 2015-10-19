@@ -248,11 +248,15 @@ angular.module('angularGanttDemoApp')
         };
 
         $scope.handleTaskIconClick = function(taskModel) {
-            alert('Icon from ' + taskModel.name + ' task has been clicked.');
+            //alert('Icon from ' + taskModel.name + ' task has been clicked.');
+            $('#modifyTaskModal').attr('ng-bind', 'taskModel');
+            $('#modifyTaskModal').modal('show');
         };
 
         $scope.handleRowIconClick = function(rowModel) {
-            alert('Icon from ' + rowModel.name + ' row has been clicked.');
+            //alert('Icon from ' + rowModel.name + ' row has been clicked.');
+            $('#modifyTaskModal').attr('ng-bind', 'rowModel');
+            $('#modifyTaskModal').modal('show');
         };
 
         $scope.expandAll = function() {
@@ -614,7 +618,7 @@ var tasksDataForChart = [
             {
              name: 'Create concept',
              priority: 20,
-             content: '<i class="fa fa-cog" ng-click="scope.handleTaskIconClick(task.model)"></i> {{task.model.name}}',
+             content: '<i class="fa fa-cog" ng-click="scope.handleRowIconClick(row.model)"></i> {{task.model.name}}',
              color: '#F1C232',
              from: new Date(2015, 9, 10, 8, 0, 0),
              to: new Date(2015, 9, 16, 18, 0, 0),

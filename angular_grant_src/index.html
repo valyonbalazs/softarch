@@ -82,7 +82,7 @@
                           <div class="row">
                               <div class="form-inline">
                                 <div class="form-group text-center">
-                                  <label class="control-label"><i class="fa fa-text-width"></i> Parent task</label><br>
+                                  <label class="control-label"><i class="fa fa-tasks"></i> Parent task</label><br>
                                   <div class="input-group">
                                     <span class="input-group-addon">Task name:</span>
                                     <input type="text" class="form-control" placeholder="Task name" ng-model="newTask.taskName">
@@ -154,6 +154,58 @@
                 </div><!-- /.modal-dialog -->
               </div><!-- /.modal -->
             </div>
+
+            <div id="modifyTaskModal" class="modal fade">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Modify task</h4>
+                  </div>
+                  <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="form-inline">
+                              <div class="form-group text-center">
+                                <label class="control-label"><i class="fa fa-tasks"></i> Parent task</label><br>
+                                <div class="input-group">
+                                  <span class="input-group-addon">Task name:</span>
+                                  <input type="text" class="form-control" placeholder="{{rowModel.name}}" ng-model="task.model.name">
+                                </div>
+                                <br/>
+                                <div class="input-group addTaskInputGroup">
+                                  <span class="input-group-addon">From:</span>
+                                  <input type="text" class="form-control" ng-model="newTask.fromDate" start-week="1" max-date="{{options.toDate}}" start-date="{{options.currentDateValue.toString()}}" placeholder="newTask.fromDate" bs-datepicker>
+                                </div>
+                                <div class="input-group addTaskInputGroup">
+                                  <span class="input-group-addon">To:</span>
+                                  <input type="text" class="form-control" ng-model="newTask.toDate" start-week="1" min-date="{{options.fromDate}}" start-date="{{options.currentDateValue.toString()}}" placeholder="newTask.toDate" bs-datepicker>
+                                </div>
+                                <div class="input-group addTaskInputGroup">
+                                  <span class="input-group-addon">Est. from:</span>
+                                  <input type="text" class="form-control" ng-model="newTask.fromDateEst" start-week="1" max-date="{{options.toDate}}" start-date="{{options.currentDateValue.toString()}}" placeholder="newTask.fromDateEst" bs-datepicker>
+                                </div>
+                                <div class="input-group addTaskInputGroup">
+                                  <span class="input-group-addon">Est. to:</span>
+                                  <input type="text" class="form-control" ng-model="newTask.toDateEst" start-week="1" min-date="{{options.fromDate}}" start-date="{{options.currentDateValue.toString()}}" placeholder="newTask.toDateEst" bs-datepicker>
+                                </div>
+                                <div class="input-group">
+                                  <span class="input-group-addon">Responsible:</span>
+                                  <input type="text" class="form-control" placeholder="Responsible people" ng-model="newTask.person">
+                                </div>
+                              </div>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default btn-danger" ng-click="addTaskToDataCollection()">Save task modification</button>
+                    </div>
+                  </div>
+                </div><!-- /.modal-content -->
+              </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
 
               <div class="col-lg-4 col-md-12" id="addTaskContainer">
                   <div class="panel-group" bs-collapse>

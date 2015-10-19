@@ -429,6 +429,13 @@ angular.module('angularGanttDemoApp')
        };
 
        $scope.childTasks = [];
+       $scope.removeChildTaskFromList = function (childName) {
+         console.log(childName);
+         console.log(childTasks);
+         var index = childTasks.indexOf(childName);
+         $scope.childTasks.splice(index, 1);
+         console.log(childTasks);
+       };
        $scope.addChildTaskToList = function () {
          var fromDateYear = moment($scope.newChildTask.fromDate).year();
          var fromDateMonth = moment($scope.newChildTask.fromDate).month();
@@ -453,9 +460,14 @@ angular.module('angularGanttDemoApp')
 
            $scope.childTasks.push(newChildTaskInsertable);
 
-           $('#childTaskListUl').append('<li class="list-group-item">' + $scope.newChildTask.taskName + '</li>');
+           $('#childTaskListUl').append('<li class="list-group-item">' + $scope.newChildTask.taskName +
+            '<button class="btn btn-warning" ng-click="removeChildTaskFromList(' + $scope.newChildTask.taskName + ')">REMOVE</button></li>');
            $('#childTasksList').css('display', 'block');
            $('#childrenTasksContainer').css('display', 'none');
+           $('#newChildTaskName').val('');
+           $('#newChildTaskFromDate').val('');
+           $('#newChildTaskTo').val('');
+           $('#newChildTaskResp').val('');
        };
 
         $scope.addTaskToDataCollection = function () {
@@ -518,6 +530,7 @@ angular.module('angularGanttDemoApp')
               for(var key in $scope.childTasks) {
                 tasksDataForChart.push($scope.childTasks[key]);
               }
+              $scope.childTasks = [];
           }
 
           $('#addTaskContainer').css('display', 'none');

@@ -131,6 +131,11 @@ module.exports = function(grunt) {
                     // includes files within path
                     {expand: true, cwd: 'gh-pages/', src: ['**'], dest: 'site/'},
                 ]
+            },
+            fonts: {
+              files: [
+                {expand: true, src: ['fonts/'], dest: 'assets/'}
+              ]
             }
         },
         jshint: {

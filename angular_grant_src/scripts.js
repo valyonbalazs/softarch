@@ -616,8 +616,10 @@ var tasksDataForChart = [
              priority: 20,
              content: '<i class="fa fa-cog" ng-click="scope.handleTaskIconClick(task.model)"></i> {{task.model.name}}',
              color: '#F1C232',
-             from: new Date(2015, 9, 10, 8, 0, 0), to: new Date(2015, 9, 16, 18, 0, 0),
-             est: new Date(2015, 9, 8, 8, 0, 0), lct: new Date(2015, 9, 18, 20, 0, 0),
+             from: new Date(2015, 9, 10, 8, 0, 0),
+             to: new Date(2015, 9, 16, 18, 0, 0),
+             est: new Date(2015, 9, 8, 8, 0, 0),
+             lct: new Date(2015, 9, 18, 20, 0, 0),
              progress: 100,
              person: 'Clark Kent, Bruce Wayne, Berry Allen'
            }
@@ -627,18 +629,57 @@ var tasksDataForChart = [
           children: ['Sprint 1', 'Sprint 2', 'Sprint 3', 'Sprint 4'],
           content: '<i class="fa fa-file-code-o" ng-click="scope.handleRowIconClick(row.model)"></i> {{row.model.name}}'
         },
-        {name: 'Sprint 1', tooltips: false, tasks: [
-          {name: 'Product list view', color: '#F1C232', from: new Date(2015, 9, 21, 8, 0, 0), to: new Date(2015, 9, 25, 15, 0, 0),
-              progress: 25}
+        {name: 'Sprint 1', tasks: [
+          {
+            name: 'Product list view',
+            content: '<i class="fa fa-cog" ng-click="scope.handleTaskIconClick(task.model)"></i> {{task.model.name}}',
+            color: '#F1C232',
+            from: new Date(2015, 9, 21, 8, 0, 0),
+            to: new Date(2015, 9, 25, 15, 0, 0),
+            est: new Date(2015, 9, 19, 8, 0, 0),
+            lct: new Date(2015, 9, 27, 20, 0, 0),
+            progress: 25,
+            person: 'Martian Manhunter, Wonder Woman'
+            }
         ]},
-          {name: 'Sprint 2', tasks: [
-              {name: 'Order basket', color: '#F1C232', from: new Date(2015, 9, 28, 8, 0, 0), to: new Date(2015, 10, 1, 15, 0, 0)}
-          ]},
+        {name: 'Sprint 2', tasks: [
+            {
+              name: 'Order basket',
+              content: '<i class="fa fa-cog" ng-click="scope.handleTaskIconClick(task.model)"></i> {{task.model.name}}',
+              color: '#F1C232',
+              from: new Date(2015, 9, 28, 8, 0, 0),
+              to: new Date(2015, 10, 1, 15, 0, 0),
+              est: new Date(2015, 9, 27, 8, 0, 0),
+              lct: new Date(2015, 10, 2, 20, 0, 0),
+              progress: 13,
+              person: 'Aquaman, Alfred Pennyworth'
+            }
+        ]},
           {name: 'Sprint 3', tasks: [
-              {name: 'Checkout', color: '#F1C232', from: new Date(2015, 10, 4, 8, 0, 0), to: new Date(2015, 10, 8, 15, 0, 0)}
+              {
+                name: 'Checkout',
+                content: '<i class="fa fa-cog" ng-click="scope.handleTaskIconClick(task.model)"></i> {{task.model.name}}',
+                color: '#F1C232',
+                from: new Date(2015, 10, 4, 8, 0, 0),
+                to: new Date(2015, 10, 8, 15, 0, 0),
+                est: new Date(2015, 10, 2, 8, 0, 0),
+                lct: new Date(2015, 10, 9, 20, 0, 0),
+                progress: 12,
+                person: 'Cyborg, Firestorm'
+              }
           ]},
         {name: 'Sprint 4', tasks: [
-            {name: 'Login & Signup & Admin Views', color: '#F1C232', from: new Date(2015, 10, 11, 8, 0, 0), to: new Date(2015, 10, 15, 15, 0, 0)}
+            {
+              name: 'Login & Signup & Admin Views',
+              content: '<i class="fa fa-cog" ng-click="scope.handleTaskIconClick(task.model)"></i> {{task.model.name}}',
+              color: '#F1C232',
+              from: new Date(2015, 10, 11, 8, 0, 0),
+              to: new Date(2015, 10, 15, 15, 0, 0),
+              est: new Date(2015, 10, 10, 8, 0, 0),
+              lct: new Date(2015, 10, 16, 20, 0, 0),
+              progress: 4,
+              person: 'Catwoman, Nightwing, Red Robin'
+            }
         ]},
     ];
 

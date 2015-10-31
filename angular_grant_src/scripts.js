@@ -254,8 +254,45 @@ angular.module('angularGanttDemoApp')
             $scope.selectedTaskToEdit.to = taskModel.to.toDate();
             $scope.selectedTaskToEdit.est = taskModel.est.toDate();
             $scope.selectedTaskToEdit.lct = taskModel.lct.toDate();
-            console.log(taskModel);
             $('#modifyTaskModal').modal('show');
+        };
+
+        $scope.saveModifiedTask = function() {
+          for(var key in tasksDataForChart) {
+            if(tasksDataForChart[key].name === $scope.selectedTaskToEdit.name) {
+              console.log("belepett");
+              var fromDateYear = moment($scope.selectedTaskToEdit.from).year();
+              var fromDateMonth = moment($scope.selectedTaskToEdit.from).month();
+              var fromDateDay = parseInt($scope.selectedTaskToEdit.from.toString().substring(8,10));
+              var toDateYear = moment($scope.selectedTaskToEdit.to).year();
+              var toDateMonth = moment($scope.selectedTaskToEdit.to).month();
+              var toDateDay = parseInt($scope.selectedTaskToEdit.to.toString().substring(8,10));
+              var fromEstDateYear = moment($scope.selectedTaskToEdit.est).year();
+              var fromEstDateMonth = moment($scope.selectedTaskToEdit.est).month();
+              var fromEstDateDay = parseInt($scope.selectedTaskToEdit.est.toString().substring(8,10));
+              var toDateEstYear = moment($scope.selectedTaskToEdit.lct).year();
+              var toDateEstMonth = moment($scope.selectedTaskToEdit.lct).month();
+              var toDateEstDay = parseInt($scope.selectedTaskToEdit.lct.toString().substring(8,10));
+              var modifiedTaskToInsert = {
+                name: $scope.selectedTaskToEdit.name, tasks: [
+                  {
+                    name: $scope.selectedTaskToEdit.name,
+                    priority: 20,
+                    content: '<i class="fa fa-cog" ng-click="scope.handleTaskIconClick(task.model)"></i> {{task.model.name}}',
+                    color: '#F1C232',
+                    from: new Date(fromDateYear, fromDateMonth, fromDateDay, 8, 0, 0),
+                    to: new Date(toDateYear, toDateMonth, toDateDay, 8, 0, 0),
+                    est: new Date(fromEstDateYear, fromEstDateMonth, fromEstDateDay, 8, 0, 0),
+                    lct: new Date(toDateEstYear, toDateEstMonth, toDateEstDay, 8, 0, 0),
+                    progress: 15,
+                    person: $scope.selectedTaskToEdit.person
+                  }
+                ]};
+
+              tasksDataForChart[key] = modifiedTaskToInsert;
+              $scope.selectedTaskToEdit = null;
+            }
+          }
         };
 
         $scope.selectedTaskToEdit = null;

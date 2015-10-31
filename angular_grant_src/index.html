@@ -384,20 +384,20 @@
                                     <thead>
                                       <tr>
                                         <td>
-                                          <i class="fa fa-align-justify"> <span>Name</span></i>
+                                          <i class="fa fa-align-justify"> </i> Name
                                         </td>
                                         <td>
-                                          <i class="fa fa-commenting-o"> <span>Description</span></i>
+                                          <i class="fa fa-commenting-o"> </i> Description
                                         </td>
                                         <td>
-                                          <i class="fa fa-bolt"> <span>Risk level</span></i>
+                                          <i class="fa fa-bolt"> </i> Risk level
                                         </td>
                                       </tr>
                                     </thead>
                                     <tbody>
                                       <tr  ng-repeat="risk in riskData">
                                         <td>
-                                          {{risk.name}}
+                                          <i class="fa fa-cog" ng-click="showRiskModal(risk)"> </i> {{risk.name}}
                                         </td>
                                         <td>
                                           {{risk.description}}
@@ -415,6 +415,45 @@
                 </div>
             </div>
         </div>
+        
+        <div id="modifyRiskModal" class="modal fade">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Modify risk</h4>
+              </div>
+              <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="form-inline">
+                          <div class="form-group text-center">
+                            <label class="control-label"><i class="fa fa-bolt"></i> Risk </label><br>
+                            <div class="input-group">
+                              <span class="input-group-addon">Name:</span>
+                              <input type="text" class="form-control" placeholder="{{riskModificationElement.name}}" ng-model="riskModificationElement.name">
+                            </div>
+                            <div class="input-group">
+                              <span class="input-group-addon">Description:</span>
+                              <input type="text" class="form-control" placeholder="{{riskModificationElement.description}}" ng-model="riskModificationElement.description">
+                            </div>
+                            <div class="input-group">
+                              <span class="input-group-addon">Risk level:</span>
+                              <input type="text" class="form-control" placeholder="{{riskModificationElement.level}}" ng-model="riskModificationElement.level">
+                            </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default btn-danger" ng-click="saveModifiedRisk()">Save risk modification</button>
+                </div>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
 
     </div>
 </div>

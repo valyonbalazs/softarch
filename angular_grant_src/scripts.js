@@ -586,6 +586,34 @@ angular.module('angularGanttDemoApp')
           $('#addTaskContainer').css('display', 'none');
         };
 
+        $scope.riskModificationElement = null;
+        $scope.showRiskModal = function(riskModel) {
+          var riskModel = {
+            id: riskModel.id,
+            name: riskModel.name,
+            description: riskModel.description,
+            level: riskModel.level
+          };
+          $scope.riskModificationElement = riskModel;
+          $('#modifyRiskModal').modal('show');
+        };
+
+        $scope.saveModifiedRisk = function () {
+          console.log($scope.riskData);
+          console.log($scope.riskModificationElement);
+          for(var key in $scope.riskData) {
+            if($scope.riskData[key].id === $scope.riskModificationElement.id) {
+              console.log("belepett");
+              $scope.riskData[key] = $scope.riskModificationElement;
+              $scope.riskModificationElement = null;
+              console.log($scope.riskData);
+              $('#modifyRiskModal').modal('hide');
+            }
+          }
+        };
+
+        //addRisk id generator: Math.floor(Math.random() * 10000000 * (new Date().getMilliseconds()))
+
         $scope.riskData = risksData;
 
         // -----------------------
@@ -664,12 +692,14 @@ angular.module('angularGanttDemoApp')
 
 var risksData = [
     {
-      name: 'first risk',
+      id: 146435597,
+      name: 'Senior Developer leaves',
       description: 'risk description risk description risk description risk description risk description ',
       level: 'high'
     },
     {
-      name: 'second risk',
+      id: 924857713,
+      name: 'Infrastructure failure',
       description: 'risk description risk description risk description risk description risk description ',
       level: 'low'
     }

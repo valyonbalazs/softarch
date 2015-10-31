@@ -25,6 +25,6 @@
 	background-color: #e7e7e7;
 }
 
-thead>tr>td>i>span {
+thead>tr>td> {
   font-weight: bold;
 }

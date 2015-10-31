@@ -19,3 +19,12 @@
 #childTasksList {
   display: none;
 }
+
+.table-striped>tbody>tr:nth-child(odd)>td,
+.table-striped>tbody>tr:nth-child(odd)>th {
+	background-color: #e7e7e7;
+}
+
+thead>tr>td>i>span {
+  font-weight: bold;
+}

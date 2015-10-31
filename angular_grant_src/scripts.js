@@ -291,6 +291,8 @@ angular.module('angularGanttDemoApp')
 
               tasksDataForChart[key] = modifiedTaskToInsert;
               $scope.selectedTaskToEdit = null;
+
+              $('#modifyTaskModal').modal('hide');
             }
           }
         };
@@ -584,6 +586,8 @@ angular.module('angularGanttDemoApp')
           $('#addTaskContainer').css('display', 'none');
         };
 
+        $scope.riskData = risksData;
+
         // -----------------------
 
         // Event handler
@@ -657,6 +661,20 @@ angular.module('angularGanttDemoApp')
  * Service in the angularGanttDemoApp.
  */
 
+
+var risksData = [
+    {
+      name: 'first risk',
+      description: 'risk description risk description risk description risk description risk description ',
+      level: 'high'
+    },
+    {
+      name: 'second risk',
+      description: 'risk description risk description risk description risk description risk description ',
+      level: 'low'
+    }
+];
+
 var tasksDataForChart = [
         {name: 'Create concept', tasks: [
             {
@@ -675,7 +693,7 @@ var tasksDataForChart = [
         {
           name: 'Development',
           children: ['Sprint 1', 'Sprint 2', 'Sprint 3', 'Sprint 4'],
-          content: '<i class="fa fa-file-code-o" ng-click="scope.handleRowIconClick(task.model)"></i> {{task.model.name}}'
+          content: '<i class="fa fa-file-code-o" ng-click="scope.handleRowIconClick(row.model)"></i> {{row.model.name}}'
         },
         {name: 'Sprint 1', tasks: [
           {

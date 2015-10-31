@@ -167,31 +167,31 @@
                         <div class="row">
                             <div class="form-inline">
                               <div class="form-group text-center">
-                                <label class="control-label"><i class="fa fa-tasks"></i> Parent task</label><br>
+                                <label class="control-label"><i class="fa fa-tasks"></i>  {{selectedTaskToEdit.name}}</label><br>
                                 <div class="input-group">
                                   <span class="input-group-addon">Task name:</span>
-                                  <input type="text" class="form-control" placeholder="{{selectedTaskToEdit.name}}" ng-model="task.model.name">
+                                  <input type="text" class="form-control" placeholder="{{selectedTaskToEdit.name}}" ng-model="selectedTaskToEdit.name">
                                 </div>
                                 <br/>
                                 <div class="input-group addTaskInputGroup">
                                   <span class="input-group-addon">From:</span>
-                                  <input type="text" class="form-control" ng-model="selectedTaskToEdit.tasks[0].from" start-week="1" max-date="{{options.toDate}}" start-date="{{options.currentDateValue.toString()}}" placeholder="{{selectedTaskToEdit.tasks[0].from}}" bs-datepicker>
+                                  <input type="text" class="form-control" ng-model="selectedTaskToEdit.from" start-week="1" max-date="{{options.toDate}}" start-date="{{options.currentDateValue.toString()}}" placeholder="{{selectedTaskToEdit.from}}" bs-datepicker>
                                 </div>
                                 <div class="input-group addTaskInputGroup">
                                   <span class="input-group-addon">To:</span>
-                                  <input type="text" class="form-control" ng-model="selectedTaskToEdit.tasks[0].to" start-week="1" min-date="{{options.fromDate}}" start-date="{{options.currentDateValue.toString()}}" placeholder="{{selectedTaskToEdit.tasks[0].to}}" bs-datepicker>
+                                  <input type="text" class="form-control" ng-model="selectedTaskToEdit.to" start-week="1" min-date="{{options.fromDate}}" start-date="{{options.currentDateValue.toString()}}" placeholder="{{selectedTaskToEdit.to}}" bs-datepicker>
                                 </div>
                                 <div class="input-group addTaskInputGroup">
                                   <span class="input-group-addon">Est. from:</span>
-                                  <input type="text" class="form-control" ng-model="selectedTaskToEdit.tasks[0].est" start-week="1" max-date="{{options.toDate}}" start-date="{{options.currentDateValue.toString()}}" placeholder="{{selectedTaskToEdit.tasks[0].est}}" bs-datepicker>
+                                  <input type="text" class="form-control" ng-model="selectedTaskToEdit.est" start-week="1" max-date="{{options.toDate}}" start-date="{{options.currentDateValue.toString()}}" placeholder="{{selectedTaskToEdit.est}}" bs-datepicker>
                                 </div>
                                 <div class="input-group addTaskInputGroup">
                                   <span class="input-group-addon">Est. to:</span>
-                                  <input type="text" class="form-control" ng-model="selectedTaskToEdit.tasks[0].lct" start-week="1" min-date="{{options.fromDate}}" start-date="{{options.currentDateValue.toString()}}" placeholder="{{selectedTaskToEdit.tasks[0].lct}}" bs-datepicker>
+                                  <input type="text" class="form-control" ng-model="selectedTaskToEdit.lct" start-week="1" min-date="{{options.fromDate}}" start-date="{{options.currentDateValue.toString()}}" placeholder="{{selectedTaskToEdit.lct}}" bs-datepicker>
                                 </div>
                                 <div class="input-group">
                                   <span class="input-group-addon">Responsible:</span>
-                                  <input type="text" class="form-control" placeholder="{{selectedTaskToEdit.tasks[0].person}}" ng-model="selectedTaskToEdit.tasks[0].person">
+                                  <input type="text" class="form-control" placeholder="{{selectedTaskToEdit.person}}" ng-model="selectedTaskToEdit.person">
                                 </div>
                               </div>
                             </div>

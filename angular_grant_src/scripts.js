@@ -249,20 +249,22 @@ angular.module('angularGanttDemoApp')
 
         $scope.handleTaskIconClick = function(taskModel) {
             //alert('Icon from ' + taskModel.name + ' task has been clicked.');
-            $('#modifyTaskModal').attr('ng-bind', 'taskModel');
+            $scope.selectedTaskToEdit = taskModel;
+            $scope.selectedTaskToEdit.from = taskModel.from.toDate();
+            $scope.selectedTaskToEdit.to = taskModel.to.toDate();
+            $scope.selectedTaskToEdit.est = taskModel.est.toDate();
+            $scope.selectedTaskToEdit.lct = taskModel.lct.toDate();
+            console.log(taskModel);
             $('#modifyTaskModal').modal('show');
         };
 
         $scope.selectedTaskToEdit = null;
         $scope.handleRowIconClick = function(rowModel) {
             //alert('Icon from ' + rowModel.name + ' row has been clicked.');
-            $scope.selectedTaskToEdit = rowModel;
-            $scope.selectedTaskToEdit.tasks[0].from = rowModel.tasks[0].from.toDate();
-            $scope.selectedTaskToEdit.tasks[0].to = rowModel.tasks[0].to.toDate();
-            $scope.selectedTaskToEdit.tasks[0].est = rowModel.tasks[0].est.toDate();
-            $scope.selectedTaskToEdit.tasks[0].lct = rowModel.tasks[0].lct.toDate();
-            $('#modifyTaskModal').modal('show');
+
         };
+
+
 
         $scope.expandAll = function() {
             $scope.api.tree.expandAll();
@@ -623,7 +625,7 @@ var tasksDataForChart = [
             {
              name: 'Create concept',
              priority: 20,
-             content: '<i class="fa fa-cog" ng-click="scope.handleRowIconClick(row.model)"></i> {{task.model.name}}',
+             content: '<i class="fa fa-cog" ng-click="scope.handleTaskIconClick(task.model)"></i> {{task.model.name}}',
              color: '#F1C232',
              from: new Date(2015, 9, 10, 8, 0, 0),
              to: new Date(2015, 9, 16, 18, 0, 0),
@@ -636,7 +638,7 @@ var tasksDataForChart = [
         {
           name: 'Development',
           children: ['Sprint 1', 'Sprint 2', 'Sprint 3', 'Sprint 4'],
-          content: '<i class="fa fa-file-code-o" ng-click="scope.handleRowIconClick(row.model)"></i> {{row.model.name}}'
+          content: '<i class="fa fa-file-code-o" ng-click="scope.handleRowIconClick(task.model)"></i> {{task.model.name}}'
         },
         {name: 'Sprint 1', tasks: [
           {

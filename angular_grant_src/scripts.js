@@ -253,9 +253,14 @@ angular.module('angularGanttDemoApp')
             $('#modifyTaskModal').modal('show');
         };
 
+        $scope.selectedTaskToEdit = null;
         $scope.handleRowIconClick = function(rowModel) {
             //alert('Icon from ' + rowModel.name + ' row has been clicked.');
-            $('#modifyTaskModal').attr('ng-bind', 'rowModel');
+            $scope.selectedTaskToEdit = rowModel;
+            $scope.selectedTaskToEdit.tasks[0].from = rowModel.tasks[0].from.toDate();
+            $scope.selectedTaskToEdit.tasks[0].to = rowModel.tasks[0].to.toDate();
+            $scope.selectedTaskToEdit.tasks[0].est = rowModel.tasks[0].est.toDate();
+            $scope.selectedTaskToEdit.tasks[0].lct = rowModel.tasks[0].lct.toDate();
             $('#modifyTaskModal').modal('show');
         };
 

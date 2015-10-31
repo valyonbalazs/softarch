@@ -170,28 +170,28 @@
                                 <label class="control-label"><i class="fa fa-tasks"></i> Parent task</label><br>
                                 <div class="input-group">
                                   <span class="input-group-addon">Task name:</span>
-                                  <input type="text" class="form-control" placeholder="{{rowModel.name}}" ng-model="task.model.name">
+                                  <input type="text" class="form-control" placeholder="{{selectedTaskToEdit.name}}" ng-model="task.model.name">
                                 </div>
                                 <br/>
                                 <div class="input-group addTaskInputGroup">
                                   <span class="input-group-addon">From:</span>
-                                  <input type="text" class="form-control" ng-model="newTask.fromDate" start-week="1" max-date="{{options.toDate}}" start-date="{{options.currentDateValue.toString()}}" placeholder="newTask.fromDate" bs-datepicker>
+                                  <input type="text" class="form-control" ng-model="selectedTaskToEdit.tasks[0].from" start-week="1" max-date="{{options.toDate}}" start-date="{{options.currentDateValue.toString()}}" placeholder="{{selectedTaskToEdit.tasks[0].from}}" bs-datepicker>
                                 </div>
                                 <div class="input-group addTaskInputGroup">
                                   <span class="input-group-addon">To:</span>
-                                  <input type="text" class="form-control" ng-model="newTask.toDate" start-week="1" min-date="{{options.fromDate}}" start-date="{{options.currentDateValue.toString()}}" placeholder="newTask.toDate" bs-datepicker>
+                                  <input type="text" class="form-control" ng-model="selectedTaskToEdit.tasks[0].to" start-week="1" min-date="{{options.fromDate}}" start-date="{{options.currentDateValue.toString()}}" placeholder="{{selectedTaskToEdit.tasks[0].to}}" bs-datepicker>
                                 </div>
                                 <div class="input-group addTaskInputGroup">
                                   <span class="input-group-addon">Est. from:</span>
-                                  <input type="text" class="form-control" ng-model="newTask.fromDateEst" start-week="1" max-date="{{options.toDate}}" start-date="{{options.currentDateValue.toString()}}" placeholder="newTask.fromDateEst" bs-datepicker>
+                                  <input type="text" class="form-control" ng-model="selectedTaskToEdit.tasks[0].est" start-week="1" max-date="{{options.toDate}}" start-date="{{options.currentDateValue.toString()}}" placeholder="{{selectedTaskToEdit.tasks[0].est}}" bs-datepicker>
                                 </div>
                                 <div class="input-group addTaskInputGroup">
                                   <span class="input-group-addon">Est. to:</span>
-                                  <input type="text" class="form-control" ng-model="newTask.toDateEst" start-week="1" min-date="{{options.fromDate}}" start-date="{{options.currentDateValue.toString()}}" placeholder="newTask.toDateEst" bs-datepicker>
+                                  <input type="text" class="form-control" ng-model="selectedTaskToEdit.tasks[0].lct" start-week="1" min-date="{{options.fromDate}}" start-date="{{options.currentDateValue.toString()}}" placeholder="{{selectedTaskToEdit.tasks[0].lct}}" bs-datepicker>
                                 </div>
                                 <div class="input-group">
                                   <span class="input-group-addon">Responsible:</span>
-                                  <input type="text" class="form-control" placeholder="Responsible people" ng-model="newTask.person">
+                                  <input type="text" class="form-control" placeholder="{{selectedTaskToEdit.tasks[0].person}}" ng-model="selectedTaskToEdit.tasks[0].person">
                                 </div>
                               </div>
                             </div>

@@ -586,6 +586,28 @@ angular.module('angularGanttDemoApp')
           $('#addTaskContainer').css('display', 'none');
         };
 
+        $scope.newRisk = {
+          id: 0,
+          name: '',
+          description: '',
+          level: ''
+        };
+
+        $scope.addNewRisk = function () {
+          var riskModel = {
+            id: Math.floor(Math.random() * 10000000 * (new Date().getMilliseconds())),
+            name: $scope.newRisk.name,
+            description: $scope.newRisk.description,
+            level: $scope.newRisk.level
+          };
+
+          risksData.push(riskModel);
+          $scope.newRisk = null;
+
+          $('#addRiskModal').modal('hide');
+        };
+
+
         $scope.riskModificationElement = null;
         $scope.showRiskModal = function(riskModel) {
           var riskModel = {

@@ -37,6 +37,7 @@ Github: https://github.com/angular-gantt/angular-gantt.git
                                     '<small>'+
                                     '{{task.isMilestone() === true && getFromLabel() || getFromLabel() + \' - \' + getToLabel()}}'+
                                     '</br>{{task.model.person}}' +
+                                    '</br>{{task.model.progress}}%' +
                                     '</small>';
                 }
 

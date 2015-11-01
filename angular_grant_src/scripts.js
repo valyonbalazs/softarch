@@ -586,6 +586,21 @@ angular.module('angularGanttDemoApp')
           $('#addTaskContainer').css('display', 'none');
         };
 
+        $scope.removableTask = null;
+        $scope.deleteTaskModal = function (taskModel) {
+          $scope.removableTask = taskModel.name;
+          $('#deleteTaskModal').modal('show');
+
+        };
+        $scope.deleteTask = function () {
+          for(var key in $scope.data) {
+            if($scope.data[key].name === $scope.removableTask) {
+              delete $scope.data[key];
+              $('#deleteTaskModal').modal('hide');
+            }
+          }
+        };
+
         $scope.newRisk = {
           id: 0,
           name: '',
@@ -772,7 +787,7 @@ var tasksDataForChart = [
             {
              name: 'Create concept',
              priority: 20,
-             content: '<i class="fa fa-cog" ng-click="scope.handleTaskIconClick(task.model)"></i> {{task.model.name}}',
+             content: '<i class="fa fa-cog" ng-click="scope.handleTaskIconClick(task.model)"></i> {{task.model.name}} <i class="fa fa-trash-o" ng-click="scope.deleteTaskModal(task.model)"> </i> ',
              color: '#F1C232',
              from: new Date(2015, 9, 10, 8, 0, 0),
              to: new Date(2015, 9, 16, 18, 0, 0),

@@ -655,6 +655,19 @@ angular.module('angularGanttDemoApp')
           leader: projectData.leader,
         };
 
+        $scope.showProjectSettingsBtnState = true;
+        $scope.hideSettings = function () {
+          if(!$scope.showProjectSettingsBtnState) {
+            $("#projectProperties").show();
+            $("#taskAndRisk").show();
+            $("#viewOptions").show();
+          } else {
+              $("#projectProperties").hide();
+              $("#taskAndRisk").hide();
+              $("#viewOptions").hide();
+          }
+        };
+
 
         // -----------------------
 

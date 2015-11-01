@@ -31,6 +31,10 @@
         <div class="navbar-header">
             <a class="navbar-brand" href="#">Project Management Online</a>
         </div>
+        <div class="form-group">
+          <i class="fa fa-wrench"></i>
+          <button id="showProjectSettingsBtn" ng-click="hideSettings()" type="button" class="btn btn-default" ng-model="showProjectSettingsBtnState" bs-checkbox>Show settings panel</button>
+        </div>
     </div>
 
     <div class="container-content" ng-cloak="true">
@@ -274,7 +278,7 @@
               </div><!-- /.modal-dialog -->
             </div><!-- /.modal -->
 
-                <div class="col-lg-8 col-md-12">
+                <div id="viewOptions" class="col-lg-8 col-md-12">
                     <div class="panel-group" bs-collapse>
                         <div class="panel panel-default">
                             <div class="panel-heading">

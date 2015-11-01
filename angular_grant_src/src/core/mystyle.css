@@ -28,3 +28,7 @@
 thead>tr>td> {
   font-weight: bold;
 }
+
+.projectLabel {
+  padding-right: 3em;
+}

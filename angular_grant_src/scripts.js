@@ -637,6 +637,14 @@ angular.module('angularGanttDemoApp')
         //addRisk id generator: Math.floor(Math.random() * 10000000 * (new Date().getMilliseconds()))
 
         $scope.riskData = risksData;
+        $scope.projectData = {
+          id: projectData.id,
+          name: projectData.name,
+          leader: projectData.leader,
+          created: moment(projectData.created).format('YYYY. MMMM DD. HH:mm'),
+          lastModified: moment(projectData.lastModified).format('YYYY. MMMM DD. HH:mm')
+        };
+
 
         // -----------------------
 
@@ -710,6 +718,15 @@ angular.module('angularGanttDemoApp')
  * # Sample
  * Service in the angularGanttDemoApp.
  */
+
+var projectData =
+  {
+    id: 1,
+    name: 'Test project for softarch course',
+    leader: 'Teszt Elek',
+    created: new Date(2015, 9, 1, 8, 0, 0),
+    lastModified: new Date(2015, 10, 1, 18, 27, 0),
+  };
 
 
 var risksData = [

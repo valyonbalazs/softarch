@@ -36,12 +36,42 @@
     <div class="container-content" ng-cloak="true">
         <div class="container-fluid">
             <div class="row">
-              <div class="col-lg-2 col-md-12">
+
+              <div id="projectProperties" class="col-lg-12 col-md-12">
                   <div class="panel-group" bs-collapse>
                       <div class="panel panel-default">
                           <div class="panel-heading">
                               <h4 class="panel-title">
-                                  <a href="" bs-collapse-toggle>Tasks</a>
+                                  <a href="" bs-collapse-toggle>Project: {{projectData.name}}</a>
+                              </h4>
+                          </div>
+                          <div class="panel-collapse" bs-collapse-target>
+                              <div class="panel-body">
+                                  <div class="container-fluid">
+                                      <div class="row">
+                                          <div class="form-inline">
+                                            <div class="form-group text-center">
+                                              <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addTaskModal">Modify</button>
+                                              <label class="control-label projectLabel"><i class="fa fa-area-chart"></i> {{projectData.name}}</label>
+                                              <label class="control-label projectLabel"><i class="fa fa-child"></i> {{projectData.leader}}</label>
+                                              <label class="control-label projectLabel"><i class="fa fa-calendar-plus-o"></i> {{projectData.created}}</label>
+                                              <label class="control-label projectLabel"><i class="fa fa-calendar-check-o"></i> {{projectData.lastModified}}</label>
+                                            </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+
+              <div id="taskAndRisk" class="col-lg-2 col-md-12">
+                  <div class="panel-group" bs-collapse>
+                      <div class="panel panel-default">
+                          <div class="panel-heading">
+                              <h4 class="panel-title">
+                                  <a href="" bs-collapse-toggle>Tasks and Risks</a>
                               </h4>
                           </div>
                           <div class="panel-collapse" bs-collapse-target>

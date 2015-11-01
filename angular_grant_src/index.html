@@ -51,11 +51,11 @@
                                       <div class="row">
                                           <div class="form-inline">
                                             <div class="form-group text-center">
-                                              <button type="button" class="btn btn-default" data-toggle="modal" data-target="#addTaskModal">Modify</button>
+                                              <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modifyProjectModal">Modify</button>
                                               <label class="control-label projectLabel"><i class="fa fa-area-chart"></i> {{projectData.name}}</label>
                                               <label class="control-label projectLabel"><i class="fa fa-child"></i> {{projectData.leader}}</label>
-                                              <label class="control-label projectLabel"><i class="fa fa-calendar-plus-o"></i> {{projectData.created}}</label>
-                                              <label class="control-label projectLabel"><i class="fa fa-calendar-check-o"></i> {{projectData.lastModified}}</label>
+                                              <label class="control-label projectLabel"><i class="fa fa-calendar-plus-o"></i> Created: {{projectData.created}}</label>
+                                              <label class="control-label projectLabel"><i class="fa fa-calendar-check-o"></i> Last modified: {{projectData.lastModified}}</label>
                                             </div>
                                           </div>
                                       </div>
@@ -65,6 +65,43 @@
                       </div>
                   </div>
               </div>
+
+              <div id="modifyProjectModal" class="modal fade">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                      <h4 class="modal-title">Modify project</h4>
+                    </div>
+                    <div class="modal-body">
+                      <div class="container-fluid">
+                          <div class="row">
+                              <div class="form-inline">
+                                <div class="form-group text-center">
+                                  <label class="control-label"><i class="fa fa-tasks"></i>  {{projectData.name}}</label><br>
+                                  <div class="input-group">
+                                    <span class="input-group-addon">Project's name:</span>
+                                    <input type="text" class="form-control" placeholder="{{modifiedProjectData.name}}" ng-model="modifiedProjectData.name">
+                                  </div>
+                                  <br/>
+                                  <div class="input-group">
+                                    <span class="input-group-addon">Project's leader:</span>
+                                    <input type="text" class="form-control" placeholder="{{modifiedProjectData.leader}}" ng-model="modifiedProjectData.leader">
+                                  </div>
+                                  <br/>
+                                </div>
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <div class="btn-group">
+                          <button type="button" class="btn btn-default btn-danger" ng-click="saveModifiedProject()">Save project modification</button>
+                      </div>
+                    </div>
+                  </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+              </div><!-- /.modal -->
 
               <div id="taskAndRisk" class="col-lg-2 col-md-12">
                   <div class="panel-group" bs-collapse>

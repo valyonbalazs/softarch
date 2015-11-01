@@ -637,12 +637,22 @@ angular.module('angularGanttDemoApp')
         //addRisk id generator: Math.floor(Math.random() * 10000000 * (new Date().getMilliseconds()))
 
         $scope.riskData = risksData;
+
+        $scope.saveModifiedProject = function () {
+          $scope.projectData.name = $scope.modifiedProjectData.name;
+          $scope.projectData.leader = $scope.modifiedProjectData.leader;
+          $('#modifyProjectModal').modal('hide');
+        };
         $scope.projectData = {
           id: projectData.id,
           name: projectData.name,
           leader: projectData.leader,
           created: moment(projectData.created).format('YYYY. MMMM DD. HH:mm'),
           lastModified: moment(projectData.lastModified).format('YYYY. MMMM DD. HH:mm')
+        };
+        $scope.modifiedProjectData = {
+          name: projectData.name,
+          leader: projectData.leader,
         };
 
 

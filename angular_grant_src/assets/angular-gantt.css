@@ -352,6 +352,10 @@
   width: 85px;
 }
 
+#navbarShowBtnDiv {
+  padding-top: 8px;
+}
+
 .addTaskInputGroup {
   min-width: 80%;
 }

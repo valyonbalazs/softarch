@@ -559,7 +559,7 @@ angular.module('angularGanttDemoApp')
                   to: new Date(toDateYear, toDateMonth, toDateDay, 8, 0, 0),
                   est: new Date(fromEstDateYear, fromEstDateMonth, fromEstDateDay, 8, 0, 0),
                   lct: new Date(toDateEstYear, toDateEstMonth, toDateEstDay, 8, 0, 0),
-                  progress: 15,
+                  progress: 1,
                   person: $scope.newTask.person
                 }
               ]};
@@ -594,11 +594,22 @@ angular.module('angularGanttDemoApp')
         };
         $scope.deleteTask = function () {
           for(var key in tasksDataForChart) {
-            console.log(tasksDataForChart);
             if(tasksDataForChart[key].name === $scope.removableTask) {
               var index = key;
               var deleteCount = 1;
               tasksDataForChart.splice(index, deleteCount);
+
+              for(var key2 in tasksDataForChart) {
+                if(tasksDataForChart[key2].hasOwnProperty('children')) {
+                  for(var c in tasksDataForChart[key2].children) {
+                    if(tasksDataForChart[key2].children[c] === $scope.removableTask) {
+                      var ind = c;
+                      tasksDataForChart[key2].children.splice(ind, deleteCount);
+                      break;
+                    }
+                  }
+                }
+              }
 
               $('#deleteTaskModal').modal('hide');
               break;
@@ -809,7 +820,7 @@ var tasksDataForChart = [
         },
         {name: 'Sprint 1', tasks: [
           {
-            name: 'Product list view',
+            name: 'Sprint 1',
             content: '<i class="fa fa-cog" ng-click="scope.handleTaskIconClick(task.model)"></i> {{task.model.name}} <i class="fa fa-trash-o" ng-click="scope.deleteTaskModal(task.model)"> </i> ',
             color: '#F1C232',
             from: new Date(2015, 9, 21, 8, 0, 0),
@@ -822,7 +833,7 @@ var tasksDataForChart = [
         ]},
         {name: 'Sprint 2', tasks: [
             {
-              name: 'Order basket',
+              name: 'Sprint 2',
               content: '<i class="fa fa-cog" ng-click="scope.handleTaskIconClick(task.model)"></i> {{task.model.name}} <i class="fa fa-trash-o" ng-click="scope.deleteTaskModal(task.model)"> </i> ',
               color: '#F1C232',
               from: new Date(2015, 9, 28, 8, 0, 0),
@@ -835,7 +846,7 @@ var tasksDataForChart = [
         ]},
           {name: 'Sprint 3', tasks: [
               {
-                name: 'Checkout',
+                name: 'Sprint 3',
                 content: '<i class="fa fa-cog" ng-click="scope.handleTaskIconClick(task.model)"></i> {{task.model.name}} <i class="fa fa-trash-o" ng-click="scope.deleteTaskModal(task.model)"> </i> ',
                 color: '#F1C232',
                 from: new Date(2015, 10, 4, 8, 0, 0),
@@ -848,7 +859,7 @@ var tasksDataForChart = [
           ]},
         {name: 'Sprint 4', tasks: [
             {
-              name: 'Login & Signup & Admin Views',
+              name: 'Sprint 4',
               content: '<i class="fa fa-cog" ng-click="scope.handleTaskIconClick(task.model)"></i> {{task.model.name}} <i class="fa fa-trash-o" ng-click="scope.deleteTaskModal(task.model)"> </i> ',
               color: '#F1C232',
               from: new Date(2015, 10, 11, 8, 0, 0),

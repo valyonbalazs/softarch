@@ -247,6 +247,16 @@ angular.module('angularGanttDemoApp')
             }
         };
 
+        $scope.selectedTaskToEdit = null;
+        $scope.handleRowIconClick = function(rowModel) {
+            //alert('Icon from ' + rowModel.name + ' row has been clicked.');
+
+        };
+
+        $('.close').on('click', function () {
+          $scope.selectedTaskToEdit = null;
+        });
+
         $scope.handleTaskIconClick = function(taskModel) {
             //alert('Icon from ' + taskModel.name + ' task has been clicked.');
             $scope.selectedTaskToEdit = taskModel;
@@ -254,13 +264,14 @@ angular.module('angularGanttDemoApp')
             $scope.selectedTaskToEdit.to = taskModel.to.toDate();
             $scope.selectedTaskToEdit.est = taskModel.est.toDate();
             $scope.selectedTaskToEdit.lct = taskModel.lct.toDate();
+            $scope.selectedTaskToEdit.progress = parseInt(taskModel.progress);
+            console.log(taskModel);
             $('#modifyTaskModal').modal('show');
         };
 
         $scope.saveModifiedTask = function() {
           for(var key in tasksDataForChart) {
             if(tasksDataForChart[key].name === $scope.selectedTaskToEdit.name) {
-              console.log("belepett");
               var fromDateYear = moment($scope.selectedTaskToEdit.from).year();
               var fromDateMonth = moment($scope.selectedTaskToEdit.from).month();
               var fromDateDay = parseInt($scope.selectedTaskToEdit.from.toString().substring(8,10));
@@ -278,13 +289,13 @@ angular.module('angularGanttDemoApp')
                   {
                     name: $scope.selectedTaskToEdit.name,
                     priority: 20,
-                    content: '<i class="fa fa-cog" ng-click="scope.handleTaskIconClick(task.model)"></i> {{task.model.name}}',
+                    content: '<i class="fa fa-cog" ng-click="scope.handleTaskIconClick(task.model)"></i> {{task.model.name}} <i class="fa fa-trash-o" ng-click="scope.deleteTaskModal(task.model)"> </i> ',
                     color: '#F1C232',
                     from: new Date(fromDateYear, fromDateMonth, fromDateDay, 8, 0, 0),
                     to: new Date(toDateYear, toDateMonth, toDateDay, 8, 0, 0),
                     est: new Date(fromEstDateYear, fromEstDateMonth, fromEstDateDay, 8, 0, 0),
                     lct: new Date(toDateEstYear, toDateEstMonth, toDateEstDay, 8, 0, 0),
-                    progress: 15,
+                    progress: parseInt($scope.selectedTaskToEdit.progress),
                     person: $scope.selectedTaskToEdit.person
                   }
                 ]};
@@ -296,13 +307,6 @@ angular.module('angularGanttDemoApp')
             }
           }
         };
-
-        $scope.selectedTaskToEdit = null;
-        $scope.handleRowIconClick = function(rowModel) {
-            //alert('Icon from ' + rowModel.name + ' row has been clicked.');
-
-        };
-
 
 
         $scope.expandAll = function() {
@@ -499,7 +503,7 @@ angular.module('angularGanttDemoApp')
              {
                name: $scope.newChildTask.taskName,
                priority: 20,
-               content: '<i class="fa fa-cog" ng-click="scope.handleTaskIconClick(task.model)"></i> {{task.model.name}}',
+               content: '<i class="fa fa-cog" ng-click="scope.handleTaskIconClick(task.model)"></i> {{task.model.name}} <i class="fa fa-trash-o" ng-click="scope.deleteTaskModal(task.model)"> </i> ',
                color: '#F1C232',
                from: new Date(fromDateYear, fromDateMonth, fromDateDay, 8, 0, 0),
                to: new Date(toDateYear, toDateMonth, toDateDay, 8, 0, 0),
@@ -827,7 +831,7 @@ var tasksDataForChart = [
             to: new Date(2015, 9, 25, 15, 0, 0),
             est: new Date(2015, 9, 19, 8, 0, 0),
             lct: new Date(2015, 9, 27, 20, 0, 0),
-            progress: 25,
+            progress: 26,
             person: 'Martian Manhunter, Wonder Woman'
             }
         ]},
@@ -888,3 +892,9 @@ angular.module('angularGanttDemoApp')
         };
     })
 ;
+
+$('#ex1').slider({
+	formatter: function(value) {
+		return 'Current value: ' + value;
+	}
+});

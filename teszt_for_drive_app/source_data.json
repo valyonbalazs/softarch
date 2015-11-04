@@ -1,0 +1,96 @@
+{
+  project: {
+      id: 1,
+      name: 'Test project for softarch course',
+      leader: 'Teszt Elek',
+      created: new Date(2015, 9, 1, 8, 0, 0),
+      lastModified: new Date(2015, 10, 1, 18, 27, 0)
+    },
+  risks: [
+      {
+        id: 146435597,
+        name: 'Senior Developer leaves',
+        description: 'risk description risk description risk description risk description risk description ',
+        level: 'high'
+      },
+      {
+        id: 924857713,
+        name: 'Infrastructure failure',
+        description: 'risk description risk description risk description risk description risk description ',
+        level: 'low'
+      }
+  ],
+  tasks: [
+          {name: 'Create concept', tasks: [
+              {
+               name: 'Create concept',
+               priority: 20,
+               content: '<i class="fa fa-cog" ng-click="scope.handleTaskIconClick(task.model)"></i> {{task.model.name}} <i class="fa fa-trash-o" ng-click="scope.deleteTaskModal(task.model)"> </i> ',
+               color: '#F1C232',
+               from: new Date(2015, 9, 10, 8, 0, 0),
+               to: new Date(2015, 9, 16, 18, 0, 0),
+               est: new Date(2015, 9, 8, 8, 0, 0),
+               lct: new Date(2015, 9, 18, 20, 0, 0),
+               progress: 100,
+               person: 'Clark Kent, Bruce Wayne, Berry Allen'
+             }
+          ]},
+          {
+            name: 'Development',
+            children: ['Sprint 1', 'Sprint 2', 'Sprint 3', 'Sprint 4'],
+            content: '<i class="fa fa-file-code-o" ng-click="scope.handleRowIconClick(row.model)"></i> {{row.model.name}}'
+          },
+          {name: 'Sprint 1', tasks: [
+            {
+              name: 'Sprint 1',
+              content: '<i class="fa fa-cog" ng-click="scope.handleTaskIconClick(task.model)"></i> {{task.model.name}} <i class="fa fa-trash-o" ng-click="scope.deleteTaskModal(task.model)"> </i> ',
+              color: '#F1C232',
+              from: new Date(2015, 9, 21, 8, 0, 0),
+              to: new Date(2015, 9, 25, 15, 0, 0),
+              est: new Date(2015, 9, 19, 8, 0, 0),
+              lct: new Date(2015, 9, 27, 20, 0, 0),
+              progress: 26,
+              person: 'Martian Manhunter, Wonder Woman'
+              }
+          ]},
+          {name: 'Sprint 2', tasks: [
+              {
+                name: 'Sprint 2',
+                content: '<i class="fa fa-cog" ng-click="scope.handleTaskIconClick(task.model)"></i> {{task.model.name}} <i class="fa fa-trash-o" ng-click="scope.deleteTaskModal(task.model)"> </i> ',
+                color: '#F1C232',
+                from: new Date(2015, 9, 28, 8, 0, 0),
+                to: new Date(2015, 10, 1, 15, 0, 0),
+                est: new Date(2015, 9, 27, 8, 0, 0),
+                lct: new Date(2015, 10, 2, 20, 0, 0),
+                progress: 13,
+                person: 'Aquaman, Alfred Pennyworth'
+              }
+          ]},
+            {name: 'Sprint 3', tasks: [
+                {
+                  name: 'Sprint 3',
+                  content: '<i class="fa fa-cog" ng-click="scope.handleTaskIconClick(task.model)"></i> {{task.model.name}} <i class="fa fa-trash-o" ng-click="scope.deleteTaskModal(task.model)"> </i> ',
+                  color: '#F1C232',
+                  from: new Date(2015, 10, 4, 8, 0, 0),
+                  to: new Date(2015, 10, 8, 15, 0, 0),
+                  est: new Date(2015, 10, 2, 8, 0, 0),
+                  lct: new Date(2015, 10, 9, 20, 0, 0),
+                  progress: 12,
+                  person: 'Cyborg, Firestorm'
+                }
+            ]},
+          {name: 'Sprint 4', tasks: [
+              {
+                name: 'Sprint 4',
+                content: '<i class="fa fa-cog" ng-click="scope.handleTaskIconClick(task.model)"></i> {{task.model.name}} <i class="fa fa-trash-o" ng-click="scope.deleteTaskModal(task.model)"> </i> ',
+                color: '#F1C232',
+                from: new Date(2015, 10, 11, 8, 0, 0),
+                to: new Date(2015, 10, 15, 15, 0, 0),
+                est: new Date(2015, 10, 10, 8, 0, 0),
+                lct: new Date(2015, 10, 16, 20, 0, 0),
+                progress: 4,
+                person: 'Catwoman, Nightwing, Red Robin'
+              }
+          ]},
+      ]
+}

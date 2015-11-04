@@ -1,0 +1,38 @@
+#navbarShowBtnDiv {
+  padding-top: 8px;
+}
+
+.addTaskInputGroup {
+  min-width: 80%;
+}
+
+.form-inline .input-group .form-control,
+ .form-inline .input-group .input-group-addon,
+  .form-inline .input-group .input-group-btn {
+    width: 20em;
+}
+
+#addTaskContainer {
+  display: none;
+}
+
+#childrenTasksContainer {
+  display: none;
+}
+
+#childTasksList {
+  display: none;
+}
+
+.table-striped>tbody>tr:nth-child(odd)>td,
+.table-striped>tbody>tr:nth-child(odd)>th {
+	background-color: #e7e7e7;
+}
+
+thead>tr>td> {
+  font-weight: bold;
+}
+
+.projectLabel {
+  padding-right: 3em;
+}

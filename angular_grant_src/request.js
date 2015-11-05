@@ -22,6 +22,7 @@ function handleAuthResult(authResult) {
 }
 
 function handleAuthClick(event) {
+  console.log("google authentication");
   gapi.auth.authorize(
     {client_id: CLIENT_ID, scope: SCOPES, immediate: false},
     handleAuthResult);

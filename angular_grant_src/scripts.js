@@ -777,17 +777,29 @@ angular.module('angularGanttDemoApp')
  * Service in the angularGanttDemoApp.
  */
 
-var projectData =
+ var projectData = {};
+ var risksData = {};
+var tasksDataForChart = {};
+
+function dataLoader() {
+  console.log("betolti az adatokat");
+  projectData = getProjData();
+  risksData = getRiskData();
+  tasksDataForChart = getTaskData();
+  angular.
+}
+
+/*var projectData =
   {
     id: 1,
     name: 'Test project for softarch course',
     leader: 'Teszt Elek',
     created: new Date(2015, 9, 1, 8, 0, 0),
     lastModified: new Date(2015, 10, 1, 18, 27, 0),
-  };
+  };*/
 
 
-var risksData = [
+/*var risksData = [
     {
       id: 146435597,
       name: 'Senior Developer leaves',
@@ -800,9 +812,9 @@ var risksData = [
       description: 'risk description risk description risk description risk description risk description ',
       level: 'low'
     }
-];
+];*/
 
-var tasksDataForChart = [
+/*var tasksDataForChart = [
         {name: 'Create concept', tasks: [
             {
              name: 'Create concept',
@@ -874,7 +886,7 @@ var tasksDataForChart = [
               person: 'Catwoman, Nightwing, Red Robin'
             }
         ]},
-    ];
+    ];*/
 
 angular.module('angularGanttDemoApp')
     .service('Sample', function Sample() {

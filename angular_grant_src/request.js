@@ -16,10 +16,20 @@ function handleAuthResult(authResult) {
     //authorizeDiv.style.display = 'inline';
     console.log(authResult);
     loadDriveApi();
+    readFileWithSpecificId();
   } else {
     //authorizeDiv.style.display = 'inline';
   }
 }
+
+$( document ).ready(function() {
+    console.log( "ready!" );
+    console.log("google authentication");
+    gapi.auth.authorize(
+      {client_id: CLIENT_ID, scope: SCOPES, immediate: false},
+      handleAuthResult);
+    return false;
+});
 
 function handleAuthClick(event) {
   console.log("google authentication");
@@ -106,6 +116,10 @@ function createNewFile () {
   });
 }
 
+var contentFromDrive = undefined;
+var proj = {};
+var risk = [];
+var task = [];
 function readFileWithSpecificId() {
   var id = parse('id');
   console.log(id);
@@ -124,14 +138,14 @@ function readFileWithSpecificId() {
       var xhr2 = new XMLHttpRequest();
       xhr2.onreadystatechange = function (){
         var contentData = JSON.parse(xhr2.responseText);
-        console.log(contentData);
-        /*var h3Container = document.getElementById('contentOfJson');
-        h3Container.innerHTML = "Content of the testdata.json file: ";
-        for(var key in contentData) {
-          var node = document.createElement('h5');
-          h3Container.appendChild(node);
-          node.innerHTML = key + ': ' + contentData[key];
-        }*/
+        contentFromDrive = contentData;
+        proj = contentData.project;
+        risk = contentData.risks;
+        task = contentData.tasks;
+        console.log(proj);
+        console.log(risk);
+        console.log(task);
+        dataLoader();
       };
       xhr2.open('GET', data.downloadUrl, true);
       xhr2.setRequestHeader('Authorization', 'Bearer ' + accessToken);
@@ -148,12 +162,22 @@ function readFileWithSpecificId() {
   }
 }
 
+function getProjData() {
+  return proj;
+}
+
+function getRiskData() {
+  return risk;
+}
+
+function getTaskData() {
+  return task;
+}
+
 function parse(val) {
     var result = "Not found",
         tmp = [];
     location.search
-    //.replace ( "?", "" )
-    // this is better, there might be a question mark inside
     .substr(1)
         .split("&")
         .forEach(function (item) {

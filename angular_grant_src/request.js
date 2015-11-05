@@ -11,7 +11,7 @@ function checkAuth() {
 }
 
 function handleAuthResult(authResult) {
-  var authorizeDiv = document.getElementById('authorize-div');
+  //var authorizeDiv = document.getElementById('authorize-div');
   if (authResult && !authResult.error) {
     //authorizeDiv.style.display = 'inline';
     console.log(authResult);
@@ -39,15 +39,15 @@ function listFiles() {
     });
 
     request.execute(function(resp) {
-      appendPre('Last 100 files from your google drive:');
+      //appendPre('Last 100 files from your google drive:');
       var files = resp.items;
       if (files && files.length > 0) {
         for (var i = 0; i < files.length; i++) {
           var file = files[i];
-          appendPre('ID: ' + file.id + ' NAME: ' + file.title + '  CREATED ON: ' + file.createdDate + ' BY ' + file.lastModifyingUserName);
+          console.log('ID: ' + file.id + ' NAME: ' + file.title + '  CREATED ON: ' + file.createdDate + ' BY ' + file.lastModifyingUserName);
         }
       } else {
-        appendPre('No files found.');
+        //appendPre('No files found.');
       }
     });
 }
@@ -107,8 +107,10 @@ function createNewFile () {
 }
 
 function readFileWithSpecificId() {
+  var id = parse('id');
+  console.log(id);
   var file = {
-    downloadUrl: 'https://www.googleapis.com/drive/v2/files/' + readableFileId
+    downloadUrl: 'https://www.googleapis.com/drive/v2/files/' + id
   };
 
   if (file.downloadUrl) {
@@ -121,6 +123,7 @@ function readFileWithSpecificId() {
 
       var xhr2 = new XMLHttpRequest();
       xhr2.onreadystatechange = function (){
+        console.log(xhr2.responseText);
         var contentData = JSON.parse(xhr2.responseText);
         console.log(contentData);
         var h3Container = document.getElementById('contentOfJson');
@@ -144,4 +147,19 @@ function readFileWithSpecificId() {
   } else {
 
   }
+}
+
+function parse(val) {
+    var result = "Not found",
+        tmp = [];
+    location.search
+    //.replace ( "?", "" )
+    // this is better, there might be a question mark inside
+    .substr(1)
+        .split("&")
+        .forEach(function (item) {
+        tmp = item.split("=");
+        if (tmp[0] === val) result = decodeURIComponent(tmp[1]);
+    });
+    return result;
 }

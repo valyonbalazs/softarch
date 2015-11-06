@@ -789,7 +789,27 @@ function dataLoader($scope) {
   projectData.leader = tempProjData.leader;
   risksData = getRiskData();
   var taskDatatmp = getTaskData();
+  var newTaskToInsert = {};
   for(var k in taskDatatmp) {
+    for(var j in taskDatatmp[k].tasks) {
+      newTaskToInsert = {
+        name: taskDatatmp[k].tasks[j].name, tasks: [
+          {
+            name: taskDatatmp[k].tasks[j].name,
+            priority: parseInt(taskDatatmp[k].tasks[j].priority),
+            content: '<i class="fa fa-cog" ng-click="scope.handleTaskIconClick(task.model)"></i> {{task.model.name}} <i class="fa fa-trash-o" ng-click="scope.deleteTaskModal(task.model)"> </i> ',
+            color: '#F1C232',
+            from: eval(taskDatatmp[k].tasks[j].from),
+            to: eval(taskDatatmp[k].tasks[j].to),
+            est: eval(taskDatatmp[k].tasks[j].est),
+            lct: eval(taskDatatmp[k].tasks[j].lct),
+            progress: parseInt(taskDatatmp[k].tasks[j].progress),
+            person: taskDatatmp[k].tasks[j].person
+          }
+        ]};
+        console.log(newTaskToInsert);
+    }
+    console.log(taskDatatmp[k]);
     tasksDataForChart.push(taskDatatmp[k]);
   }
 }

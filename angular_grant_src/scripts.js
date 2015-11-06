@@ -358,6 +358,7 @@ angular.module('angularGanttDemoApp')
         };
 
         // Reload data action
+        $scope.data = [];
         $scope.load = function() {
             $scope.data = Sample.getSampleData();
             dataToRemove = undefined;
@@ -704,6 +705,7 @@ angular.module('angularGanttDemoApp')
         };
 
 
+
         // -----------------------
 
         // Event handler
@@ -777,26 +779,29 @@ angular.module('angularGanttDemoApp')
  * Service in the angularGanttDemoApp.
  */
 
- var projectData = {};
- var risksData = {};
+var risksData = [];
 var tasksDataForChart = {};
-
-function dataLoader() {
+function dataLoader($scope) {
+  console.log($scope);
   console.log("betolti az adatokat");
-  projectData = getProjData();
+  var tempProjData = getProjData();
+  projectData.name = tempProjData.name;
+  projectData.leader = tempProjData.leader;
   risksData = getRiskData();
-  tasksDataForChart = getTaskData();
-  angular.
+  var taskDatatmp = getTaskData();
+  for(var k in taskDatatmp) {
+    tasksDataForChart.push(taskDatatmp[k]);
+  }
 }
 
-/*var projectData =
+var projectData =
   {
     id: 1,
-    name: 'Test project for softarch course',
-    leader: 'Teszt Elek',
+    name: 'Test ',
+    leader: 'Béla',
     created: new Date(2015, 9, 1, 8, 0, 0),
     lastModified: new Date(2015, 10, 1, 18, 27, 0),
-  };*/
+  };
 
 
 /*var risksData = [
@@ -814,10 +819,11 @@ function dataLoader() {
     }
 ];*/
 
-/*var tasksDataForChart = [
-        {name: 'Create concept', tasks: [
+var tasksDataForChart = [
+        {name: 'First',
+          tasks: [
             {
-             name: 'Create concept',
+             name: 'First',
              priority: 20,
              content: '<i class="fa fa-cog" ng-click="scope.handleTaskIconClick(task.model)"></i> {{task.model.name}} <i class="fa fa-trash-o" ng-click="scope.deleteTaskModal(task.model)"> </i> ',
              color: '#F1C232',
@@ -828,68 +834,12 @@ function dataLoader() {
              progress: 100,
              person: 'Clark Kent, Bruce Wayne, Berry Allen'
            }
-        ]},
-        {
-          name: 'Development',
-          children: ['Sprint 1', 'Sprint 2', 'Sprint 3', 'Sprint 4'],
-          content: '<i class="fa fa-file-code-o" ng-click="scope.handleRowIconClick(row.model)"></i> {{row.model.name}}'
-        },
-        {name: 'Sprint 1', tasks: [
-          {
-            name: 'Sprint 1',
-            content: '<i class="fa fa-cog" ng-click="scope.handleTaskIconClick(task.model)"></i> {{task.model.name}} <i class="fa fa-trash-o" ng-click="scope.deleteTaskModal(task.model)"> </i> ',
-            color: '#F1C232',
-            from: new Date(2015, 9, 21, 8, 0, 0),
-            to: new Date(2015, 9, 25, 15, 0, 0),
-            est: new Date(2015, 9, 19, 8, 0, 0),
-            lct: new Date(2015, 9, 27, 20, 0, 0),
-            progress: 26,
-            person: 'Martian Manhunter, Wonder Woman'
-            }
-        ]},
-        {name: 'Sprint 2', tasks: [
-            {
-              name: 'Sprint 2',
-              content: '<i class="fa fa-cog" ng-click="scope.handleTaskIconClick(task.model)"></i> {{task.model.name}} <i class="fa fa-trash-o" ng-click="scope.deleteTaskModal(task.model)"> </i> ',
-              color: '#F1C232',
-              from: new Date(2015, 9, 28, 8, 0, 0),
-              to: new Date(2015, 10, 1, 15, 0, 0),
-              est: new Date(2015, 9, 27, 8, 0, 0),
-              lct: new Date(2015, 10, 2, 20, 0, 0),
-              progress: 13,
-              person: 'Aquaman, Alfred Pennyworth'
-            }
-        ]},
-          {name: 'Sprint 3', tasks: [
-              {
-                name: 'Sprint 3',
-                content: '<i class="fa fa-cog" ng-click="scope.handleTaskIconClick(task.model)"></i> {{task.model.name}} <i class="fa fa-trash-o" ng-click="scope.deleteTaskModal(task.model)"> </i> ',
-                color: '#F1C232',
-                from: new Date(2015, 10, 4, 8, 0, 0),
-                to: new Date(2015, 10, 8, 15, 0, 0),
-                est: new Date(2015, 10, 2, 8, 0, 0),
-                lct: new Date(2015, 10, 9, 20, 0, 0),
-                progress: 12,
-                person: 'Cyborg, Firestorm'
-              }
-          ]},
-        {name: 'Sprint 4', tasks: [
-            {
-              name: 'Sprint 4',
-              content: '<i class="fa fa-cog" ng-click="scope.handleTaskIconClick(task.model)"></i> {{task.model.name}} <i class="fa fa-trash-o" ng-click="scope.deleteTaskModal(task.model)"> </i> ',
-              color: '#F1C232',
-              from: new Date(2015, 10, 11, 8, 0, 0),
-              to: new Date(2015, 10, 15, 15, 0, 0),
-              est: new Date(2015, 10, 10, 8, 0, 0),
-              lct: new Date(2015, 10, 16, 20, 0, 0),
-              progress: 4,
-              person: 'Catwoman, Nightwing, Red Robin'
-            }
-        ]},
-    ];*/
+        ]}
+    ];
 
 angular.module('angularGanttDemoApp')
     .service('Sample', function Sample() {
+      console.log("gant loader");
         return {
             getSampleData: function() {
                 return tasksDataForChart;

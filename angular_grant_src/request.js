@@ -22,14 +22,18 @@ function handleAuthResult(authResult) {
   }
 }
 
-$( document ).ready(function() {
-    console.log( "ready!" );
-    console.log("google authentication");
-    gapi.auth.authorize(
-      {client_id: CLIENT_ID, scope: SCOPES, immediate: false},
-      handleAuthResult);
-    return false;
+$(document).ready(function(){
+  console.log( "ready!" );
+  console.log("google authentication");
+  gapi.auth.authorize(
+    {client_id: CLIENT_ID, scope: SCOPES, immediate: false},
+    handleAuthResult);
+  return false;
 });
+
+/*$( document ).ready(function() {
+
+});*/
 
 function handleAuthClick(event) {
   console.log("google authentication");
@@ -137,15 +141,22 @@ function readFileWithSpecificId() {
 
       var xhr2 = new XMLHttpRequest();
       xhr2.onreadystatechange = function (){
-        var contentData = JSON.parse(xhr2.responseText);
-        contentFromDrive = contentData;
-        proj = contentData.project;
-        risk = contentData.risks;
-        task = contentData.tasks;
-        console.log(proj);
-        console.log(risk);
-        console.log(task);
-        dataLoader();
+        if (xhr2.readyState == 4 && xhr2.status == 200)
+        {
+          if (xhr2.responseText)
+           {
+             var contentData = JSON.parse(xhr2.responseText);
+             contentFromDrive = contentData;
+             proj = contentData.project;
+             risk = contentData.risks;
+             task = contentData.tasks;
+             console.log("project data: ");console.log(proj);
+             console.log("risk data: ");console.log(risk);
+             console.log("task data: ");console.log(task);
+             dataLoader();
+            }
+         }
+
       };
       xhr2.open('GET', data.downloadUrl, true);
       xhr2.setRequestHeader('Authorization', 'Bearer ' + accessToken);

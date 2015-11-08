@@ -791,43 +791,54 @@ function dataLoader($scope) {
   var taskDatatmp = getTaskData();
   var newTaskToInsert = {};
   tasksDataForChart.splice(0,1);
+  console.log(taskDatatmp);
   for(var k in taskDatatmp) {
-    for(var j in taskDatatmp[k].tasks) {
-      var fromDateYear = moment(eval(taskDatatmp[k].tasks[j].from)).year();
-      var fromDateMonth = moment(eval(taskDatatmp[k].tasks[j].from)).month();
-      var fromDateDay = parseInt(eval(taskDatatmp[k].tasks[j].from).toString().substring(8,10));
-      var toDateYear = moment(eval(taskDatatmp[k].tasks[j].to)).year();
-      var toDateMonth = moment(eval(taskDatatmp[k].tasks[j].to)).month();
-      var toDateDay = parseInt(eval(taskDatatmp[k].tasks[j].to).toString().substring(8,10));
-      var fromEstDateYear = moment(eval(taskDatatmp[k].tasks[j].est)).year();
-      var fromEstDateMonth = moment(eval(taskDatatmp[k].tasks[j].est)).month();
-      var fromEstDateDay = parseInt(eval(taskDatatmp[k].tasks[j].est).toString().substring(8,10));
-      var toDateEstYear = moment(eval(taskDatatmp[k].tasks[j].lct)).year();
-      var toDateEstMonth = moment(eval(taskDatatmp[k].tasks[j].lct)).month();
-      var toDateEstDay = parseInt(eval(taskDatatmp[k].tasks[j].lct).toString().substring(8,10));
-
-      console.log("parsed from year: " + fromDateDay);
-      console.log("parsed to year: " + toDateDay);
-
+    if(taskDatatmp[k].hasOwnProperty('children')) {
+      var children = [];
+      for(var c in taskDatatmp[k].children) {
+        children.push(taskDatatmp[k].children[c]);
+      }
+      console.log(children);
       newTaskToInsert = {
-        name: taskDatatmp[k].tasks[j].name, tasks: [
-          {
-            name: taskDatatmp[k].tasks[j].name,
-            content: '<i class="fa fa-cog" ng-click="scope.handleTaskIconClick(task.model)"></i> {{task.model.name}} <i class="fa fa-trash-o" ng-click="scope.deleteTaskModal(task.model)"> </i> ',
-            color: '#F1C232',
-            from: new Date(fromDateYear, fromDateMonth, fromDateDay, 8, 0, 0),
-            to: new Date(toDateYear, toDateMonth, toDateDay, 8, 0, 0),
-            est: new Date(fromEstDateYear, fromEstDateMonth, fromEstDateDay, 8, 0, 0),
-            lct: new Date(toDateEstYear, toDateEstMonth, toDateEstDay, 8, 0, 0),
-            progress: parseInt(taskDatatmp[k].tasks[j].progress),
-            person: taskDatatmp[k].tasks[j].person
-          }
-        ]};
-        console.log("processed task: "); console.log(newTaskToInsert);
+        name: taskDatatmp[k].name,
+        children: children,
+        content: '{{row.model.name}}',
+      };
+        console.log(newTaskToInsert);
         tasksDataForChart.push(newTaskToInsert);
     }
-    //console.log(taskDatatmp[k]);
+    else {
+      for(var j in taskDatatmp[k].tasks) {
+        var fromDateYear = moment(eval(taskDatatmp[k].tasks[j].from)).year();
+        var fromDateMonth = moment(eval(taskDatatmp[k].tasks[j].from)).month();
+        var fromDateDay = parseInt(eval(taskDatatmp[k].tasks[j].from).toString().substring(8,10));
+        var toDateYear = moment(eval(taskDatatmp[k].tasks[j].to)).year();
+        var toDateMonth = moment(eval(taskDatatmp[k].tasks[j].to)).month();
+        var toDateDay = parseInt(eval(taskDatatmp[k].tasks[j].to).toString().substring(8,10));
+        var fromEstDateYear = moment(eval(taskDatatmp[k].tasks[j].est)).year();
+        var fromEstDateMonth = moment(eval(taskDatatmp[k].tasks[j].est)).month();
+        var fromEstDateDay = parseInt(eval(taskDatatmp[k].tasks[j].est).toString().substring(8,10));
+        var toDateEstYear = moment(eval(taskDatatmp[k].tasks[j].lct)).year();
+        var toDateEstMonth = moment(eval(taskDatatmp[k].tasks[j].lct)).month();
+        var toDateEstDay = parseInt(eval(taskDatatmp[k].tasks[j].lct).toString().substring(8,10));
 
+        newTaskToInsert = {
+          name: taskDatatmp[k].tasks[j].name, tasks: [
+            {
+              name: taskDatatmp[k].tasks[j].name,
+              content: '<i class="fa fa-cog" ng-click="scope.handleTaskIconClick(task.model)"></i> {{task.model.name}} <i class="fa fa-trash-o" ng-click="scope.deleteTaskModal(task.model)"> </i> ',
+              color: '#F1C232',
+              from: new Date(fromDateYear, fromDateMonth, fromDateDay, 8, 0, 0),
+              to: new Date(toDateYear, toDateMonth, toDateDay, 8, 0, 0),
+              est: new Date(fromEstDateYear, fromEstDateMonth, fromEstDateDay, 8, 0, 0),
+              lct: new Date(toDateEstYear, toDateEstMonth, toDateEstDay, 8, 0, 0),
+              progress: parseInt(taskDatatmp[k].tasks[j].progress),
+              person: taskDatatmp[k].tasks[j].person
+            }
+          ]};
+          tasksDataForChart.push(newTaskToInsert);
+      }
+    }
   }
 }
 

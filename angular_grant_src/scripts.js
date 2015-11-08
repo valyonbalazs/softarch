@@ -787,7 +787,7 @@ function dataLoader($scope) {
   var tempProjData = getProjData();
   projectData.name = tempProjData.name;
   projectData.leader = tempProjData.leader;
-  risksData = getRiskData();
+  var risksDataTmp = getRiskData();
   var taskDatatmp = getTaskData();
   var newTaskToInsert = {};
   tasksDataForChart.splice(0,1);
@@ -840,6 +840,17 @@ function dataLoader($scope) {
       }
     }
   }
+
+  for(var r in risksDataTmp) {
+    var newRisk = {
+      id: risksDataTmp[r].id,
+      description: risksDataTmp[r].description,
+      level: risksDataTmp[r].level,
+      name: risksDataTmp[r].name
+    }
+    risksData.push(newRisk);
+  }
+
 }
 
 var projectData =

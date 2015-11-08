@@ -790,27 +790,44 @@ function dataLoader($scope) {
   risksData = getRiskData();
   var taskDatatmp = getTaskData();
   var newTaskToInsert = {};
+  tasksDataForChart.splice(0,1);
   for(var k in taskDatatmp) {
     for(var j in taskDatatmp[k].tasks) {
+      var fromDateYear = moment(eval(taskDatatmp[k].tasks[j].from)).year();
+      var fromDateMonth = moment(eval(taskDatatmp[k].tasks[j].from)).month();
+      var fromDateDay = parseInt(eval(taskDatatmp[k].tasks[j].from).toString().substring(8,10));
+      var toDateYear = moment(eval(taskDatatmp[k].tasks[j].to)).year();
+      var toDateMonth = moment(eval(taskDatatmp[k].tasks[j].to)).month();
+      var toDateDay = parseInt(eval(taskDatatmp[k].tasks[j].to).toString().substring(8,10));
+      var fromEstDateYear = moment(eval(taskDatatmp[k].tasks[j].est)).year();
+      var fromEstDateMonth = moment(eval(taskDatatmp[k].tasks[j].est)).month();
+      var fromEstDateDay = parseInt(eval(taskDatatmp[k].tasks[j].est).toString().substring(8,10));
+      var toDateEstYear = moment(eval(taskDatatmp[k].tasks[j].lct)).year();
+      var toDateEstMonth = moment(eval(taskDatatmp[k].tasks[j].lct)).month();
+      var toDateEstDay = parseInt(eval(taskDatatmp[k].tasks[j].lct).toString().substring(8,10));
+
+      console.log("parsed from year: " + fromDateDay);
+      console.log("parsed to year: " + toDateDay);
+
       newTaskToInsert = {
         name: taskDatatmp[k].tasks[j].name, tasks: [
           {
             name: taskDatatmp[k].tasks[j].name,
-            priority: parseInt(taskDatatmp[k].tasks[j].priority),
             content: '<i class="fa fa-cog" ng-click="scope.handleTaskIconClick(task.model)"></i> {{task.model.name}} <i class="fa fa-trash-o" ng-click="scope.deleteTaskModal(task.model)"> </i> ',
             color: '#F1C232',
-            from: eval(taskDatatmp[k].tasks[j].from),
-            to: eval(taskDatatmp[k].tasks[j].to),
-            est: eval(taskDatatmp[k].tasks[j].est),
-            lct: eval(taskDatatmp[k].tasks[j].lct),
+            from: new Date(fromDateYear, fromDateMonth, fromDateDay, 8, 0, 0),
+            to: new Date(toDateYear, toDateMonth, toDateDay, 8, 0, 0),
+            est: new Date(fromEstDateYear, fromEstDateMonth, fromEstDateDay, 8, 0, 0),
+            lct: new Date(toDateEstYear, toDateEstMonth, toDateEstDay, 8, 0, 0),
             progress: parseInt(taskDatatmp[k].tasks[j].progress),
             person: taskDatatmp[k].tasks[j].person
           }
         ]};
-        console.log(newTaskToInsert);
+        console.log("processed task: "); console.log(newTaskToInsert);
+        tasksDataForChart.push(newTaskToInsert);
     }
-    console.log(taskDatatmp[k]);
-    tasksDataForChart.push(taskDatatmp[k]);
+    //console.log(taskDatatmp[k]);
+
   }
 }
 
@@ -847,10 +864,10 @@ var tasksDataForChart = [
              priority: 20,
              content: '<i class="fa fa-cog" ng-click="scope.handleTaskIconClick(task.model)"></i> {{task.model.name}} <i class="fa fa-trash-o" ng-click="scope.deleteTaskModal(task.model)"> </i> ',
              color: '#F1C232',
-             from: new Date(2015, 9, 10, 8, 0, 0),
-             to: new Date(2015, 9, 16, 18, 0, 0),
-             est: new Date(2015, 9, 8, 8, 0, 0),
-             lct: new Date(2015, 9, 18, 20, 0, 0),
+             from: new Date(2015, 10, 10, 8, 0, 0),
+             to: new Date(2015, 10, 16, 18, 0, 0),
+             est: new Date(2015, 10, 8, 8, 0, 0),
+             lct: new Date(2015, 10, 18, 20, 0, 0),
              progress: 100,
              person: 'Clark Kent, Bruce Wayne, Berry Allen'
            }

@@ -3,8 +3,8 @@
       "id": 1,
       "name": "Test project for softarch course",
       "leader": "Teszt Elek",
-      "created": "new Date(2015, 9, 1, 8, 0, 0)",
-      "lastModified": "new Date(2015, 10, 1, 18, 27, 0)"
+      "created": "new Date(2015, 10, 1, 8, 0, 0)",
+      "lastModified": "new Date(2015, 10, 8, 18, 27, 0)"
     },
   "risks": [
       {
@@ -27,10 +27,10 @@
                "name": "Create concept",
                "content": "<i class=\"fa fa-cog\" ng-click=\"scope.handleTaskIconClick(task.model)\"></i> {{task.model.name}} <i class=\"fa fa-trash-o\" ng-click=\"scope.deleteTaskModal(task.model)\"> </i> ",
                "color": "#F1C232",
-               "from": "new Date(2015, 9, 10, 8, 0, 0)",
-               "to": "new Date(2015, 9, 16, 18, 0, 0)",
-               "est": "new Date(2015, 9, 8, 8, 0, 0)",
-               "lct": "new Date(2015, 9, 18, 20, 0, 0)",
+               "from": "new Date(2015, 10, 10, 8, 0, 0)",
+               "to": "new Date(2015, 10, 16, 18, 0, 0)",
+               "est": "new Date(2015, 10, 6, 8, 0, 0)",
+               "lct": "new Date(2015, 10, 19, 20, 0, 0)",
                "progress": "100",
                "person": "Clark Kent, Bruce Wayne, Berry Allen"
              }
@@ -46,10 +46,10 @@
               "name": "Sprint 1",
               "content": "<i class=\"fa fa-cog\" ng-click=\"scope.handleTaskIconClick(task.model)\"></i> {{task.model.name}} <i class=\"fa fa-trash-o\" ng-click=\"scope.deleteTaskModal(task.model)\"> </i> ",
               "color": "#F1C232",
-              "from": "new Date(2015, 9, 10, 8, 0, 0)",
-              "to": "new Date(2015, 9, 16, 18, 0, 0)",
-              "est": "new Date(2015, 9, 8, 8, 0, 0)",
-              "lct": "new Date(2015, 9, 18, 20, 0, 0)",
+              "from": "new Date(2015, 10, 15, 8, 0, 0)",
+              "to": "new Date(2015, 10, 18, 18, 0, 0)",
+              "est": "new Date(2015, 10, 13, 8, 0, 0)",
+              "lct": "new Date(2015, 10, 21, 20, 0, 0)",
               "progress": "5",
               "person": "Clark Kent, Bruce Wayne, Berry Allen"
               }
@@ -60,10 +60,10 @@
                 "name": "Sprint 2",
                 "content": "<i class=\"fa fa-cog\" ng-click=\"scope.handleTaskIconClick(task.model)\"></i> {{task.model.name}} <i class=\"fa fa-trash-o\" ng-click=\"scope.deleteTaskModal(task.model)\"> </i> ",
                 "color": "#F1C232",
-                "from": "new Date(2015, 9, 10, 8, 0, 0)",
-                "to": "new Date(2015, 9, 16, 18, 0, 0)",
-                "est": "new Date(2015, 9, 8, 8, 0, 0)",
-                "lct": "new Date(2015, 9, 18, 20, 0, 0)",
+                "from": "new Date(2015, 10, 20, 8, 0, 0)",
+                "to": "new Date(2015, 10, 25, 18, 0, 0)",
+                "est": "new Date(2015, 10, 18, 8, 0, 0)",
+                "lct": "new Date(2015, 10, 26, 20, 0, 0)",
                 "progress": "17",
                 "person": "Clark Kent, Bruce Wayne, Berry Allen"
               }
@@ -74,10 +74,10 @@
                   "name": "Sprint 3",
                   "content": "<i class=\"fa fa-cog\" ng-click=\"scope.handleTaskIconClick(task.model)\"></i> {{task.model.name}} <i class=\"fa fa-trash-o\" ng-click=\"scope.deleteTaskModal(task.model)\"> </i> ",
                   "color": "#F1C232",
-                  "from": "new Date(2015, 9, 10, 8, 0, 0)",
-                  "to": "new Date(2015, 9, 16, 18, 0, 0)",
-                  "est": "new Date(2015, 9, 8, 8, 0, 0)",
-                  "lct": "new Date(2015, 9, 18, 20, 0, 0)",
+                  "from": "new Date(2015, 10, 22, 8, 0, 0)",
+                  "to": "new Date(2015, 10, 24, 18, 0, 0)",
+                  "est": "new Date(2015, 10, 20, 8, 0, 0)",
+                  "lct": "new Date(2015, 10, 27, 20, 0, 0)",
                   "progress": "17",
                   "person": "Clark Kent, Bruce Wayne, Berry Allen"
                 }
@@ -88,10 +88,10 @@
                 "name": "Sprint 4",
                 "content": "<i class=\"fa fa-cog\" ng-click=\"scope.handleTaskIconClick(task.model)\"></i> {{task.model.name}} <i class=\"fa fa-trash-o\" ng-click=\"scope.deleteTaskModal(task.model)\"> </i> ",
                 "color": "#F1C232",
-                "from": "new Date(2015, 9, 10, 8, 0, 0)",
-                "to": "new Date(2015, 9, 16, 18, 0, 0)",
-                "est": "new Date(2015, 9, 8, 8, 0, 0)",
-                "lct": "new Date(2015, 9, 18, 20, 0, 0)",
+                "from": "new Date(2015, 10, 26, 8, 0, 0)",
+                "to": "new Date(2015, 10, 29, 18, 0, 0)",
+                "est": "new Date(2015, 10, 24, 8, 0, 0)",
+                "lct": "new Date(2015, 10, 30, 20, 0, 0)",
                 "progress": "17",
                 "person": "Clark Kent, Bruce Wayne, Berry Allen"
               }

@@ -55,12 +55,12 @@
                                   <div class="container-fluid">
                                       <div class="row">
                                           <div class="form-inline">
-                                            <div class="form-group text-center">
+                                            <div class="form-group text-center" ng-repeat="project in projectData">
                                               <button type="button" class="btn btn-default btn-info" data-toggle="modal" data-target="#modifyProjectModal">Modify</button>
-                                              <label class="control-label projectLabel"><i class="fa fa-area-chart"></i> {{projectData.name}}</label>
-                                              <label class="control-label projectLabel"><i class="fa fa-child"></i> {{projectData.leader}}</label>
-                                              <label class="control-label projectLabel"><i class="fa fa-calendar-plus-o"></i> Created: {{projectData.created}}</label>
-                                              <label class="control-label projectLabel"><i class="fa fa-calendar-check-o"></i> Last modified: {{projectData.lastModified}}</label>
+                                              <label class="control-label projectLabel"><i class="fa fa-area-chart"></i> {{project.name}}</label>
+                                              <label class="control-label projectLabel"><i class="fa fa-child"></i> {{project.leader}}</label>
+                                              <label class="control-label projectLabel"><i class="fa fa-calendar-plus-o"></i> Created: {{project.created}}</label>
+                                              <label class="control-label projectLabel"><i class="fa fa-calendar-check-o"></i> Last modified: {{project.lastModified}}</label>
                                             </div>
                                           </div>
                                       </div>

@@ -675,20 +675,15 @@ angular.module('angularGanttDemoApp')
         $scope.riskData = risksData;
 
         $scope.saveModifiedProject = function () {
-          $scope.projectData.name = $scope.modifiedProjectData.name;
-          $scope.projectData.leader = $scope.modifiedProjectData.leader;
+          $scope.projectDataFrom.name = $scope.modifiedProjectData.name;
+          $scope.projectDataFrom.leader = $scope.modifiedProjectData.leader;
           $('#modifyProjectModal').modal('hide');
         };
-        $scope.projectData = {
-          id: projectData.id,
-          name: projectData.name,
-          leader: projectData.leader,
-          created: moment(projectData.created).format('YYYY. MMMM DD. HH:mm'),
-          lastModified: moment(projectData.lastModified).format('YYYY. MMMM DD. HH:mm')
-        };
+        $scope.projectData = projectDataFrom;
+
         $scope.modifiedProjectData = {
-          name: projectData.name,
-          leader: projectData.leader,
+          name: projectDataFrom.name,
+          leader: projectDataFrom.leader,
         };
 
         $scope.showProjectSettingsBtnState = true;
@@ -781,12 +776,11 @@ angular.module('angularGanttDemoApp')
 
 var risksData = [];
 var tasksDataForChart = {};
-function dataLoader($scope) {
-  console.log($scope);
-  console.log("betolti az adatokat");
+var projectDataFrom = [];
+function dataLoader() {
+
   var tempProjData = getProjData();
-  projectData.name = tempProjData.name;
-  projectData.leader = tempProjData.leader;
+
   var risksDataTmp = getRiskData();
   var taskDatatmp = getTaskData();
   var newTaskToInsert = {};
@@ -804,7 +798,6 @@ function dataLoader($scope) {
         children: children,
         content: '{{row.model.name}}',
       };
-        console.log(newTaskToInsert);
         tasksDataForChart.push(newTaskToInsert);
     }
     else {
@@ -851,16 +844,33 @@ function dataLoader($scope) {
     risksData.push(newRisk);
   }
 
+  var createdDateYear = moment(eval(tempProjData.created)).year();
+  var createdDateMonth = moment(eval(tempProjData.created)).month();
+  var createdDateDay = parseInt(eval(tempProjData.created).toString().substring(8,10));
+  var lastDateYear = moment(eval(tempProjData.lastModified)).year();
+  var lastDateMonth = moment(eval(tempProjData.lastModified)).month();
+  var lastDateDay = parseInt(eval(tempProjData.lastModified).toString().substring(8,10));
+
+  var newProjectData = {
+    id: tempProjData.id,
+    name: tempProjData.name,
+    leader: tempProjData.leader,
+    created: moment(new Date(createdDateYear, createdDateMonth, createdDateDay, 8, 0, 0)).format('YYYY. MMMM DD. HH:mm'),
+    lastModified: moment(new Date(lastDateYear, lastDateMonth, lastDateDay, 8, 0, 0)).format('YYYY. MMMM DD. HH:mm')
+  };
+
+  projectDataFrom.push(newProjectData);
+
 }
 
-var projectData =
+/*var projectData =
   {
     id: 1,
     name: 'Test ',
     leader: 'Béla',
     created: new Date(2015, 9, 1, 8, 0, 0),
     lastModified: new Date(2015, 10, 1, 18, 27, 0),
-  };
+  };*/
 
 
 /*var risksData = [

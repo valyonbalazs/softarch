@@ -73,21 +73,21 @@ function appendPre(message) {
 }
 
 var readableFileId;
-function createNewFile () {
+function createNewFile (insertData) {
 
   gapi.client.load('drive', 'v2', function () {
-    var insertableData = {
+    /*var insertableData = {
       taskId: 1,
       taskName: 'taskName data',
       taskDescription: 'description of the task',
       date: new Date().toJSON().slice(0,15)
-    };
+    };*/
 
     var boundary = '-------314159265358979323846';
     var delimiter = "\r\n--" + boundary + "\r\n";
     var close_delim = "\r\n--" + boundary + "--";
     var metadata = {
-      'title': 'testdata.json',
+      'title': insertData.project.name + '.json',
       'mimeType': 'application/json'
     };
     var requestBody =
@@ -97,7 +97,7 @@ function createNewFile () {
         delimiter +
         'Content-Type: ' + 'application/json' + '\r\n' +
         '\r\n' +
-        JSON.stringify(insertableData) +
+        JSON.stringify(insertData) +
         close_delim;
 
     var request = gapi.client.request({
@@ -111,10 +111,6 @@ function createNewFile () {
     });
 
     request.execute(function(resp) {
-      var h3 = document.getElementById('insertMessage');
-      var textContent = document.createTextNode('File added to google drive with id: ' + resp.id + '\n');
-      h3.appendChild(textContent);
-      readableFileId = resp.id;
       console.log(resp);
     });
   });

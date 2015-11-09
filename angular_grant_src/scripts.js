@@ -724,7 +724,6 @@ angular.module('angularGanttDemoApp')
                 content: "{{row.model.name}}",
                 children: children
               };
-              console.log(saveTaskToInsert);
               saveTasksToInsert.push(saveTaskToInsert);
             }
             else {
@@ -774,7 +773,8 @@ angular.module('angularGanttDemoApp')
             tasks: saveTasksToInsert
           };
 
-          console.log(saveJson);
+          //console.log(saveJson);
+          createNewFile(saveJson);
         };
 
 

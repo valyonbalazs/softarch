@@ -356,6 +356,10 @@
   padding-top: 8px;
 }
 
+#saveProjectDataBtn {
+  margin-right: 15px;
+}
+
 .addTaskInputGroup {
   min-width: 80%;
 }

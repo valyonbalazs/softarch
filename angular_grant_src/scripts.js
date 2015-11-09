@@ -689,14 +689,22 @@ angular.module('angularGanttDemoApp')
         $scope.showProjectSettingsBtnState = true;
         $scope.hideSettings = function () {
           if(!$scope.showProjectSettingsBtnState) {
-            $("#projectProperties").show();
             $("#taskAndRisk").show();
             $("#viewOptions").show();
           } else {
-              $("#projectProperties").hide();
               $("#taskAndRisk").hide();
               $("#viewOptions").hide();
           }
+        };
+
+        $scope.saveDataToDrive = function () {
+          var saveJson = {
+            project: projectDataFrom,
+            risks: risksData,
+            tasks: tasksDataForChart
+          };
+
+          console.log(saveJson);
         };
 
 

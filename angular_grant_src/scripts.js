@@ -698,8 +698,20 @@ angular.module('angularGanttDemoApp')
         };
 
         $scope.saveDataToDrive = function () {
+          var projDate = moment(projectDataFrom[0].created, 'YYYY. MMMM DD. HH:mm');
+          var projDateYear = projDate.year();
+          var projDateMonth = projDate.month();
+          var projDateDay = projDate.day();
+          var toSaveProjectData = {
+            id: projectDataFrom[0].id,
+            name: projectDataFrom[0].name,
+            leader: projectDataFrom[0].leader,
+            created: 'new Date(' + projDateYear + ',' + projDateMonth + ',' + projDateDay + ', 8, 0, 0)',
+            lastModified: new Date()
+          };
+
           var saveJson = {
-            project: projectDataFrom,
+            project: toSaveProjectData,
             risks: risksData,
             tasks: tasksDataForChart
           };

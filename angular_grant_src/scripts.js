@@ -925,16 +925,19 @@ function dataLoader() {
   var createdDateYear = moment(eval(tempProjData.created)).year();
   var createdDateMonth = moment(eval(tempProjData.created)).month();
   var createdDateDay = parseInt(eval(tempProjData.created).toString().substring(8,10));
-  var lastDateYear = moment(eval(tempProjData.lastModified)).year();
-  var lastDateMonth = moment(eval(tempProjData.lastModified)).month();
-  var lastDateDay = parseInt(eval(tempProjData.lastModified).toString().substring(8,10));
+  var lastDate = moment(tempProjData.lastModified);
+  var lastDateYear = lastDate.year();
+  var lastDateMonth = lastDate.month();
+  var lastDateDay = parseInt(lastDate.toString().substring(8,10));
+  var lastDateHour = lastDate.hour();
+  var lastDateMin = lastDate.minute();
 
   var newProjectData = {
     id: tempProjData.id,
     name: tempProjData.name,
     leader: tempProjData.leader,
     created: moment(new Date(createdDateYear, createdDateMonth, createdDateDay, 8, 0, 0)).format('YYYY. MMMM DD. HH:mm'),
-    lastModified: moment(new Date(lastDateYear, lastDateMonth, lastDateDay, 8, 0, 0)).format('YYYY. MMMM DD. HH:mm')
+    lastModified: moment(new Date(lastDateYear, lastDateMonth, lastDateDay, lastDateHour, lastDateMin, 0)).format('YYYY. MMMM DD. HH:mm')
   };
 
   projectDataFrom.push(newProjectData);

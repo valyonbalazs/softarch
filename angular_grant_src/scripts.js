@@ -773,7 +773,7 @@ angular.module('angularGanttDemoApp')
             tasks: saveTasksToInsert
           };
 
-          //console.log(saveJson);
+          console.log("Saving to Google Drive started...");
           createNewFile(saveJson);
         };
 

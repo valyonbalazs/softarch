@@ -112,6 +112,8 @@ function createNewFile (insertData) {
 
     request.execute(function(resp) {
       console.log(resp);
+      console.log("File was saved successfully to Google Drive!");
+      alert("The document was successfully saved to Google Drive with the name of " + insertData.project.name + '.json');
     });
   });
 }

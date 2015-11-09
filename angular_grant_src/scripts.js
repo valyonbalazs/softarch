@@ -710,10 +710,68 @@ angular.module('angularGanttDemoApp')
             lastModified: new Date()
           };
 
+
+          var saveTasksToInsert = [];
+          for(var key in tasksDataForChart) {
+            if(tasksDataForChart[key].hasOwnProperty('children')) {
+              var children = [];
+              for(var c in tasksDataForChart[key].children) {
+                children.push(tasksDataForChart[key].children[c]);
+              }
+              console.log(children);
+              var saveTaskToInsert = {
+                name: tasksDataForChart[key].name,
+                content: "{{row.model.name}}",
+                children: children
+              };
+              console.log(saveTaskToInsert);
+              saveTasksToInsert.push(saveTaskToInsert);
+            }
+            else {
+              for(var t in tasksDataForChart[key].tasks) {
+                var fromDate = moment(tasksDataForChart[key].tasks[t].from, 'ddd MMM DD YYYY HH:mm:ss');
+                var fromDateYear = fromDate.year();
+                var fromDateMonth = fromDate.month();
+                var fromDateDay = parseInt(fromDate.toString().substring(8,10));
+
+                var toDate = moment(tasksDataForChart[key].tasks[t].to, 'ddd MMM DD YYYY HH:mm:ss');
+                var toDateYear = toDate.year();
+                var toDateMonth = toDate.month();
+                var toDateDay = parseInt(toDate.toString().substring(8,10));
+
+                var fromEstDate = moment(tasksDataForChart[key].tasks[t].est, 'ddd MMM DD YYYY HH:mm:ss');
+                var fromEstDateYear = fromEstDate.year();
+                var fromEstDateMonth = fromEstDate.month();
+                var fromEstDateDay = parseInt(fromEstDate.toString().substring(8,10));
+
+                var toEstDate = moment(tasksDataForChart[key].tasks[t].lct, 'ddd MMM DD YYYY HH:mm:ss');
+                var toDateEstYear = toEstDate.year();
+                var toDateEstMonth = toEstDate.month();
+                var toDateEstDay = parseInt(toEstDate.toString().substring(8,10));
+
+                saveTaskToInsert = {
+                  name: tasksDataForChart[key].tasks[t].name, tasks: [
+                    {
+                      name: tasksDataForChart[key].tasks[t].name,
+                      content: '<i class="fa fa-cog" ng-click="scope.handleTaskIconClick(task.model)"></i> {{task.model.name}} <i class="fa fa-trash-o" ng-click="scope.deleteTaskModal(task.model)"> </i> ',
+                      color: '#F1C232',
+                      from: 'new Date(' + fromDateYear + ',' + fromDateMonth +  ',' + fromDateDay +', 8, 0, 0)',
+                      to: 'new Date(' + toDateYear + ',' + toDateMonth + ',' + toDateDay + ', 8, 0, 0)',
+                      est: 'new Date('+ fromEstDateYear + ',' + fromEstDateMonth + ',' + fromEstDateDay + ', 8, 0, 0)',
+                      lct: 'new Date(' + toDateEstYear + ',' + toDateEstMonth + ',' + toDateEstDay + ', 8, 0, 0)',
+                      progress: parseInt(tasksDataForChart[key].tasks[t].progress),
+                      person: tasksDataForChart[key].tasks[t].person
+                    }
+                ]};
+                saveTasksToInsert.push(saveTaskToInsert);
+              }
+            }
+          }
+
           var saveJson = {
             project: toSaveProjectData,
             risks: risksData,
-            tasks: tasksDataForChart
+            tasks: saveTasksToInsert
           };
 
           console.log(saveJson);

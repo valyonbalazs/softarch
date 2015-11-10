@@ -383,6 +383,7 @@ angular.module('angularGanttDemoApp')
 
         allTaskWorkDays = allTaskWorkHours/8;
         allTaskWorkDays = allTaskWorkDays.toPrecision(3);
+
         var allTaskWorkHoursObject =
         [
           {
@@ -431,6 +432,12 @@ angular.module('angularGanttDemoApp')
             "enabled": true
           }
         });
+
+        $scope.hourlyRate = 0;
+        $scope.workHours = allTaskWorkHours;
+        $scope.workHoursRate = $scope.workHours * parseInt($scope.hourlyRate);
+        console.log($scope.workHours);
+        console.log($scope.workHoursRate);
 
         };
 

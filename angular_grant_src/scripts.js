@@ -294,10 +294,13 @@ angular.module('angularGanttDemoApp')
                 var ms = moment(then).diff(moment(from));
                 var d = moment.duration(ms);
                 var s = Math.floor(d.asHours());
+                var dayFromS = s/24;
+                var dayFromSPrecised = dayFromS.toPrecision(4);
 
                 var taskTime = {
                   name: $scope.data[key].tasks[t].name,
-                  duration: s
+                  duration: s,
+                  days: dayFromSPrecised
                 };
                 tasksDuration.push(taskTime);
 
@@ -331,13 +334,14 @@ angular.module('angularGanttDemoApp')
           	"trendLines": [],
           	"graphs": [
           		{
-          			"balloonText": "Task duration:[[value]]",
+          			"balloonText": "Duration is [[value]] hours which is [[description]] days",
           			"fillAlphas": 0.8,
           			"id": "AmGraph-1",
           			"lineAlpha": 0.2,
-          			"title": "Income",
+          			"title": "Tasks",
           			"type": "column",
-          			"valueField": "duration"
+          			"valueField": "duration",
+                "descriptionField": "days"
           		}
           	],
           	"guides": [],
@@ -354,7 +358,7 @@ angular.module('angularGanttDemoApp')
           	"dataProvider": tasksDuration,
             "export": {
             	"enabled": true
-             }
+            }
           });
 
         };

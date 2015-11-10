@@ -361,6 +361,21 @@ angular.module('angularGanttDemoApp')
             }
           });
 
+          var chart = AmCharts.makeChart( "chartdiv2", {
+          "type": "pie",
+          "theme": "light",
+          "dataProvider": tasksDuration,
+          "valueField": "days",
+          "titleField": "name",
+          "outlineAlpha": 0.4,
+          "depth3D": 15,
+          "balloonText": "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> ([[percents]]%)</span>",
+          "angle": 30,
+          "export": {
+            "enabled": true
+          }
+        } );
+
         };
 
 

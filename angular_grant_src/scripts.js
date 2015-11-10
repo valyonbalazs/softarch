@@ -257,6 +257,109 @@ angular.module('angularGanttDemoApp')
           $scope.selectedTaskToEdit = null;
         });
 
+        $scope.showDataConsole = function () {
+          console.log($scope);
+
+          var smallestFrom = undefined;
+          for(var key in $scope.data) {
+            if($scope.data[key].hasOwnProperty('children')) {
+
+            }
+            else {
+              for(var t in $scope.data[key].tasks) {
+                if(smallestFrom === undefined) {
+                  smallestFrom = $scope.data[key].tasks[t].from;
+                }
+                else {
+                  var isItSmaller = moment($scope.data[key].tasks[t].from).isBefore(smallestFrom);
+                  if(isItSmaller) {
+                    smallestFrom = $scope.data[key].tasks[t].from;
+                  }
+                }
+
+              }
+            }
+          }
+
+          var biggestTo = undefined;
+          var tasksDuration = [];
+          for(var key in $scope.data) {
+            if($scope.data[key].hasOwnProperty('children')) {
+
+            }
+            else {
+              for(var t in $scope.data[key].tasks) {
+                var from  = $scope.data[key].tasks[t].from;
+                var then = $scope.data[key].tasks[t].to;
+                var ms = moment(then).diff(moment(from));
+                var d = moment.duration(ms);
+                var s = Math.floor(d.asHours());
+
+                var taskTime = {
+                  name: $scope.data[key].tasks[t].name,
+                  duration: s
+                };
+                tasksDuration.push(taskTime);
+
+                if(biggestTo === undefined) {
+                  biggestTo = $scope.data[key].tasks[t].to;
+                }
+                else {
+                  var isItBigger = moment($scope.data[key].tasks[t].to).isAfter(biggestTo);
+                  if(isItBigger) {
+                    biggestTo = $scope.data[key].tasks[t].to;
+                  }
+                }
+              }
+            }
+          }
+
+          console.log(smallestFrom);
+          console.log(biggestTo);
+          console.log(tasksDuration);
+
+          var chart = AmCharts.makeChart("chartdiv", {
+          	"type": "serial",
+               "theme": "light",
+          	"categoryField": "name",
+          	"rotate": true,
+          	"startDuration": 1,
+          	"categoryAxis": {
+          		"gridPosition": "start",
+          		"position": "left"
+          	},
+          	"trendLines": [],
+          	"graphs": [
+          		{
+          			"balloonText": "Task duration:[[value]]",
+          			"fillAlphas": 0.8,
+          			"id": "AmGraph-1",
+          			"lineAlpha": 0.2,
+          			"title": "Income",
+          			"type": "column",
+          			"valueField": "duration"
+          		}
+          	],
+          	"guides": [],
+          	"valueAxes": [
+          		{
+          			"id": "ValueAxis-1",
+          			"position": "top",
+          			"axisAlpha": 0
+          		}
+          	],
+          	"allLabels": [],
+          	"balloon": {},
+          	"titles": [],
+          	"dataProvider": tasksDuration,
+            "export": {
+            	"enabled": true
+             }
+          });
+
+        };
+
+
         $scope.handleTaskIconClick = function(taskModel) {
             //alert('Icon from ' + taskModel.name + ' task has been clicked.');
             $scope.selectedTaskToEdit = taskModel;

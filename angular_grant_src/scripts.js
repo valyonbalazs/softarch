@@ -1127,6 +1127,11 @@ function dataLoader() {
 
   projectDataFrom.push(newProjectData);
 
+  //$("#showProjectSettingsBtn").trigger("click");
+  var element1 = angular.element('button[ng-click="showDataConsole()"]');
+  element1.trigger('click');
+  element1.click();
+
 }
 
 /*var projectData =

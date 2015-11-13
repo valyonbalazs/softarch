@@ -2,6 +2,10 @@
   padding-top: 8px;
 }
 
+#saveProjectDataBtn {
+  margin-right: 15px;
+}
+
 .addTaskInputGroup {
   min-width: 80%;
 }
@@ -35,4 +39,19 @@ thead>tr>td> {
 
 .projectLabel {
   padding-right: 3em;
+}
+
+#chartdiv {
+	height		: 300px;
+	font-size	: 12px;
+}
+
+#chartdiv2 {
+	height		: 300px;
+	font-size	: 12px;
+}
+
+#chartdiv3 {
+	height		: 200px;
+	font-size	: 12px;
 }

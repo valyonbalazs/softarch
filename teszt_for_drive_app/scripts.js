@@ -257,6 +257,191 @@ angular.module('angularGanttDemoApp')
           $scope.selectedTaskToEdit = null;
         });
 
+        $scope.showDataConsole = function () {
+          console.log($scope);
+
+          var smallestFrom = undefined;
+          for(var key in $scope.data) {
+            if($scope.data[key].hasOwnProperty('children')) {
+
+            }
+            else {
+              for(var t in $scope.data[key].tasks) {
+                if(smallestFrom === undefined) {
+                  smallestFrom = $scope.data[key].tasks[t].from;
+                }
+                else {
+                  var isItSmaller = moment($scope.data[key].tasks[t].from).isBefore(smallestFrom);
+                  if(isItSmaller) {
+                    smallestFrom = $scope.data[key].tasks[t].from;
+                  }
+                }
+
+              }
+            }
+          }
+
+          var biggestTo = undefined;
+          var tasksDuration = [];
+          var allTaskWorkHours = 0.0;
+          var allTaskWorkDays = 0;
+          for(var key in $scope.data) {
+            if($scope.data[key].hasOwnProperty('children')) {
+
+            }
+            else {
+              for(var t in $scope.data[key].tasks) {
+                var from  = $scope.data[key].tasks[t].from;
+                var then = $scope.data[key].tasks[t].to;
+                var ms = moment(then).diff(moment(from));
+                var d = moment.duration(ms);
+                var s = Math.floor(d.asHours());
+                var dayFromS = s/24;
+                var dayFromSPrecised = dayFromS.toPrecision(4);
+                s = dayFromSPrecised * 8;
+                allTaskWorkHours += s;
+
+                var taskTime = {
+                  name: $scope.data[key].tasks[t].name,
+                  duration: s,
+                  days: dayFromSPrecised
+                };
+                tasksDuration.push(taskTime);
+
+                if(biggestTo === undefined) {
+                  biggestTo = $scope.data[key].tasks[t].to;
+                }
+                else {
+                  var isItBigger = moment($scope.data[key].tasks[t].to).isAfter(biggestTo);
+                  if(isItBigger) {
+                    biggestTo = $scope.data[key].tasks[t].to;
+                  }
+                }
+              }
+            }
+          }
+
+          console.log(smallestFrom);
+          console.log(biggestTo);
+          console.log(tasksDuration);
+
+          var chart = AmCharts.makeChart("chartdiv", {
+          	"type": "serial",
+               "theme": "light",
+          	"categoryField": "name",
+          	"rotate": true,
+          	"startDuration": 1,
+          	"categoryAxis": {
+          		"gridPosition": "start",
+          		"position": "left"
+          	},
+            "colors": ['#B0DE09'],
+          	"trendLines": [],
+          	"graphs": [
+          		{
+          			"balloonText": "Duration is [[value]] WORK hours which is [[description]] days",
+          			"fillAlphas": 0.8,
+          			"id": "AmGraph-1",
+          			"lineAlpha": 0.2,
+          			"title": "Tasks",
+          			"type": "column",
+          			"valueField": "duration",
+                "descriptionField": "days"
+          		}
+          	],
+          	"guides": [],
+          	"valueAxes": [
+          		{
+          			"id": "ValueAxis-1",
+          			"position": "top",
+          			"axisAlpha": 0
+          		}
+          	],
+          	"allLabels": [],
+          	"balloon": {},
+          	"titles": [],
+          	"dataProvider": tasksDuration,
+            "export": {
+            	"enabled": true
+            }
+          });
+
+          var chart = AmCharts.makeChart( "chartdiv2", {
+          "type": "pie",
+          "theme": "light",
+          "dataProvider": tasksDuration,
+          "valueField": "days",
+          "titleField": "name",
+          "outlineAlpha": 0.4,
+          "depth3D": 15,
+          "balloonText": "[[title]]<br><span style='font-size:14px'><b>[[value]]</b> days ([[percents]]%)</span>",
+          "angle": 30,
+          "export": {
+            "enabled": true
+          }
+        } );
+
+        allTaskWorkDays = allTaskWorkHours/8;
+        allTaskWorkDays = allTaskWorkDays.toPrecision(3);
+
+        var allTaskWorkHoursObject =
+        [
+          {
+            hours: allTaskWorkHours,
+            days: allTaskWorkDays
+          }
+        ];
+
+        var chart = AmCharts.makeChart("chartdiv3", {
+          "type": "serial",
+             "theme": "light",
+          "categoryField": "hours",
+          "rotate": true,
+          "startDuration": 1,
+          "categoryAxis": {
+            "gridPosition": "start",
+            "position": "left"
+          },
+          "colors": ['#FF6600'],
+          "trendLines": [],
+          "graphs": [
+            {
+              "balloonText": "Project is [[value]] WORK hours which is [[description]] days",
+              "fillAlphas": 0.8,
+              "id": "AmGraph-1",
+              "lineAlpha": 0.2,
+              "title": "Tasks",
+              "type": "column",
+              "valueField": "hours",
+              "descriptionField": "days"
+            }
+          ],
+          "guides": [],
+          "valueAxes": [
+            {
+              "id": "ValueAxis-1",
+              "position": "top",
+              "axisAlpha": 0
+            }
+          ],
+          "allLabels": [],
+          "balloon": {},
+          "titles": [],
+          "dataProvider": allTaskWorkHoursObject,
+          "export": {
+            "enabled": true
+          }
+        });
+
+        $scope.hourlyRate = 0;
+        $scope.workHours = allTaskWorkHours;
+        $scope.workHoursRate = $scope.workHours * parseInt($scope.hourlyRate);
+        console.log($scope.workHours);
+        console.log($scope.workHoursRate);
+
+        };
+
+
         $scope.handleTaskIconClick = function(taskModel) {
             //alert('Icon from ' + taskModel.name + ' task has been clicked.');
             $scope.selectedTaskToEdit = taskModel;
@@ -358,6 +543,7 @@ angular.module('angularGanttDemoApp')
         };
 
         // Reload data action
+        $scope.data = [];
         $scope.load = function() {
             $scope.data = Sample.getSampleData();
             dataToRemove = undefined;
@@ -674,34 +860,108 @@ angular.module('angularGanttDemoApp')
         $scope.riskData = risksData;
 
         $scope.saveModifiedProject = function () {
-          $scope.projectData.name = $scope.modifiedProjectData.name;
-          $scope.projectData.leader = $scope.modifiedProjectData.leader;
+          $scope.projectDataFrom.name = $scope.modifiedProjectData.name;
+          $scope.projectDataFrom.leader = $scope.modifiedProjectData.leader;
           $('#modifyProjectModal').modal('hide');
         };
-        $scope.projectData = {
-          id: projectData.id,
-          name: projectData.name,
-          leader: projectData.leader,
-          created: moment(projectData.created).format('YYYY. MMMM DD. HH:mm'),
-          lastModified: moment(projectData.lastModified).format('YYYY. MMMM DD. HH:mm')
-        };
+        $scope.projectData = projectDataFrom;
+
         $scope.modifiedProjectData = {
-          name: projectData.name,
-          leader: projectData.leader,
+          name: projectDataFrom.name,
+          leader: projectDataFrom.leader,
         };
 
         $scope.showProjectSettingsBtnState = true;
         $scope.hideSettings = function () {
           if(!$scope.showProjectSettingsBtnState) {
-            $("#projectProperties").show();
             $("#taskAndRisk").show();
             $("#viewOptions").show();
           } else {
-              $("#projectProperties").hide();
               $("#taskAndRisk").hide();
               $("#viewOptions").hide();
           }
         };
+
+        $scope.saveDataToDrive = function () {
+          var projDate = moment(projectDataFrom[0].created, 'YYYY. MMMM DD. HH:mm');
+          var projDateYear = projDate.year();
+          var projDateMonth = projDate.month();
+          var projDateDay = projDate.day();
+          var toSaveProjectData = {
+            id: projectDataFrom[0].id,
+            name: projectDataFrom[0].name,
+            leader: projectDataFrom[0].leader,
+            created: 'new Date(' + projDateYear + ',' + projDateMonth + ',' + projDateDay + ', 8, 0, 0)',
+            lastModified: new Date()
+          };
+
+
+          var saveTasksToInsert = [];
+          for(var key in tasksDataForChart) {
+            if(tasksDataForChart[key].hasOwnProperty('children')) {
+              var children = [];
+              for(var c in tasksDataForChart[key].children) {
+                children.push(tasksDataForChart[key].children[c]);
+              }
+              console.log(children);
+              var saveTaskToInsert = {
+                name: tasksDataForChart[key].name,
+                content: "{{row.model.name}}",
+                children: children
+              };
+              saveTasksToInsert.push(saveTaskToInsert);
+            }
+            else {
+              for(var t in tasksDataForChart[key].tasks) {
+                var fromDate = moment(tasksDataForChart[key].tasks[t].from, 'ddd MMM DD YYYY HH:mm:ss');
+                var fromDateYear = fromDate.year();
+                var fromDateMonth = fromDate.month();
+                var fromDateDay = parseInt(fromDate.toString().substring(8,10));
+
+                var toDate = moment(tasksDataForChart[key].tasks[t].to, 'ddd MMM DD YYYY HH:mm:ss');
+                var toDateYear = toDate.year();
+                var toDateMonth = toDate.month();
+                var toDateDay = parseInt(toDate.toString().substring(8,10));
+
+                var fromEstDate = moment(tasksDataForChart[key].tasks[t].est, 'ddd MMM DD YYYY HH:mm:ss');
+                var fromEstDateYear = fromEstDate.year();
+                var fromEstDateMonth = fromEstDate.month();
+                var fromEstDateDay = parseInt(fromEstDate.toString().substring(8,10));
+
+                var toEstDate = moment(tasksDataForChart[key].tasks[t].lct, 'ddd MMM DD YYYY HH:mm:ss');
+                var toDateEstYear = toEstDate.year();
+                var toDateEstMonth = toEstDate.month();
+                var toDateEstDay = parseInt(toEstDate.toString().substring(8,10));
+
+                saveTaskToInsert = {
+                  name: tasksDataForChart[key].tasks[t].name, tasks: [
+                    {
+                      name: tasksDataForChart[key].tasks[t].name,
+                      content: '<i class="fa fa-cog" ng-click="scope.handleTaskIconClick(task.model)"></i> {{task.model.name}} <i class="fa fa-trash-o" ng-click="scope.deleteTaskModal(task.model)"> </i> ',
+                      color: '#F1C232',
+                      from: 'new Date(' + fromDateYear + ',' + fromDateMonth +  ',' + fromDateDay +', 8, 0, 0)',
+                      to: 'new Date(' + toDateYear + ',' + toDateMonth + ',' + toDateDay + ', 8, 0, 0)',
+                      est: 'new Date('+ fromEstDateYear + ',' + fromEstDateMonth + ',' + fromEstDateDay + ', 8, 0, 0)',
+                      lct: 'new Date(' + toDateEstYear + ',' + toDateEstMonth + ',' + toDateEstDay + ', 8, 0, 0)',
+                      progress: parseInt(tasksDataForChart[key].tasks[t].progress),
+                      person: tasksDataForChart[key].tasks[t].person
+                    }
+                ]};
+                saveTasksToInsert.push(saveTaskToInsert);
+              }
+            }
+          }
+
+          var saveJson = {
+            project: toSaveProjectData,
+            risks: risksData,
+            tasks: saveTasksToInsert
+          };
+
+          console.log("Saving to Google Drive started...");
+          createNewFile(saveJson);
+        };
+
 
 
         // -----------------------
@@ -777,17 +1037,114 @@ angular.module('angularGanttDemoApp')
  * Service in the angularGanttDemoApp.
  */
 
-var projectData =
-  {
-    id: 1,
-    name: 'Test project for softarch course',
-    leader: 'Teszt Elek',
-    created: new Date(2015, 9, 1, 8, 0, 0),
-    lastModified: new Date(2015, 10, 1, 18, 27, 0),
+var risksData = [];
+var tasksDataForChart = {};
+var projectDataFrom = [];
+function dataLoader() {
+
+  var tempProjData = getProjData();
+
+  var risksDataTmp = getRiskData();
+  var taskDatatmp = getTaskData();
+  var newTaskToInsert = {};
+  tasksDataForChart.splice(0,1);
+  console.log(taskDatatmp);
+  for(var k in taskDatatmp) {
+    if(taskDatatmp[k].hasOwnProperty('children')) {
+      var children = [];
+      for(var c in taskDatatmp[k].children) {
+        children.push(taskDatatmp[k].children[c]);
+      }
+      console.log(children);
+      newTaskToInsert = {
+        name: taskDatatmp[k].name,
+        children: children,
+        content: '{{row.model.name}}',
+      };
+        tasksDataForChart.push(newTaskToInsert);
+    }
+    else {
+      for(var j in taskDatatmp[k].tasks) {
+        var fromDateYear = moment(eval(taskDatatmp[k].tasks[j].from)).year();
+        var fromDateMonth = moment(eval(taskDatatmp[k].tasks[j].from)).month();
+        var fromDateDay = parseInt(eval(taskDatatmp[k].tasks[j].from).toString().substring(8,10));
+        var toDateYear = moment(eval(taskDatatmp[k].tasks[j].to)).year();
+        var toDateMonth = moment(eval(taskDatatmp[k].tasks[j].to)).month();
+        var toDateDay = parseInt(eval(taskDatatmp[k].tasks[j].to).toString().substring(8,10));
+        var fromEstDateYear = moment(eval(taskDatatmp[k].tasks[j].est)).year();
+        var fromEstDateMonth = moment(eval(taskDatatmp[k].tasks[j].est)).month();
+        var fromEstDateDay = parseInt(eval(taskDatatmp[k].tasks[j].est).toString().substring(8,10));
+        var toDateEstYear = moment(eval(taskDatatmp[k].tasks[j].lct)).year();
+        var toDateEstMonth = moment(eval(taskDatatmp[k].tasks[j].lct)).month();
+        var toDateEstDay = parseInt(eval(taskDatatmp[k].tasks[j].lct).toString().substring(8,10));
+
+        newTaskToInsert = {
+          name: taskDatatmp[k].tasks[j].name, tasks: [
+            {
+              name: taskDatatmp[k].tasks[j].name,
+              content: '<i class="fa fa-cog" ng-click="scope.handleTaskIconClick(task.model)"></i> {{task.model.name}} <i class="fa fa-trash-o" ng-click="scope.deleteTaskModal(task.model)"> </i> ',
+              color: '#F1C232',
+              from: new Date(fromDateYear, fromDateMonth, fromDateDay, 8, 0, 0),
+              to: new Date(toDateYear, toDateMonth, toDateDay, 8, 0, 0),
+              est: new Date(fromEstDateYear, fromEstDateMonth, fromEstDateDay, 8, 0, 0),
+              lct: new Date(toDateEstYear, toDateEstMonth, toDateEstDay, 8, 0, 0),
+              progress: parseInt(taskDatatmp[k].tasks[j].progress),
+              person: taskDatatmp[k].tasks[j].person
+            }
+          ]};
+          tasksDataForChart.push(newTaskToInsert);
+      }
+    }
+  }
+
+  for(var r in risksDataTmp) {
+    var newRisk = {
+      id: risksDataTmp[r].id,
+      description: risksDataTmp[r].description,
+      level: risksDataTmp[r].level,
+      name: risksDataTmp[r].name
+    }
+    risksData.push(newRisk);
+  }
+
+  var createdDateYear = moment(eval(tempProjData.created)).year();
+  var createdDateMonth = moment(eval(tempProjData.created)).month();
+  var createdDateDay = parseInt(eval(tempProjData.created).toString().substring(8,10));
+  var lastDate = moment(tempProjData.lastModified);
+  var lastDateYear = lastDate.year();
+  var lastDateMonth = lastDate.month();
+  var lastDateDay = parseInt(lastDate.toString().substring(8,10));
+  var lastDateHour = lastDate.hour();
+  var lastDateMin = lastDate.minute();
+
+  var newProjectData = {
+    id: tempProjData.id,
+    name: tempProjData.name,
+    leader: tempProjData.leader,
+    created: moment(new Date(createdDateYear, createdDateMonth, createdDateDay, 8, 0, 0)).format('YYYY. MMMM DD. HH:mm'),
+    lastModified: moment(new Date(lastDateYear, lastDateMonth, lastDateDay, lastDateHour, lastDateMin, 0)).format('YYYY. MMMM DD. HH:mm')
   };
 
+  projectDataFrom.push(newProjectData);
 
-var risksData = [
+  //$("#showProjectSettingsBtn").trigger("click");
+  var element1 = angular.element('button[ng-click="showDataConsole()"]');
+  element1.trigger('click');
+  element1.click();
+
+}
+
+/*var projectData =
+  {
+    id: 1,
+    name: 'Test ',
+    leader: 'Béla',
+    created: new Date(2015, 9, 1, 8, 0, 0),
+    lastModified: new Date(2015, 10, 1, 18, 27, 0),
+  };*/
+
+
+/*var risksData = [
     {
       id: 146435597,
       name: 'Senior Developer leaves',
@@ -800,84 +1157,29 @@ var risksData = [
       description: 'risk description risk description risk description risk description risk description ',
       level: 'low'
     }
-];
+];*/
 
 var tasksDataForChart = [
-        {name: 'Create concept', tasks: [
+        {name: 'First',
+          tasks: [
             {
-             name: 'Create concept',
+             name: 'First',
              priority: 20,
              content: '<i class="fa fa-cog" ng-click="scope.handleTaskIconClick(task.model)"></i> {{task.model.name}} <i class="fa fa-trash-o" ng-click="scope.deleteTaskModal(task.model)"> </i> ',
              color: '#F1C232',
-             from: new Date(2015, 9, 10, 8, 0, 0),
-             to: new Date(2015, 9, 16, 18, 0, 0),
-             est: new Date(2015, 9, 8, 8, 0, 0),
-             lct: new Date(2015, 9, 18, 20, 0, 0),
+             from: new Date(2015, 10, 10, 8, 0, 0),
+             to: new Date(2015, 10, 16, 18, 0, 0),
+             est: new Date(2015, 10, 8, 8, 0, 0),
+             lct: new Date(2015, 10, 18, 20, 0, 0),
              progress: 100,
              person: 'Clark Kent, Bruce Wayne, Berry Allen'
            }
-        ]},
-        {
-          name: 'Development',
-          children: ['Sprint 1', 'Sprint 2', 'Sprint 3', 'Sprint 4'],
-          content: '<i class="fa fa-file-code-o" ng-click="scope.handleRowIconClick(row.model)"></i> {{row.model.name}}'
-        },
-        {name: 'Sprint 1', tasks: [
-          {
-            name: 'Sprint 1',
-            content: '<i class="fa fa-cog" ng-click="scope.handleTaskIconClick(task.model)"></i> {{task.model.name}} <i class="fa fa-trash-o" ng-click="scope.deleteTaskModal(task.model)"> </i> ',
-            color: '#F1C232',
-            from: new Date(2015, 9, 21, 8, 0, 0),
-            to: new Date(2015, 9, 25, 15, 0, 0),
-            est: new Date(2015, 9, 19, 8, 0, 0),
-            lct: new Date(2015, 9, 27, 20, 0, 0),
-            progress: 26,
-            person: 'Martian Manhunter, Wonder Woman'
-            }
-        ]},
-        {name: 'Sprint 2', tasks: [
-            {
-              name: 'Sprint 2',
-              content: '<i class="fa fa-cog" ng-click="scope.handleTaskIconClick(task.model)"></i> {{task.model.name}} <i class="fa fa-trash-o" ng-click="scope.deleteTaskModal(task.model)"> </i> ',
-              color: '#F1C232',
-              from: new Date(2015, 9, 28, 8, 0, 0),
-              to: new Date(2015, 10, 1, 15, 0, 0),
-              est: new Date(2015, 9, 27, 8, 0, 0),
-              lct: new Date(2015, 10, 2, 20, 0, 0),
-              progress: 13,
-              person: 'Aquaman, Alfred Pennyworth'
-            }
-        ]},
-          {name: 'Sprint 3', tasks: [
-              {
-                name: 'Sprint 3',
-                content: '<i class="fa fa-cog" ng-click="scope.handleTaskIconClick(task.model)"></i> {{task.model.name}} <i class="fa fa-trash-o" ng-click="scope.deleteTaskModal(task.model)"> </i> ',
-                color: '#F1C232',
-                from: new Date(2015, 10, 4, 8, 0, 0),
-                to: new Date(2015, 10, 8, 15, 0, 0),
-                est: new Date(2015, 10, 2, 8, 0, 0),
-                lct: new Date(2015, 10, 9, 20, 0, 0),
-                progress: 12,
-                person: 'Cyborg, Firestorm'
-              }
-          ]},
-        {name: 'Sprint 4', tasks: [
-            {
-              name: 'Sprint 4',
-              content: '<i class="fa fa-cog" ng-click="scope.handleTaskIconClick(task.model)"></i> {{task.model.name}} <i class="fa fa-trash-o" ng-click="scope.deleteTaskModal(task.model)"> </i> ',
-              color: '#F1C232',
-              from: new Date(2015, 10, 11, 8, 0, 0),
-              to: new Date(2015, 10, 15, 15, 0, 0),
-              est: new Date(2015, 10, 10, 8, 0, 0),
-              lct: new Date(2015, 10, 16, 20, 0, 0),
-              progress: 4,
-              person: 'Catwoman, Nightwing, Red Robin'
-            }
-        ]},
+        ]}
     ];
 
 angular.module('angularGanttDemoApp')
     .service('Sample', function Sample() {
+      console.log("gant loader");
         return {
             getSampleData: function() {
                 return tasksDataForChart;

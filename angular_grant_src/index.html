@@ -499,12 +499,12 @@
 
                               </div>
                               <div id="chartdiv3" class="col-lg-6 col-md-6">
-
-                              </div>
-                              <div id="chartdiv4" class="col-lg-6 col-md-6">
                                 <h3>The project is about <strong>{{workHours}}</strong> work hours ({{workHours/8}} work days).</h3>
                                 <input type="text" ng-model="hourlyRate" value="{{hourlyRate}}" > HUF / workhour
                                 <h4>All cost is <strong>{{ workHours * hourlyRate | currency:"HUF " }}</strong></h4>
+                              </div>
+                              <div id="chartdiv4" class="col-lg-6 col-md-6" ng-repeat="t in tasksDuration">
+                                <h4>{{t.name}} is <strong>{{t.duration}}</strong> work hours = {{t.duration * hourlyRate | currency:"HUF "}}</h4>
                               </div>
                           </div>
                       </div>

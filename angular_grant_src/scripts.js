@@ -257,8 +257,9 @@ angular.module('angularGanttDemoApp')
           $scope.selectedTaskToEdit = null;
         });
 
+        $scope.taskDurations = [];
+        $scope.tasksDuration = [];
         $scope.showDataConsole = function () {
-          console.log($scope);
 
           var smallestFrom = undefined;
           for(var key in $scope.data) {
@@ -266,6 +267,7 @@ angular.module('angularGanttDemoApp')
 
             }
             else {
+
               for(var t in $scope.data[key].tasks) {
                 if(smallestFrom === undefined) {
                   smallestFrom = $scope.data[key].tasks[t].from;
@@ -276,7 +278,6 @@ angular.module('angularGanttDemoApp')
                     smallestFrom = $scope.data[key].tasks[t].from;
                   }
                 }
-
               }
             }
           }
@@ -320,7 +321,7 @@ angular.module('angularGanttDemoApp')
               }
             }
           }
-
+          $scope.tasksDuration = tasksDuration;
           console.log(smallestFrom);
           console.log(biggestTo);
           console.log(tasksDuration);
@@ -392,50 +393,13 @@ angular.module('angularGanttDemoApp')
           }
         ];
 
-        var chart = AmCharts.makeChart("chartdiv3", {
-          "type": "serial",
-             "theme": "light",
-          "categoryField": "hours",
-          "rotate": true,
-          "startDuration": 1,
-          "categoryAxis": {
-            "gridPosition": "start",
-            "position": "left"
-          },
-          "colors": ['#FF6600'],
-          "trendLines": [],
-          "graphs": [
-            {
-              "balloonText": "Project is [[value]] WORK hours which is [[description]] days",
-              "fillAlphas": 0.8,
-              "id": "AmGraph-1",
-              "lineAlpha": 0.2,
-              "title": "Tasks",
-              "type": "column",
-              "valueField": "hours",
-              "descriptionField": "days"
-            }
-          ],
-          "guides": [],
-          "valueAxes": [
-            {
-              "id": "ValueAxis-1",
-              "position": "top",
-              "axisAlpha": 0
-            }
-          ],
-          "allLabels": [],
-          "balloon": {},
-          "titles": [],
-          "dataProvider": allTaskWorkHoursObject,
-          "export": {
-            "enabled": true
-          }
-        });
 
         $scope.hourlyRate = 0;
         $scope.workHours = allTaskWorkHours;
         $scope.workHoursRate = $scope.workHours * parseInt($scope.hourlyRate);
+
+        console.log($scope.tasksDuration);
+
         console.log($scope.workHours);
         console.log($scope.workHoursRate);
 

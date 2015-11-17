@@ -126,7 +126,8 @@ function readFileWithSpecificId() {
   var id = parse('id');
   console.log(id);
   var file = {
-    downloadUrl: 'https://www.googleapis.com/drive/v2/files/' + id
+    //downloadUrl: 'https://www.googleapis.com/drive/v2/files/' + id
+	downloadUrl: 'https://www.googleapis.com/drive/v2/files/' + id + '?key=AIzaSyBrsgI3xfmu9XAvapNHcmZzwAWmVJEyWnw'
   };
 
   if (file.downloadUrl) {

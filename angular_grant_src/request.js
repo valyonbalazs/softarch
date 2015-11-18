@@ -1,4 +1,4 @@
-var CLIENT_ID = '268864776090-ltnggc4pcsd411f9ngbi3008ogkdbb34.apps.googleusercontent.com';
+var CLIENT_ID = '7699282553-qq2be7q08obmtl0d2897guvmepd9cnv2.apps.googleusercontent.com';
 var SCOPES = ['https://www.googleapis.com/auth/drive.metadata.readonly'];
 
 function checkAuth() {
@@ -127,7 +127,7 @@ function readFileWithSpecificId() {
   console.log(id);
   var file = {
     //downloadUrl: 'https://www.googleapis.com/drive/v2/files/' + id
-	downloadUrl: 'https://www.googleapis.com/drive/v2/files/' + id + '?key=AIzaSyBrsgI3xfmu9XAvapNHcmZzwAWmVJEyWnw'
+	downloadUrl: 'https://www.googleapis.com/drive/v2/files/' + id + '?key=AIzaSyAJbel1_R7JkRVo6eGq7AcwFEOJJlqbJ44'
   };
 
   if (file.downloadUrl) {
@@ -137,6 +137,7 @@ function readFileWithSpecificId() {
     xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
     xhr.onload = function() {
       var data = JSON.parse(xhr.responseText);
+	  console.log('XHR!!!!!!! '+xhr.responseText);
 
       var xhr2 = new XMLHttpRequest();
       xhr2.onreadystatechange = function (){
@@ -145,6 +146,7 @@ function readFileWithSpecificId() {
           if (xhr2.responseText)
            {
              var contentData = JSON.parse(xhr2.responseText);
+			 console.log('XHR2!!!!!!! '+xhr2.responseText);
              contentFromDrive = contentData;
              proj = contentData.project;
              risk = contentData.risks;

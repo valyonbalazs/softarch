@@ -259,6 +259,10 @@ angular.module('angularGanttDemoApp')
 
         $scope.taskDurations = [];
         $scope.tasksDuration = [];
+        $scope.allAvailableHours = 0;
+        $scope.allSpareHours = 0;
+        $scope.allRequiredHours = 0;
+        $scope.allCostsWithSpareTime = 0;
         $scope.showDataConsole = function () {
 
           var smallestFrom = undefined;
@@ -301,11 +305,26 @@ angular.module('angularGanttDemoApp')
                 var dayFromSPrecised = dayFromS.toPrecision(4);
                 s = dayFromSPrecised * 8;
                 allTaskWorkHours += s;
+                $scope.allRequiredHours += s;
+
+                var est  = $scope.data[key].tasks[t].est;
+                var lct = $scope.data[key].tasks[t].lct;
+                var estms = moment(lct).diff(moment(est));
+                var estd = moment.duration(estms);
+                var ests = Math.floor(estd.asHours());
+                var estDayFromS = ests/24;
+                var estDayFromSPrecised = estDayFromS.toPrecision(4);
+                ests = estDayFromSPrecised * 8;
+                var spareTime = ests - s;
+                $scope.allAvailableHours += ests;
+                $scope.allSpareHours += spareTime;
 
                 var taskTime = {
                   name: $scope.data[key].tasks[t].name,
                   duration: s,
-                  days: dayFromSPrecised
+                  days: dayFromSPrecised,
+                  allTime: ests,
+                  spare: spareTime
                 };
                 tasksDuration.push(taskTime);
 

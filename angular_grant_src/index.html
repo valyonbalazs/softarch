@@ -503,8 +503,25 @@
                                 <input type="text" ng-model="hourlyRate" value="{{hourlyRate}}" > HUF / workhour
                                 <h4>All cost is <strong>{{ workHours * hourlyRate | currency:"HUF " }}</strong></h4>
                               </div>
-                              <div id="chartdiv4" class="col-lg-6 col-md-6" ng-repeat="t in tasksDuration">
-                                <h4>{{t.name}} is <strong>{{t.duration}}</strong> work hours = {{t.duration * hourlyRate | currency:"HUF "}}</h4>
+                              <div id="chartdiv4" class="col-lg-6 col-md-6" >
+                                <!--<h4>To complete <strong>{{t.name}}</strong> {{t.allTime}} is available, it needs <strong>{{t.duration}}</strong> work hours, spare time is <strong>{{t.spare}}</strong> = {{t.duration * hourlyRate | currency:"HUF "}}</h4>-->
+                                <table class="table table-stripped center">
+                                  <thead>
+                                    <tr>
+                                      <th>Name</th><th>Available hours</th><th>Required hours</th><th>Spare hours</th><th>Costs</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody ng-repeat="t in tasksDuration">
+                                    <tr>
+                                      <td>{{t.name}}</td><td>{{t.allTime}}</td><td>{{t.duration}}</td><td>{{t.spare}}</td><td><strong>{{t.duration * hourlyRate | currency:"HUF "}}</strong></td>
+                                    </tr>
+                                  </tbody>
+                                  <tfoot>
+                                    <tr>
+                                      <td><strong>ALL</strong></td><td>{{allAvailableHours}}</td><td>{{allRequiredHours}}</td><td>{{allSpareHours}}</td><td><strong>&sum; = {{ workHours * hourlyRate | currency:"HUF " }}</strong></td>
+                                    </tr>
+                                  </tfoot>
+                                </table>
                               </div>
                           </div>
                       </div>

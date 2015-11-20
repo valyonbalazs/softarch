@@ -144,11 +144,11 @@
                                     <input type="text" class="form-control" ng-model="newTask.toDate" start-week="1" min-date="{{options.fromDate}}" start-date="{{options.currentDateValue.toString()}}" placeholder="To" bs-datepicker>
                                   </div>
                                   <div class="input-group addTaskInputGroup">
-                                    <span class="input-group-addon">Est. from:</span>
+                                    <span class="input-group-addon">Earliest Start Time (EST):</span>
                                     <input type="text" class="form-control" ng-model="newTask.fromDateEst" start-week="1" max-date="{{options.toDate}}" start-date="{{options.currentDateValue.toString()}}" placeholder="Estimation from" bs-datepicker>
                                   </div>
                                   <div class="input-group addTaskInputGroup">
-                                    <span class="input-group-addon">Est. to:</span>
+                                    <span class="input-group-addon">Last Complition Time (LST):</span>
                                     <input type="text" class="form-control" ng-model="newTask.toDateEst" start-week="1" min-date="{{options.fromDate}}" start-date="{{options.currentDateValue.toString()}}" placeholder="Estimation to" bs-datepicker>
                                   </div>
                                   <div class="input-group">
@@ -229,11 +229,11 @@
                                   <input type="text" class="form-control" ng-model="selectedTaskToEdit.to" start-week="1" min-date="{{options.fromDate}}" start-date="{{options.currentDateValue.toString()}}" placeholder="{{selectedTaskToEdit.to}}" bs-datepicker>
                                 </div>
                                 <div class="input-group addTaskInputGroup">
-                                  <span class="input-group-addon">Est. from:</span>
+                                  <span class="input-group-addon">Earliest Start time (EST):</span>
                                   <input type="text" class="form-control" ng-model="selectedTaskToEdit.est" start-week="1" max-date="{{options.toDate}}" start-date="{{options.currentDateValue.toString()}}" placeholder="{{selectedTaskToEdit.est}}" bs-datepicker>
                                 </div>
                                 <div class="input-group addTaskInputGroup">
-                                  <span class="input-group-addon">Est. to:</span>
+                                  <span class="input-group-addon">Last complition time (LST):</span>
                                   <input type="text" class="form-control" ng-model="selectedTaskToEdit.lct" start-week="1" min-date="{{options.fromDate}}" start-date="{{options.currentDateValue.toString()}}" placeholder="{{selectedTaskToEdit.lct}}" bs-datepicker>
                                 </div>
                                 <div class="input-group">
@@ -501,7 +501,10 @@
                               <div id="chartdiv3" class="col-lg-6 col-md-6">
                                 <h3>The project is about <strong>{{workHours}}</strong> work hours ({{workHours/8}} work days).</h3>
                                 <input type="text" ng-model="hourlyRate" value="{{hourlyRate}}" > HUF / workhour
-                                <h4>All cost is <strong>{{ workHours * hourlyRate | currency:"HUF " }}</strong></h4>
+                                <h4>All work hours cost is <strong>{{ workHours * hourlyRate | currency:"HUF " }}.</strong></h4>
+                                <br/>
+                                <h4>The available amount of hours for the project is <strong>{{allAvailableHours}}</strong> ({{allAvailableHours/8}} work days).</h4>
+                                <h4>The available amount of spare hours for the project is <strong>{{allSpareHours}}</strong> ({{allSpareHours/8}} work days).</h4>
                               </div>
                               <div id="chartdiv4" class="col-lg-6 col-md-6" >
                                 <!--<h4>To complete <strong>{{t.name}}</strong> {{t.allTime}} is available, it needs <strong>{{t.duration}}</strong> work hours, spare time is <strong>{{t.spare}}</strong> = {{t.duration * hourlyRate | currency:"HUF "}}</h4>-->
@@ -519,6 +522,9 @@
                                   <tfoot>
                                     <tr>
                                       <td><strong>ALL</strong></td><td>{{allAvailableHours}}</td><td>{{allRequiredHours}}</td><td>{{allSpareHours}}</td><td><strong>&sum; = {{ workHours * hourlyRate | currency:"HUF " }}</strong></td>
+                                    </tr>
+                                    <tr>
+                                      <td><strong>WOULD COST</strong></td><td>&sum; = {{ allAvailableHours * hourlyRate | currency:"HUF " }}</td><td>&sum; = {{ allRequiredHours * hourlyRate | currency:"HUF " }}</td><td>&sum; = {{ allSpareHours * hourlyRate | currency:"HUF " }}</td><td></td>
                                     </tr>
                                   </tfoot>
                                 </table>

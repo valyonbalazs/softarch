@@ -257,14 +257,14 @@ angular.module('angularGanttDemoApp')
           $scope.selectedTaskToEdit = null;
         });
 
-        $scope.taskDurations = [];
-        $scope.tasksDuration = [];
-        $scope.allAvailableHours = 0;
-        $scope.allSpareHours = 0;
-        $scope.allRequiredHours = 0;
-        $scope.allCostsWithSpareTime = 0;
-        $scope.showDataConsole = function () {
 
+        $scope.showDataConsole = function () {
+          $scope.taskDurations = [];
+          $scope.tasksDuration = [];
+          $scope.allAvailableHours = 0;
+          $scope.allSpareHours = 0;
+          $scope.allRequiredHours = 0;
+          $scope.allCostsWithSpareTime = 0;
           var smallestFrom = undefined;
           for(var key in $scope.data) {
             if($scope.data[key].hasOwnProperty('children')) {
@@ -374,6 +374,7 @@ angular.module('angularGanttDemoApp')
           		{
           			"id": "ValueAxis-1",
           			"position": "top",
+                "minimum": 0,
           			"axisAlpha": 0
           		}
           	],

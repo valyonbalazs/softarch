@@ -2,7 +2,7 @@
 var CLIENT_ID = '268864776090-ltnggc4pcsd411f9ngbi3008ogkdbb34.apps.googleusercontent.com'; //regi
 var SCOPES = ['https://www.googleapis.com/auth/drive.metadata.readonly',
               'https://www.googleapis.com/auth/drive.metadata',
-              'https://www.googleapis.com/auth/drive.file'
+              'https://www.googleapis.com/auth/drive'
 ];
 
 function checkAuth() {
@@ -131,9 +131,10 @@ function readFileWithSpecificId() {
   console.log(id);
   var file = {
     downloadUrl: 'https://www.googleapis.com/drive/v2/files/' + id
+    //downloadUrl: 'https://www.googleapis.com/drive/v2/files/' + id + '?key=AIzaSyAO_VzgwT5zOItqaP8_iW9QCX9sG4pICFI&alt=media'
 	//downloadUrl: 'https://www.googleapis.com/drive/v2/files/' + id + '?key=AIzaSyAJbel1_R7JkRVo6eGq7AcwFEOJJlqbJ44'
   };
-
+	console.log(file.downloadUrl);
   if (file.downloadUrl) {
     var accessToken = gapi.auth.getToken().access_token;
     var xhr = new XMLHttpRequest();
@@ -162,7 +163,7 @@ function readFileWithSpecificId() {
          }
 
       };
-      xhr2.open('GET', data.downloadUrl, true);
+      xhr2.open('GET', data.downloadUrl);
       xhr2.setRequestHeader('Authorization', 'Bearer ' + accessToken);
       xhr2.send();
 

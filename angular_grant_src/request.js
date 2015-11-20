@@ -1,6 +1,9 @@
 //var CLIENT_ID = '7699282553-qq2be7q08obmtl0d2897guvmepd9cnv2.apps.googleusercontent.com'; //uj
 var CLIENT_ID = '268864776090-ltnggc4pcsd411f9ngbi3008ogkdbb34.apps.googleusercontent.com'; //regi
-var SCOPES = ['https://www.googleapis.com/auth/drive.metadata.readonly'];
+var SCOPES = ['https://www.googleapis.com/auth/drive.metadata.readonly',
+              'https://www.googleapis.com/auth/drive.metadata',
+              'https://www.googleapis.com/auth/drive.file'
+];
 
 function checkAuth() {
   gapi.auth.authorize(
@@ -138,7 +141,7 @@ function readFileWithSpecificId() {
     xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
     xhr.onload = function() {
       var data = JSON.parse(xhr.responseText);
-	  console.log(data);
+	  console.log(data); console.log(data.downloadUrl);
 
       var xhr2 = new XMLHttpRequest();
       xhr2.onreadystatechange = function (){

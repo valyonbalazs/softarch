@@ -521,10 +521,10 @@
                                   </tbody>
                                   <tfoot>
                                     <tr>
-                                      <td><strong>ALL</strong></td><td>{{allAvailableHours}}</td><td>{{allRequiredHours}}</td><td>{{allSpareHours}}</td><td><strong>&sum; = {{ workHours * hourlyRate | currency:"HUF " }}</strong></td>
+                                      <td><strong>ALL</strong></td><td>{{allAvailableHours}}</td><td>{{allRequiredHours}}</td><td>{{allSpareHours}}</td><td><strong>{{ workHours * hourlyRate | currency:"HUF " }}</strong></td>
                                     </tr>
                                     <tr>
-                                      <td><strong>WOULD COST</strong></td><td>&sum; = {{ allAvailableHours * hourlyRate | currency:"HUF " }}</td><td>&sum; = {{ allRequiredHours * hourlyRate | currency:"HUF " }}</td><td>&sum; = {{ allSpareHours * hourlyRate | currency:"HUF " }}</td><td></td>
+                                      <td><strong>WOULD COST</strong></td><td>{{ allAvailableHours * hourlyRate | currency:"HUF " }}</td><td>{{ allRequiredHours * hourlyRate | currency:"HUF " }}</td><td>{{ allSpareHours * hourlyRate | currency:"HUF " }}</td><td></td>
                                     </tr>
                                   </tfoot>
                                 </table>

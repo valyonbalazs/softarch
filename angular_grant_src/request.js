@@ -86,12 +86,20 @@ function createNewFile (insertData) {
       taskDescription: 'description of the task',
       date: new Date().toJSON().slice(0,15)
     };*/
+    var d = new Date();
+    var year = d.getFullYear();
+    var month = d.getMonth();
+    var day = d.getDay();
+    var hour = d.getHours();
+    var min = d.getMinutes();
+    var nowDate = year + '_' + month + '_' + day + '_' + hour + ':' + min;
+    var projectSaveName = insertData.project.name + ' ' + nowDate + '.json'
 
     var boundary = '-------314159265358979323846';
     var delimiter = "\r\n--" + boundary + "\r\n";
     var close_delim = "\r\n--" + boundary + "--";
     var metadata = {
-      'title': insertData.project.name + '.json',
+      'title': projectSaveName,
       'mimeType': 'application/json'
     };
     var requestBody =
@@ -117,7 +125,7 @@ function createNewFile (insertData) {
     request.execute(function(resp) {
       console.log(resp);
       console.log("File was saved successfully to Google Drive!");
-      alert("The document was successfully saved to Google Drive with the name of " + insertData.project.name + '.json');
+      $('#saveAlertDiv').show();
     });
   });
 }

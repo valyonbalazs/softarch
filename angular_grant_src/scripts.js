@@ -691,6 +691,12 @@ angular.module('angularGanttDemoApp')
            $('#newChildTaskFromDate').val('');
            $('#newChildTaskTo').val('');
            $('#newChildTaskResp').val('');
+           $scope.newChildTask = {
+              taskName: '',
+              fromDate: moment(null),
+              toDate: undefined,
+              person: ''
+            };
        };
 
         $scope.addTaskToDataCollection = function () {
@@ -737,6 +743,7 @@ angular.module('angularGanttDemoApp')
                 }
               ]};
               tasksDataForChart.push(newTaskToInsert);
+              newTaskToInsert = null;
           } else {
 
             var childrenTasksName = [];
@@ -753,10 +760,19 @@ angular.module('angularGanttDemoApp')
               for(var key in $scope.childTasks) {
                 tasksDataForChart.push($scope.childTasks[key]);
               }
-              $scope.childTasks = [];
-          }
 
-          $('#addTaskContainer').css('display', 'none');
+          }
+          $scope.childTasks = null;
+          $scope.childTasks = [];
+          $('#childTaskListUl').empty();
+          $scope.newTask = {
+             taskName: '',
+             fromDate: moment(null),
+             toDate: undefined,
+             person: ''
+           };
+
+          $('#addTaskModal').modal('hide');
         };
 
         $scope.removableTask = null;

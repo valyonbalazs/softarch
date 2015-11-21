@@ -37,7 +37,7 @@ angular.module('angularGanttDemoApp', [
  * Controller of the angularGanttDemoApp
  */
 angular.module('angularGanttDemoApp')
-    .controller('MainCtrl', ['$scope', '$timeout', '$log', 'ganttUtils', 'GanttObjectModel', 'Sample', 'ganttMouseOffset', 'ganttDebounce', 'moment', function($scope, $timeout, $log, utils, ObjectModel, Sample, mouseOffset, debounce, moment) {
+    .controller('MainCtrl', ['$scope', '$timeout', '$log', '$compile', 'ganttUtils', 'GanttObjectModel', 'Sample', 'ganttMouseOffset', 'ganttDebounce', 'moment', function($scope, $timeout, $log, $compile, utils, ObjectModel, Sample, mouseOffset, debounce, moment) {
         var objectModel;
         var dataToRemove;
 
@@ -654,10 +654,14 @@ angular.module('angularGanttDemoApp')
        $scope.childTasks = [];
        $scope.removeChildTaskFromList = function (childName) {
          console.log(childName);
-         console.log(childTasks);
-         var index = childTasks.indexOf(childName);
-         $scope.childTasks.splice(index, 1);
-         console.log(childTasks);
+         console.log($scope.childTasks);
+         for(var key in $scope.childTasks) {
+           if($scope.childTasks[key].name == childName) {
+             $scope.childTasks.splice(key, 1);
+           }
+         }
+         $('#childTaskListUl').empty();
+         console.log($scope.childTasks);
        };
        $scope.addChildTaskToList = function () {
          var fromDateYear = moment($scope.newChildTask.fromDate).year();
@@ -683,8 +687,10 @@ angular.module('angularGanttDemoApp')
 
            $scope.childTasks.push(newChildTaskInsertable);
 
+           var $injector = angular.injector(['ng', 'angularGanttDemoApp']);
+
            $('#childTaskListUl').append('<li class="list-group-item">' + $scope.newChildTask.taskName +
-            '<button class="btn btn-warning" ng-click="removeChildTaskFromList(' + $scope.newChildTask.taskName + ')">REMOVE</button></li>');
+            '<button class="btn btn-warning" ng-click="removeChildTaskFromList(\'' + $scope.newChildTask.taskName + '\')">REMOVE</button></li>');
            $('#childTasksList').css('display', 'block');
            $('#childrenTasksContainer').css('display', 'none');
            $('#newChildTaskName').val('');
@@ -697,6 +703,7 @@ angular.module('angularGanttDemoApp')
               toDate: undefined,
               person: ''
             };
+            $compile($('#childTaskListUl'))($scope);
        };
 
         $scope.addTaskToDataCollection = function () {

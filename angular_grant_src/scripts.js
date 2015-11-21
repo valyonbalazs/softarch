@@ -374,7 +374,6 @@ angular.module('angularGanttDemoApp')
           		{
           			"id": "ValueAxis-1",
           			"position": "top",
-                "minimum": 0,
           			"axisAlpha": 0
           		}
           	],
@@ -795,7 +794,7 @@ angular.module('angularGanttDemoApp')
           id: 0,
           name: '',
           description: '',
-          level: ''
+          level: 'Not Important'
         };
 
         $scope.addNewRisk = function () {
@@ -843,17 +842,27 @@ angular.module('angularGanttDemoApp')
 
         $scope.riskData = risksData;
 
+        $scope.modifiedProjectData = {
+          name: '',
+          leader: ''
+        };
         $scope.saveModifiedProject = function () {
-          $scope.projectDataFrom.name = $scope.modifiedProjectData.name;
-          $scope.projectDataFrom.leader = $scope.modifiedProjectData.leader;
+          console.log(projectDataFrom);
+
+          $scope.modifiedProjectData.name = $('#modifyProjectNameInput').val();
+          $scope.modifiedProjectData.leader = $('#modifyProjectLeaderInput').val();
+
+          console.log($scope.modifiedProjectData);
+          projectDataFrom[0].name = $scope.modifiedProjectData.name;
+          projectDataFrom[0].leader = $scope.modifiedProjectData.leader;
+          $scope.projectData = null;
+          $scope.projectData = projectDataFrom;
           $('#modifyProjectModal').modal('hide');
         };
+
+
         $scope.projectData = projectDataFrom;
 
-        $scope.modifiedProjectData = {
-          name: projectDataFrom.name,
-          leader: projectDataFrom.leader,
-        };
 
         $scope.showProjectSettingsBtnState = true;
         $scope.hideSettings = function () {

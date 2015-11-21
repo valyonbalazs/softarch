@@ -11,13 +11,13 @@
         "id": 146435597,
         "name": "Senior Developer leaves",
         "description": "risk description risk description risk description risk description risk description ",
-        "level": "high"
+        "level": "Ultra High"
       },
       {
         "id": 924857713,
         "name": "Infrastructure failure",
         "description": "risk description risk description risk description risk description risk description ",
-        "level": "low"
+        "level": "Not Important"
       }
   ],
   "tasks": [

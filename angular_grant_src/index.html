@@ -268,20 +268,20 @@
                                     <thead>
                                       <tr>
                                         <td>
-                                          <i class="fa fa-align-justify"> </i> Name
+                                          <strong><i class="fa fa-align-justify"> </i> Name</strong>
                                         </td>
                                         <td>
-                                          <i class="fa fa-commenting-o"> </i> Description
+                                          <strong><i class="fa fa-commenting-o"> </i> Description</strong>
                                         </td>
                                         <td>
-                                          <i class="fa fa-bolt"> </i> Risk level
+                                          <strong><i class="fa fa-bolt"> </i> Risk level</strong>
                                         </td>
                                       </tr>
                                     </thead>
                                     <tbody>
                                       <tr  ng-repeat="risk in riskData">
                                         <td>
-                                          <i class="fa fa-cog" ng-click="showRiskModal(risk)"> </i> {{risk.name}}
+                                          <i class="fa fa-cog" ng-click="showRiskModal(risk)"> </i> {{risk.name}} <i class="fa fa-trash-o" ng-click="showDeleteRiskModal(risk)"> </i>
                                         </td>
                                         <td>
                                           {{risk.description}}
@@ -414,15 +414,15 @@
                           <div class="form-group text-center">
                             <label class="control-label"><i class="fa fa-bolt"></i> Risk </label><br>
                             <div class="input-group">
-                              <span class="input-group-addon">Name:</span>
+                              <span class="input-group-addon"><strong>Name:</strong></span>
                               <input type="text" class="form-control" placeholder="Name of the risk" ng-model="newRisk.name">
                             </div>
                             <div class="input-group">
-                              <span class="input-group-addon">Description:</span>
+                              <span class="input-group-addon"><strong>Description:</strong></span>
                               <input type="text" class="form-control" placeholder="Description of the risk" ng-model="newRisk.description">
                             </div>
                             <div class="input-group">
-                              <span class="input-group-addon">Risk level:</span>
+                              <span class="input-group-addon"><strong>Risk level:</strong></span>
                               <select class="form-control" ng-model="newRisk.level">
                                 <option value="Not Important">Not Important</option>
                                 <option value="Low">Low</option>
@@ -440,6 +440,34 @@
               <div class="modal-footer">
                 <div class="btn-group">
                     <button type="button" class="btn btn-default btn-danger" ng-click="addNewRisk()">Save risk</button>
+                </div>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+        <div id="deleteRiskModal" class="modal fade">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">REMOVE {{removableRisk}} RISK</h4>
+              </div>
+              <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="form-inline">
+                          <div class="form-group text-center">
+                            <label class="control-label"><i class="fa fa-tasks"></i> Do you want to remove - {{removableRisk}} - named risk?</label><br>
+                            <br/>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default btn-danger" ng-click="deleteRisk()">YES, REMOVE THE RISK!</button>
                 </div>
               </div>
             </div><!-- /.modal-content -->

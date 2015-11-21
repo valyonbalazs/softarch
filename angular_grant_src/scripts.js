@@ -825,18 +825,34 @@ angular.module('angularGanttDemoApp')
         };
 
         $scope.saveModifiedRisk = function () {
-          console.log($scope.riskData);
-          console.log($scope.riskModificationElement);
-          for(var key in $scope.riskData) {
-            if($scope.riskData[key].id === $scope.riskModificationElement.id) {
-              console.log("belepett");
-              $scope.riskData[key] = $scope.riskModificationElement;
+          for(var key in risksData) {
+            if(risksData[key].id === $scope.riskModificationElement.id) {
+              risksData[key] = $scope.riskModificationElement;
               $scope.riskModificationElement = null;
-              console.log($scope.riskData);
+              console.log(risksData);
               $('#modifyRiskModal').modal('hide');
             }
           }
         };
+
+        $scope.showDeleteRiskModal = function(risk) {
+          $scope.removableRisk = risk.name;
+          $scope.removableRiskId = risk.id;
+          $('#deleteRiskModal').modal('show');
+        };
+
+        $scope.deleteRisk = function() {
+          console.log(risksData);
+          for(var key in risksData) {
+            if(risksData[key].id == $scope.removableRiskId) {
+              risksData.splice(key, 1);
+              $scope.removableRiskId = null;
+              $scope.removableRisk = null;
+            }
+          }
+          console.log(risksData);
+          $('#deleteRiskModal').modal('hide');
+        }
 
         //addRisk id generator: Math.floor(Math.random() * 10000000 * (new Date().getMilliseconds()))
 
@@ -1092,12 +1108,13 @@ function dataLoader() {
 
   for(var r in risksDataTmp) {
     var newRisk = {
-      id: risksDataTmp[r].id,
+      id: parseInt(risksDataTmp[r].id),
       description: risksDataTmp[r].description,
       level: risksDataTmp[r].level,
       name: risksDataTmp[r].name
     }
     risksData.push(newRisk);
+    console.log("RISKSDATA: "); console.log(risksData);
   }
 
   var createdDateYear = moment(eval(tempProjData.created)).year();

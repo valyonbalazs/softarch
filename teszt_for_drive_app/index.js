@@ -6,7 +6,7 @@ app.get('/', function (req, res) {
   res.redirect('/index.html');
 });
 app.listen(process.env.PORT || 3000, function(){
-  console.log('listening on', http.address().port);
+  console.log('listening on', app.address().port);
 });
 
 app.set('view engine', 'ejs');

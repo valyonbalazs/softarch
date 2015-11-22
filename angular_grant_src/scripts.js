@@ -426,8 +426,8 @@ angular.module('angularGanttDemoApp')
 
 
         $scope.handleTaskIconClick = function(taskModel) {
+          console.log(taskModel);
             var model = taskModel;
-            console.log(taskModel.id);
             taskModel = null;
             $scope.selectedTaskToEdit = null;
             $scope.selectedTaskToEdit =  {
@@ -456,41 +456,45 @@ angular.module('angularGanttDemoApp')
         };
 
         $scope.saveModifiedTask = function() {
+          console.log(tasksDataForChart);
           for(var key in tasksDataForChart) {
-            console.log(tasksDataForChart[key].id);
-            if(tasksDataForChart[key].id === $scope.selectedTaskToEdit.id) {
-              var fromDateYear = moment($scope.selectedTaskToEdit.from).year();
-              var fromDateMonth = moment($scope.selectedTaskToEdit.from).month();
-              var fromDateDay = parseInt($scope.selectedTaskToEdit.from.toString().substring(8,10));
-              var toDateYear = moment($scope.selectedTaskToEdit.to).year();
-              var toDateMonth = moment($scope.selectedTaskToEdit.to).month();
-              var toDateDay = parseInt($scope.selectedTaskToEdit.to.toString().substring(8,10));
-              var fromEstDateYear = moment($scope.selectedTaskToEdit.est).year();
-              var fromEstDateMonth = moment($scope.selectedTaskToEdit.est).month();
-              var fromEstDateDay = parseInt($scope.selectedTaskToEdit.est.toString().substring(8,10));
-              var toDateEstYear = moment($scope.selectedTaskToEdit.lct).year();
-              var toDateEstMonth = moment($scope.selectedTaskToEdit.lct).month();
-              var toDateEstDay = parseInt($scope.selectedTaskToEdit.lct.toString().substring(8,10));
-              var modifiedTaskToInsert = {
-                name: $scope.selectedTaskToEdit.name, tasks: [
-                  {
-                    name: $scope.selectedTaskToEdit.name,
-                    priority: 20,
-                    content: '<i class="fa fa-cog" ng-click="scope.handleTaskIconClick(task.model)"></i> {{task.model.name}} <i class="fa fa-trash-o" ng-click="scope.deleteTaskModal(task.model)"> </i> ',
-                    color: '#F1C232',
-                    from: new Date(fromDateYear, fromDateMonth, fromDateDay, 8, 0, 0),
-                    to: new Date(toDateYear, toDateMonth, toDateDay, 8, 0, 0),
-                    est: new Date(fromEstDateYear, fromEstDateMonth, fromEstDateDay, 8, 0, 0),
-                    lct: new Date(toDateEstYear, toDateEstMonth, toDateEstDay, 8, 0, 0),
-                    progress: parseInt($scope.selectedTaskToEdit.progress),
-                    person: $scope.selectedTaskToEdit.person
-                  }
-                ]};
+            console.log($scope.selectedTaskToEdit.id);
+            if(tasksDataForChart[key].hasOwnProperty('tasks')) {
+              if(tasksDataForChart[key].tasks[0].id === $scope.selectedTaskToEdit.id) {
+                var fromDateYear = moment($scope.selectedTaskToEdit.from).year();
+                var fromDateMonth = moment($scope.selectedTaskToEdit.from).month();
+                var fromDateDay = parseInt($scope.selectedTaskToEdit.from.toString().substring(8,10));
+                var toDateYear = moment($scope.selectedTaskToEdit.to).year();
+                var toDateMonth = moment($scope.selectedTaskToEdit.to).month();
+                var toDateDay = parseInt($scope.selectedTaskToEdit.to.toString().substring(8,10));
+                var fromEstDateYear = moment($scope.selectedTaskToEdit.est).year();
+                var fromEstDateMonth = moment($scope.selectedTaskToEdit.est).month();
+                var fromEstDateDay = parseInt($scope.selectedTaskToEdit.est.toString().substring(8,10));
+                var toDateEstYear = moment($scope.selectedTaskToEdit.lct).year();
+                var toDateEstMonth = moment($scope.selectedTaskToEdit.lct).month();
+                var toDateEstDay = parseInt($scope.selectedTaskToEdit.lct.toString().substring(8,10));
+                var modifiedTaskToInsert = {
+                  name: $scope.selectedTaskToEdit.name, tasks: [
+                    {
+                      name: $scope.selectedTaskToEdit.name,
+                      priority: 20,
+                      content: '<i class="fa fa-cog" ng-click="scope.handleTaskIconClick(task.model)"></i> {{task.model.name}} <i class="fa fa-trash-o" ng-click="scope.deleteTaskModal(task.model)"> </i> ',
+                      color: '#F1C232',
+                      from: new Date(fromDateYear, fromDateMonth, fromDateDay, 8, 0, 0),
+                      to: new Date(toDateYear, toDateMonth, toDateDay, 8, 0, 0),
+                      est: new Date(fromEstDateYear, fromEstDateMonth, fromEstDateDay, 8, 0, 0),
+                      lct: new Date(toDateEstYear, toDateEstMonth, toDateEstDay, 8, 0, 0),
+                      progress: parseInt($scope.selectedTaskToEdit.progress),
+                      person: $scope.selectedTaskToEdit.person
+                    }
+                  ]};
 
-              tasksDataForChart[key] = modifiedTaskToInsert;
-              $scope.selectedTaskToEdit = null;
+                tasksDataForChart[key] = modifiedTaskToInsert;
+                modifiedTaskToInsert = null;
+                $scope.selectedTaskToEdit = null;
 
-              $('#modifyTaskModal').modal('hide');
+                $('#modifyTaskModal').modal('hide');
+              }
             }
           }
         };

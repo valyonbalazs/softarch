@@ -426,20 +426,39 @@ angular.module('angularGanttDemoApp')
 
 
         $scope.handleTaskIconClick = function(taskModel) {
-            //alert('Icon from ' + taskModel.name + ' task has been clicked.');
-            $scope.selectedTaskToEdit = taskModel;
-            $scope.selectedTaskToEdit.from = taskModel.from.toDate();
-            $scope.selectedTaskToEdit.to = taskModel.to.toDate();
-            $scope.selectedTaskToEdit.est = taskModel.est.toDate();
-            $scope.selectedTaskToEdit.lct = taskModel.lct.toDate();
-            $scope.selectedTaskToEdit.progress = parseInt(taskModel.progress);
-            console.log(taskModel);
+            var model = taskModel;
+            console.log(taskModel.id);
+            taskModel = null;
+            $scope.selectedTaskToEdit = null;
+            $scope.selectedTaskToEdit =  {
+                           "id": "",
+                           "name": "",
+                           "content": "",
+                           "color": "",
+                           "from": "",
+                           "to": "",
+                           "est": "",
+                           "lct": "",
+                           "progress": "",
+                           "person": ""
+                         };
+            $scope.selectedTaskToEdit.id = model.id;
+            $scope.selectedTaskToEdit.name = model.name;
+            $scope.selectedTaskToEdit.content = model.content;
+            $scope.selectedTaskToEdit.color = model.color;
+            $scope.selectedTaskToEdit.from = model.from.toDate();
+            $scope.selectedTaskToEdit.to = model.to.toDate();
+            $scope.selectedTaskToEdit.est = model.est.toDate();
+            $scope.selectedTaskToEdit.lct = model.lct.toDate();
+            $scope.selectedTaskToEdit.progress = parseInt(model.progress);
+            $scope.selectedTaskToEdit.person = model.person;
             $('#modifyTaskModal').modal('show');
         };
 
         $scope.saveModifiedTask = function() {
           for(var key in tasksDataForChart) {
-            if(tasksDataForChart[key].name === $scope.selectedTaskToEdit.name) {
+            console.log(tasksDataForChart[key].id);
+            if(tasksDataForChart[key].id === $scope.selectedTaskToEdit.id) {
               var fromDateYear = moment($scope.selectedTaskToEdit.from).year();
               var fromDateMonth = moment($scope.selectedTaskToEdit.from).month();
               var fromDateDay = parseInt($scope.selectedTaskToEdit.from.toString().substring(8,10));

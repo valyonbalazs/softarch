@@ -1,5 +1,9 @@
-var CLIENT_ID = '268864776090-ltnggc4pcsd411f9ngbi3008ogkdbb34.apps.googleusercontent.com';
-var SCOPES = ['https://www.googleapis.com/auth/drive.metadata.readonly'];
+//var CLIENT_ID = '7699282553-qq2be7q08obmtl0d2897guvmepd9cnv2.apps.googleusercontent.com'; //uj
+var CLIENT_ID = '268864776090-ltnggc4pcsd411f9ngbi3008ogkdbb34.apps.googleusercontent.com'; //regi
+var SCOPES = ['https://www.googleapis.com/auth/drive.metadata.readonly',
+              'https://www.googleapis.com/auth/drive.metadata',
+              'https://www.googleapis.com/auth/drive'
+];
 
 function checkAuth() {
   gapi.auth.authorize(
@@ -82,12 +86,20 @@ function createNewFile (insertData) {
       taskDescription: 'description of the task',
       date: new Date().toJSON().slice(0,15)
     };*/
+    var d = new Date();
+    var year = d.getFullYear();
+    var month = d.getMonth();
+    var day = d.getDay();
+    var hour = d.getHours();
+    var min = d.getMinutes();
+    var nowDate = year + '_' + month + '_' + day + '_' + hour + ':' + min;
+    var projectSaveName = insertData.project.name + ' ' + nowDate + '.json'
 
     var boundary = '-------314159265358979323846';
     var delimiter = "\r\n--" + boundary + "\r\n";
     var close_delim = "\r\n--" + boundary + "--";
     var metadata = {
-      'title': insertData.project.name + '.json',
+      'title': projectSaveName,
       'mimeType': 'application/json'
     };
     var requestBody =
@@ -113,7 +125,7 @@ function createNewFile (insertData) {
     request.execute(function(resp) {
       console.log(resp);
       console.log("File was saved successfully to Google Drive!");
-      alert("The document was successfully saved to Google Drive with the name of " + insertData.project.name + '.json');
+      $('#saveAlertDiv').show();
     });
   });
 }
@@ -127,8 +139,10 @@ function readFileWithSpecificId() {
   console.log(id);
   var file = {
     downloadUrl: 'https://www.googleapis.com/drive/v2/files/' + id
+    //downloadUrl: 'https://www.googleapis.com/drive/v2/files/' + id + '?key=AIzaSyAO_VzgwT5zOItqaP8_iW9QCX9sG4pICFI&alt=media'
+	//downloadUrl: 'https://www.googleapis.com/drive/v2/files/' + id + '?key=AIzaSyAJbel1_R7JkRVo6eGq7AcwFEOJJlqbJ44'
   };
-
+	console.log(file.downloadUrl);
   if (file.downloadUrl) {
     var accessToken = gapi.auth.getToken().access_token;
     var xhr = new XMLHttpRequest();
@@ -136,6 +150,7 @@ function readFileWithSpecificId() {
     xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
     xhr.onload = function() {
       var data = JSON.parse(xhr.responseText);
+	  console.log(data); console.log(data.downloadUrl);
 
       var xhr2 = new XMLHttpRequest();
       xhr2.onreadystatechange = function (){
@@ -156,7 +171,7 @@ function readFileWithSpecificId() {
          }
 
       };
-      xhr2.open('GET', data.downloadUrl, true);
+      xhr2.open('GET', data.downloadUrl);
       xhr2.setRequestHeader('Authorization', 'Bearer ' + accessToken);
       xhr2.send();
 

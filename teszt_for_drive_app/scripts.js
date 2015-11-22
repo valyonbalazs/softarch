@@ -37,7 +37,7 @@ angular.module('angularGanttDemoApp', [
  * Controller of the angularGanttDemoApp
  */
 angular.module('angularGanttDemoApp')
-    .controller('MainCtrl', ['$scope', '$timeout', '$log', 'ganttUtils', 'GanttObjectModel', 'Sample', 'ganttMouseOffset', 'ganttDebounce', 'moment', function($scope, $timeout, $log, utils, ObjectModel, Sample, mouseOffset, debounce, moment) {
+    .controller('MainCtrl', ['$scope', '$timeout', '$log', '$compile', 'ganttUtils', 'GanttObjectModel', 'Sample', 'ganttMouseOffset', 'ganttDebounce', 'moment', function($scope, $timeout, $log, $compile, utils, ObjectModel, Sample, mouseOffset, debounce, moment) {
         var objectModel;
         var dataToRemove;
 
@@ -257,15 +257,21 @@ angular.module('angularGanttDemoApp')
           $scope.selectedTaskToEdit = null;
         });
 
-        $scope.showDataConsole = function () {
-          console.log($scope);
 
+        $scope.showDataConsole = function () {
+          $scope.taskDurations = [];
+          $scope.tasksDuration = [];
+          $scope.allAvailableHours = 0;
+          $scope.allSpareHours = 0;
+          $scope.allRequiredHours = 0;
+          $scope.allCostsWithSpareTime = 0;
           var smallestFrom = undefined;
           for(var key in $scope.data) {
             if($scope.data[key].hasOwnProperty('children')) {
 
             }
             else {
+
               for(var t in $scope.data[key].tasks) {
                 if(smallestFrom === undefined) {
                   smallestFrom = $scope.data[key].tasks[t].from;
@@ -276,7 +282,6 @@ angular.module('angularGanttDemoApp')
                     smallestFrom = $scope.data[key].tasks[t].from;
                   }
                 }
-
               }
             }
           }
@@ -300,11 +305,26 @@ angular.module('angularGanttDemoApp')
                 var dayFromSPrecised = dayFromS.toPrecision(4);
                 s = dayFromSPrecised * 8;
                 allTaskWorkHours += s;
+                $scope.allRequiredHours += s;
+
+                var est  = $scope.data[key].tasks[t].est;
+                var lct = $scope.data[key].tasks[t].lct;
+                var estms = moment(lct).diff(moment(est));
+                var estd = moment.duration(estms);
+                var ests = Math.floor(estd.asHours());
+                var estDayFromS = ests/24;
+                var estDayFromSPrecised = estDayFromS.toPrecision(4);
+                ests = estDayFromSPrecised * 8;
+                var spareTime = ests - s;
+                $scope.allAvailableHours += ests;
+                $scope.allSpareHours += spareTime;
 
                 var taskTime = {
                   name: $scope.data[key].tasks[t].name,
                   duration: s,
-                  days: dayFromSPrecised
+                  days: dayFromSPrecised,
+                  allTime: ests,
+                  spare: spareTime
                 };
                 tasksDuration.push(taskTime);
 
@@ -320,7 +340,7 @@ angular.module('angularGanttDemoApp')
               }
             }
           }
-
+          $scope.tasksDuration = tasksDuration;
           console.log(smallestFrom);
           console.log(biggestTo);
           console.log(tasksDuration);
@@ -392,50 +412,13 @@ angular.module('angularGanttDemoApp')
           }
         ];
 
-        var chart = AmCharts.makeChart("chartdiv3", {
-          "type": "serial",
-             "theme": "light",
-          "categoryField": "hours",
-          "rotate": true,
-          "startDuration": 1,
-          "categoryAxis": {
-            "gridPosition": "start",
-            "position": "left"
-          },
-          "colors": ['#FF6600'],
-          "trendLines": [],
-          "graphs": [
-            {
-              "balloonText": "Project is [[value]] WORK hours which is [[description]] days",
-              "fillAlphas": 0.8,
-              "id": "AmGraph-1",
-              "lineAlpha": 0.2,
-              "title": "Tasks",
-              "type": "column",
-              "valueField": "hours",
-              "descriptionField": "days"
-            }
-          ],
-          "guides": [],
-          "valueAxes": [
-            {
-              "id": "ValueAxis-1",
-              "position": "top",
-              "axisAlpha": 0
-            }
-          ],
-          "allLabels": [],
-          "balloon": {},
-          "titles": [],
-          "dataProvider": allTaskWorkHoursObject,
-          "export": {
-            "enabled": true
-          }
-        });
 
         $scope.hourlyRate = 0;
         $scope.workHours = allTaskWorkHours;
         $scope.workHoursRate = $scope.workHours * parseInt($scope.hourlyRate);
+
+        console.log($scope.tasksDuration);
+
         console.log($scope.workHours);
         console.log($scope.workHoursRate);
 
@@ -443,20 +426,39 @@ angular.module('angularGanttDemoApp')
 
 
         $scope.handleTaskIconClick = function(taskModel) {
-            //alert('Icon from ' + taskModel.name + ' task has been clicked.');
-            $scope.selectedTaskToEdit = taskModel;
-            $scope.selectedTaskToEdit.from = taskModel.from.toDate();
-            $scope.selectedTaskToEdit.to = taskModel.to.toDate();
-            $scope.selectedTaskToEdit.est = taskModel.est.toDate();
-            $scope.selectedTaskToEdit.lct = taskModel.lct.toDate();
-            $scope.selectedTaskToEdit.progress = parseInt(taskModel.progress);
-            console.log(taskModel);
+            var model = taskModel;
+            console.log(taskModel.id);
+            taskModel = null;
+            $scope.selectedTaskToEdit = null;
+            $scope.selectedTaskToEdit =  {
+                           "id": "",
+                           "name": "",
+                           "content": "",
+                           "color": "",
+                           "from": "",
+                           "to": "",
+                           "est": "",
+                           "lct": "",
+                           "progress": "",
+                           "person": ""
+                         };
+            $scope.selectedTaskToEdit.id = model.id;
+            $scope.selectedTaskToEdit.name = model.name;
+            $scope.selectedTaskToEdit.content = model.content;
+            $scope.selectedTaskToEdit.color = model.color;
+            $scope.selectedTaskToEdit.from = model.from.toDate();
+            $scope.selectedTaskToEdit.to = model.to.toDate();
+            $scope.selectedTaskToEdit.est = model.est.toDate();
+            $scope.selectedTaskToEdit.lct = model.lct.toDate();
+            $scope.selectedTaskToEdit.progress = parseInt(model.progress);
+            $scope.selectedTaskToEdit.person = model.person;
             $('#modifyTaskModal').modal('show');
         };
 
         $scope.saveModifiedTask = function() {
           for(var key in tasksDataForChart) {
-            if(tasksDataForChart[key].name === $scope.selectedTaskToEdit.name) {
+            console.log(tasksDataForChart[key].id);
+            if(tasksDataForChart[key].id === $scope.selectedTaskToEdit.id) {
               var fromDateYear = moment($scope.selectedTaskToEdit.from).year();
               var fromDateMonth = moment($scope.selectedTaskToEdit.from).month();
               var fromDateDay = parseInt($scope.selectedTaskToEdit.from.toString().substring(8,10));
@@ -671,10 +673,14 @@ angular.module('angularGanttDemoApp')
        $scope.childTasks = [];
        $scope.removeChildTaskFromList = function (childName) {
          console.log(childName);
-         console.log(childTasks);
-         var index = childTasks.indexOf(childName);
-         $scope.childTasks.splice(index, 1);
-         console.log(childTasks);
+         console.log($scope.childTasks);
+         for(var key in $scope.childTasks) {
+           if($scope.childTasks[key].name == childName) {
+             $scope.childTasks.splice(key, 1);
+           }
+         }
+         $('#childTaskListUl').empty();
+         console.log($scope.childTasks);
        };
        $scope.addChildTaskToList = function () {
          var fromDateYear = moment($scope.newChildTask.fromDate).year();
@@ -700,14 +706,23 @@ angular.module('angularGanttDemoApp')
 
            $scope.childTasks.push(newChildTaskInsertable);
 
+           var $injector = angular.injector(['ng', 'angularGanttDemoApp']);
+
            $('#childTaskListUl').append('<li class="list-group-item">' + $scope.newChildTask.taskName +
-            '<button class="btn btn-warning" ng-click="removeChildTaskFromList(' + $scope.newChildTask.taskName + ')">REMOVE</button></li>');
+            '<button class="btn btn-warning" ng-click="removeChildTaskFromList(\'' + $scope.newChildTask.taskName + '\')">REMOVE</button></li>');
            $('#childTasksList').css('display', 'block');
            $('#childrenTasksContainer').css('display', 'none');
            $('#newChildTaskName').val('');
            $('#newChildTaskFromDate').val('');
            $('#newChildTaskTo').val('');
            $('#newChildTaskResp').val('');
+           $scope.newChildTask = {
+              taskName: '',
+              fromDate: moment(null),
+              toDate: undefined,
+              person: ''
+            };
+            $compile($('#childTaskListUl'))($scope);
        };
 
         $scope.addTaskToDataCollection = function () {
@@ -754,6 +769,7 @@ angular.module('angularGanttDemoApp')
                 }
               ]};
               tasksDataForChart.push(newTaskToInsert);
+              newTaskToInsert = null;
           } else {
 
             var childrenTasksName = [];
@@ -770,10 +786,19 @@ angular.module('angularGanttDemoApp')
               for(var key in $scope.childTasks) {
                 tasksDataForChart.push($scope.childTasks[key]);
               }
-              $scope.childTasks = [];
-          }
 
-          $('#addTaskContainer').css('display', 'none');
+          }
+          $scope.childTasks = null;
+          $scope.childTasks = [];
+          $('#childTaskListUl').empty();
+          $scope.newTask = {
+             taskName: '',
+             fromDate: moment(null),
+             toDate: undefined,
+             person: ''
+           };
+
+          $('#addTaskModal').modal('hide');
         };
 
         $scope.removableTask = null;
@@ -811,7 +836,7 @@ angular.module('angularGanttDemoApp')
           id: 0,
           name: '',
           description: '',
-          level: ''
+          level: 'Not Important'
         };
 
         $scope.addNewRisk = function () {
@@ -842,34 +867,60 @@ angular.module('angularGanttDemoApp')
         };
 
         $scope.saveModifiedRisk = function () {
-          console.log($scope.riskData);
-          console.log($scope.riskModificationElement);
-          for(var key in $scope.riskData) {
-            if($scope.riskData[key].id === $scope.riskModificationElement.id) {
-              console.log("belepett");
-              $scope.riskData[key] = $scope.riskModificationElement;
+          for(var key in risksData) {
+            if(risksData[key].id === $scope.riskModificationElement.id) {
+              risksData[key] = $scope.riskModificationElement;
               $scope.riskModificationElement = null;
-              console.log($scope.riskData);
+              console.log(risksData);
               $('#modifyRiskModal').modal('hide');
             }
           }
         };
 
+        $scope.showDeleteRiskModal = function(risk) {
+          $scope.removableRisk = risk.name;
+          $scope.removableRiskId = risk.id;
+          $('#deleteRiskModal').modal('show');
+        };
+
+        $scope.deleteRisk = function() {
+          console.log(risksData);
+          for(var key in risksData) {
+            if(risksData[key].id == $scope.removableRiskId) {
+              risksData.splice(key, 1);
+              $scope.removableRiskId = null;
+              $scope.removableRisk = null;
+            }
+          }
+          console.log(risksData);
+          $('#deleteRiskModal').modal('hide');
+        }
+
         //addRisk id generator: Math.floor(Math.random() * 10000000 * (new Date().getMilliseconds()))
 
         $scope.riskData = risksData;
 
+        $scope.modifiedProjectData = {
+          name: '',
+          leader: ''
+        };
         $scope.saveModifiedProject = function () {
-          $scope.projectDataFrom.name = $scope.modifiedProjectData.name;
-          $scope.projectDataFrom.leader = $scope.modifiedProjectData.leader;
+          console.log(projectDataFrom);
+
+          $scope.modifiedProjectData.name = $('#modifyProjectNameInput').val();
+          $scope.modifiedProjectData.leader = $('#modifyProjectLeaderInput').val();
+
+          console.log($scope.modifiedProjectData);
+          projectDataFrom[0].name = $scope.modifiedProjectData.name;
+          projectDataFrom[0].leader = $scope.modifiedProjectData.leader;
+          $scope.projectData = null;
+          $scope.projectData = projectDataFrom;
           $('#modifyProjectModal').modal('hide');
         };
+
+
         $scope.projectData = projectDataFrom;
 
-        $scope.modifiedProjectData = {
-          name: projectDataFrom.name,
-          leader: projectDataFrom.leader,
-        };
 
         $scope.showProjectSettingsBtnState = true;
         $scope.hideSettings = function () {
@@ -1099,12 +1150,13 @@ function dataLoader() {
 
   for(var r in risksDataTmp) {
     var newRisk = {
-      id: risksDataTmp[r].id,
+      id: parseInt(risksDataTmp[r].id),
       description: risksDataTmp[r].description,
       level: risksDataTmp[r].level,
       name: risksDataTmp[r].name
     }
     risksData.push(newRisk);
+    console.log("RISKSDATA: "); console.log(risksData);
   }
 
   var createdDateYear = moment(eval(tempProjData.created)).year();

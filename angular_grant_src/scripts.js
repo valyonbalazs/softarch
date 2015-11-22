@@ -430,6 +430,7 @@ angular.module('angularGanttDemoApp')
             var model = taskModel;
             taskModel = null;
             $scope.selectedTaskToEdit = null;
+            $scope.selectedTaskToEditOldName = model.name;
             $scope.selectedTaskToEdit =  {
                            "id": "",
                            "name": "",
@@ -461,6 +462,17 @@ angular.module('angularGanttDemoApp')
             console.log($scope.selectedTaskToEdit.id);
             if(tasksDataForChart[key].hasOwnProperty('tasks')) {
               if(tasksDataForChart[key].tasks[0].id === $scope.selectedTaskToEdit.id) {
+
+                for(var j in tasksDataForChart) {
+                    if(tasksDataForChart[j].hasOwnProperty('children')) {
+                      for(var z in tasksDataForChart[j].children) {
+                        if(tasksDataForChart[j].children[z] === $scope.selectedTaskToEditOldName) {
+                          tasksDataForChart[j].children[z] = $scope.selectedTaskToEdit.name;
+                        }
+                      }
+                    }
+                }
+
                 var fromDateYear = moment($scope.selectedTaskToEdit.from).year();
                 var fromDateMonth = moment($scope.selectedTaskToEdit.from).month();
                 var fromDateDay = parseInt($scope.selectedTaskToEdit.from.toString().substring(8,10));

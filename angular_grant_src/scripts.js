@@ -506,6 +506,7 @@ angular.module('angularGanttDemoApp')
                 $scope.selectedTaskToEdit = null;
 
                 $('#modifyTaskModal').modal('hide');
+                $scope.showDataConsole();
               }
             }
           }
@@ -815,6 +816,7 @@ angular.module('angularGanttDemoApp')
            };
 
           $('#addTaskModal').modal('hide');
+          $scope.showDataConsole();
         };
 
         $scope.removableTask = null;
@@ -843,6 +845,7 @@ angular.module('angularGanttDemoApp')
               }
 
               $('#deleteTaskModal').modal('hide');
+              $scope.showDataConsole();
               break;
             }
           }
@@ -1178,6 +1181,8 @@ function dataLoader() {
   var createdDateYear = moment(eval(tempProjData.created)).year();
   var createdDateMonth = moment(eval(tempProjData.created)).month();
   var createdDateDay = parseInt(eval(tempProjData.created).toString().substring(8,10));
+  var createdDateHours = moment(eval(tempProjData.created)).hour();
+  var createdDateMin = moment(eval(tempProjData.created)).minute();
   var lastDate = moment(tempProjData.lastModified);
   var lastDateYear = lastDate.year();
   var lastDateMonth = lastDate.month();
@@ -1189,7 +1194,7 @@ function dataLoader() {
     id: tempProjData.id,
     name: tempProjData.name,
     leader: tempProjData.leader,
-    created: moment(new Date(createdDateYear, createdDateMonth, createdDateDay, 8, 0, 0)).format('YYYY. MMMM DD. HH:mm'),
+    created: moment(new Date(createdDateYear, createdDateMonth, createdDateDay, createdDateHours, createdDateMin, 0)).format('YYYY. MMMM DD. HH:mm'),
     lastModified: moment(new Date(lastDateYear, lastDateMonth, lastDateDay, lastDateHour, lastDateMin, 0)).format('YYYY. MMMM DD. HH:mm')
   };
 

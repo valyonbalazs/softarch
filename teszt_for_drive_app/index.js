@@ -5,10 +5,9 @@ var app = express();
 app.get('/', function (req, res) {
   res.redirect('/index.html');
 });
-app.listen(process.env.PORT || 3000);
-
-app.set('view engine', 'ejs');
-app.set('views', './views');
+app.listen(process.env.PORT || 3000, function () {
+  console.log('listening on: ', app.get('port'))
+});
 
 app.use('/', express.static(__dirname + '/'));
 app.use('/assets', express.static(__dirname + '/assets'));

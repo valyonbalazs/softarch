@@ -374,7 +374,8 @@ angular.module('angularGanttDemoApp')
           		{
           			"id": "ValueAxis-1",
           			"position": "top",
-          			"axisAlpha": 0
+          			"axisAlpha": 0,
+                "minimum": 0
           		}
           	],
           	"allLabels": [],

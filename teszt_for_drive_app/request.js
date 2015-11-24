@@ -135,55 +135,80 @@ var proj = {};
 var risk = [];
 var task = [];
 function readFileWithSpecificId() {
-  var id = parse('id');
-  console.log(id);
-  var file = {
-    downloadUrl: 'https://www.googleapis.com/drive/v2/files/' + id
-    //downloadUrl: 'https://www.googleapis.com/drive/v2/files/' + id + '?key=AIzaSyAO_VzgwT5zOItqaP8_iW9QCX9sG4pICFI&alt=media'
-	//downloadUrl: 'https://www.googleapis.com/drive/v2/files/' + id + '?key=AIzaSyAJbel1_R7JkRVo6eGq7AcwFEOJJlqbJ44'
-  };
-	console.log(file.downloadUrl);
-  if (file.downloadUrl) {
-    var accessToken = gapi.auth.getToken().access_token;
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', file.downloadUrl);
-    xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
-    xhr.onload = function() {
-      var data = JSON.parse(xhr.responseText);
-	  console.log(data); console.log(data.downloadUrl);
 
-      var xhr2 = new XMLHttpRequest();
-      xhr2.onreadystatechange = function (){
-        if (xhr2.readyState == 4 && xhr2.status == 200)
-        {
-          if (xhr2.responseText)
-           {
-             var contentData = JSON.parse(xhr2.responseText);
-             contentFromDrive = contentData;
-             proj = contentData.project;
-             risk = contentData.risks;
-             task = contentData.tasks;
-             console.log("project data: ");console.log(proj);
-             console.log("risk data: ");console.log(risk);
-             console.log("task data: ");console.log(task);
-             dataLoader();
-            }
-         }
+  if(window.location.search.indexOf('id=') > -1) {
+    var id = parse('id');
+    var file = {
+      downloadUrl: 'https://www.googleapis.com/drive/v2/files/' + id
+      //downloadUrl: 'https://www.googleapis.com/drive/v2/files/' + id + '?key=AIzaSyAO_VzgwT5zOItqaP8_iW9QCX9sG4pICFI&alt=media'
+  	//downloadUrl: 'https://www.googleapis.com/drive/v2/files/' + id + '?key=AIzaSyAJbel1_R7JkRVo6eGq7AcwFEOJJlqbJ44'
+    };
+    console.log(file.downloadUrl);
+    if (file.downloadUrl) {
+      var accessToken = gapi.auth.getToken().access_token;
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', file.downloadUrl);
+      xhr.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+      xhr.onload = function() {
+        var data = JSON.parse(xhr.responseText);
+  	  console.log(data); console.log(data.downloadUrl);
+
+        var xhr2 = new XMLHttpRequest();
+        xhr2.onreadystatechange = function (){
+          if (xhr2.readyState == 4 && xhr2.status == 200)
+          {
+            if (xhr2.responseText)
+             {
+               var contentData = JSON.parse(xhr2.responseText);
+               contentFromDrive = contentData;
+               proj = contentData.project;
+               risk = contentData.risks;
+               task = contentData.tasks;
+               console.log("project data: ");console.log(proj);
+               console.log("risk data: ");console.log(risk);
+               console.log("task data: ");console.log(task);
+               dataLoader();
+              }
+           }
+
+        };
+        xhr2.open('GET', data.downloadUrl);
+        xhr2.setRequestHeader('Authorization', 'Bearer ' + accessToken);
+        xhr2.send();
 
       };
-      xhr2.open('GET', data.downloadUrl);
-      xhr2.setRequestHeader('Authorization', 'Bearer ' + accessToken);
-      xhr2.send();
+      xhr.onerror = function() {
 
-    };
-    xhr.onerror = function() {
+      };
+      xhr.send();
 
-    };
-    xhr.send();
+    }
 
   } else {
+    console.log('No id');
 
+    var year = moment().year();
+    var month = moment().month();
+    var day = moment().date();
+    var hours = moment().hour();
+    var minute = moment().minute();
+    var second = moment().second();
+
+    console.log(hours);
+
+    proj = {
+      "id": 1,
+      "name": "",
+      "leader": "",
+      "created": new Date(year, month, day, hours, minute, second),
+      "lastModified": new Date(year, month, day, hours, minute, second)
+
+    }
+
+    dataLoader();
   }
+
+
 }
 
 function getProjData() {

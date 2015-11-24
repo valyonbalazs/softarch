@@ -356,6 +356,10 @@
   padding-top: 8px;
 }
 
+#saveAlertDiv {
+  display: none;
+}
+
 #saveProjectDataBtn {
   margin-right: 15px;
 }

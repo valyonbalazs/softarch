@@ -36,6 +36,8 @@
           <i class="fa fa-wrench"></i>
           <button id="showProjectSettingsBtn" ng-click="hideSettings()" type="button" class="btn btn-default" ng-model="showProjectSettingsBtnState" bs-checkbox>Show settings panel</button>
           <button id="showProjectSettingsBtn" ng-click="showDataConsole()" type="button" class="btn btn-default" style="display:none">display data</button>
+          <!--<a href="http://valyonbdriveteszt.herokuapp.com/index.html" target="_blank" class="btn btn-info">NEW PROJECT</a>-->
+          <a href="index.html" target="_blank" class="btn btn-info">NEW PROJECT</a>
           <button id="saveProjectDataBtn" type="button" class="btn btn-danger navbar-right"  ng-click="saveDataToDrive()">SAVE PROJECT!</button>
         </div>
     </div>
@@ -314,7 +316,7 @@
                   <div class="panel panel-default panel-info" ng-repeat="project in projectData">
                       <div class="panel-heading">
                           <h4 class="panel-title">
-                              Charts <button class="btn btn-warning right" ng-click="showDataConsole()">Refresh charts!</button>
+                              <!--Charts <button class="btn btn-warning right" ng-click="showDataConsole()">Refresh charts!</button>-->
                           </h4>
                       </div>
                       <div class="panel-collapse" bs-collapse-target>
@@ -688,6 +690,7 @@
           </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
       </div><!-- /.modal -->
+
 
     </div>
 </div>

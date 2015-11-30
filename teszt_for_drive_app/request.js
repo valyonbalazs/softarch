@@ -136,8 +136,11 @@ var risk = [];
 var task = [];
 function readFileWithSpecificId() {
 
-  if(window.location.search.indexOf('id=') > -1) {
-    var id = parse('id');
+  if(window.location.search.indexOf('state=') > -1) {
+    var getParametersJson = JSON.parse(parse('state'));   
+    console.log(getParametersJson); 
+    var id = getParametersJson.ids[0];
+    console.log(id);
     var file = {
       downloadUrl: 'https://www.googleapis.com/drive/v2/files/' + id
       //downloadUrl: 'https://www.googleapis.com/drive/v2/files/' + id + '?key=AIzaSyAO_VzgwT5zOItqaP8_iW9QCX9sG4pICFI&alt=media'
